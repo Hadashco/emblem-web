@@ -3,9 +3,8 @@ MAINTAINER Hadeshco
 
 RUN mkdir -p /usr/emblem-web
 WORKDIR /usr/emblem-web
-COPY . .
 
 RUN npm install \
-  && nodemon server.js
+  &&  npm install nodemon -g
 
 EXPOSE 3000

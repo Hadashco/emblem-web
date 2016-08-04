@@ -6,6 +6,8 @@ var connection = require('./db/db');
 
 var app = express();
 
+var port = 3000;
+
 app.use(morgan('dev'));
 
 addRouter(app);
@@ -17,7 +19,7 @@ app.get('/', function(req, res) {
 app.use('/build', express.static(path.join(__dirname + '/../client/build')));
 app.use('/assets', express.static(path.join(__dirname + '/../client/assets')));
 
-app.listen(3000, function(err) {
+app.listen(port, function(err) {
   if (err) {throw err;};
-  console.log('listening');
+  console.log('listening on port ', port);
 });

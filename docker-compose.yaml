@@ -1,0 +1,13 @@
+version: '2'
+services:
+  emblem-web-server:
+    build: ./server/
+    ports:
+     - "3000:3000"
+    volumes:
+     - .:/usr/emblem-web
+    depends_on:
+     - emblem-db
+    command: nodemon -L server/server.js
+  emblem-db:
+    image: postgres
