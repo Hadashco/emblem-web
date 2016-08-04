@@ -2,6 +2,7 @@ var express = require('express');
 var morgan = require('morgan');
 var addRouter = require('./router');
 var path = require('path');
+var connection = require('./db/db');
 
 var app = express();
 
