@@ -4,11 +4,17 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+<<<<<<< c0f2950f81ecc820189de63b611d9896df109ce7
     "start": "docker-compose up",
     "test": "echo \"Error: no test specified\" && exit 1",
     "lint": "concurrently -r 'npm run lint:client' 'npm run lint:server'",
     "lint:client": "eslint client; exit 0",
     "lint:server": "eslint server; exit 0"
+=======
+    "start": "webpack --progress --colors --watch",
+    "dev": "webpack-dev-server --progress --colors",
+    "test": "echo \"Error: no test specified\" && exit 1"
+>>>>>>> webpack configured, started structure
   },
   "repository": {
     "type": "git",
@@ -22,6 +28,7 @@
   },
   "homepage": "https://github.com/Hadashco/emblem-web#readme",
   "dependencies": {
+<<<<<<< c0f2950f81ecc820189de63b611d9896df109ce7
   },
   "devDependencies": {
     "autoprefixer": "^6.3.7",
@@ -47,5 +54,7 @@
     "postcss-selector-not": "^2.0.0",
     "style-loader": "^0.13.1",
     "webpack": "^1.13.1"
+=======
+>>>>>>> webpack configured, started structure
   }
 }
