@@ -44,13 +44,7 @@
 /* 0 */
 /***/ function(module, exports, __webpack_require__) {
 
-	eval("module.exports = __webpack_require__(1);\n\n\n/*****************\n ** WEBPACK FOOTER\n ** multi main\n ** module id = 0\n ** module chunks = 0\n **/\n//# sourceURL=webpack:///multi_main?");
-
-/***/ },
-/* 1 */
-/***/ function(module, exports) {
-
-	eval("\"use strict\";\n\n/*****************\n ** WEBPACK FOOTER\n ** ./src/App.js\n ** module id = 1\n ** module chunks = 0\n **/\n//# sourceURL=webpack:///./src/App.js?");
+	eval("(function webpackMissingModule() { throw new Error(\"Cannot find module \\\"./src/App.js\\\"\"); }());\n\n\n/*****************\n ** WEBPACK FOOTER\n ** multi main\n ** module id = 0\n ** module chunks = 0\n **/\n//# sourceURL=webpack:///multi_main?");
 
 /***/ }
 /******/ ]);
