@@ -16,5 +16,10 @@
   "bugs": {
     "url": "https://github.com/Hadashco/emblem-web/issues"
   },
-  "homepage": "https://github.com/Hadashco/emblem-web#readme"
+  "homepage": "https://github.com/Hadashco/emblem-web#readme",
+  "dependencies": {
+    "express": "^4.14.0",
+    "morgan": "^1.7.0",
+    "sequelize": "^3.23.6"
+  }
 }
