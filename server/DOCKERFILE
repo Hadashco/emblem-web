@@ -1,0 +1,11 @@
+FROM node:6
+MAINTAINER Hadeshco
+
+RUN mkdir -p /usr/emblem-web
+WORKDIR /usr/emblem-web
+COPY . .
+
+RUN npm install \
+  && nodemon server.js
+
+EXPOSE 3000
