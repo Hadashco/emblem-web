@@ -4,8 +4,22 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "npm run start-serv && npm run start-db",
+    "start-serv": "docker run -it --rm --name my-running-script -v $PWD:/usr/src/app -w /usr/src/app node:6 node your-daemon-or-script.js",
+    "start-db": "docker start postgres",
+    "install-db": "docker run -d -e POSTGRES_PASSWORD=root --name postgres postgres"
   },
   "author": "",
-  "license": "ISC"
+  "license": "ISC",
+  "devDependencies": {
+    "nodemon": "^1.10.0"
+  },
+  "dependencies": {
+    "pg": "^6.0.3",
+    "pg-hstore": "^2.3.2",
+    "express": "^4.14.0",
+    "morgan": "^1.7.0",
+    "sequelize": "^3.23.6"
+  }
 }
