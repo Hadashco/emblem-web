@@ -1,18 +1,18 @@
+
 import React from 'react';
 import ReactDOM from 'react-dom';
+import MapView from './resources/map/MapView'
 
-
-ReactDOM.render(<Dashboard />, document.getElementById('app')); 
-
-class Dashboard extends React.Component {
-    constructor(props) {
-        super(props);
-    }
-    render() {
+const Dashboard = function() {
+    // render() {
         return (
-        <div className='container'>
-            <div>Hello World</div>
+        <div>
+            <div className='container'>Hello World</div>
+            <MapView markers={[{key:0, position:{ lat: 37.754862, lng: -122.431558 }}]}/>
         </div>
         );
-    }
+        
+    // }
 }
+
+ReactDOM.render(<Dashboard />, document.querySelector('#app')); 
