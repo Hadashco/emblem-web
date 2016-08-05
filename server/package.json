@@ -4,33 +4,26 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "npm run start-serv && npm run start-db",
-    "start-serv": "docker run -it --rm --name my-running-script -v $PWD:/usr/src/app -w /usr/src/app node:6 node your-daemon-or-script.js",
-    "start-db": "docker start postgres",
-    "install-db": "docker run -d -e POSTGRES_PASSWORD=root --name postgres postgres"
+    "test": "mocha",
+    "start": "npm run build && nodemon -L server.js",
+    "build": "npm install && npm run test && cd ../client && npm run build && cd ../server"
   },
   "author": "",
   "license": "ISC",
   "devDependencies": {
-    "babel": "^6.5.2",
-    "babel-cli": "^6.11.4",
-    "babel-core": "^6.13.1",
-    "babel-loader": "^6.2.4",
-    "babel-preset-es2015": "^6.13.1",
     "nodemon": "^1.10.0",
-    "webpack-dev-middleware": "^1.6.1",
-    "webpack-dev-server": "^1.14.1",
-    "webpack-hot-middleware": "^2.12.2"
+    "chai": "^3.5.0",
+    "sinon": "^1.17.4",
+    "sinon-chai": "^2.8.0",
+    "eslint-plugin-mocha": "^4.3.0"
   },
   "dependencies": {
     "express": "^4.14.0",
     "morgan": "^1.7.0",
     "pg": "^6.0.3",
     "pg-hstore": "^2.3.2",
-    "react": "^15.3.0",
-    "react-hot-loader": "^1.3.0",
     "sequelize": "^3.23.6",
-    "webpack": "^1.13.1"
+    "chai": "^3.5.0",
+    "mocha": "^3.0.1"
   }
 }
