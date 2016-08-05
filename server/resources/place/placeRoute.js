@@ -1,4 +1,5 @@
 var router = require('express').Router();
+var Place = require('./placeModel');
 
 router.get('/', function(req, res) {
   res.send('this is a bunch of places');
