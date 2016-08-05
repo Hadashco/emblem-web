@@ -14,6 +14,4 @@ services:
   emblem-db:
     image: postgres
     environment:
-      - POSTGRES_PASSWORD=TEST
-      - POSTGRES_USER=postgres
-      - POSTGRES_DB=emblem
+      - POSTGRES_PASSWORD=emblem
