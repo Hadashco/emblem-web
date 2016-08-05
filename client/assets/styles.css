@@ -1,0 +1,11 @@
+.container {
+    height: 300px;
+    width: 300px;
+    background-color: white;
+}
+
+.map {
+    height: 300px;
+    width: 400px;
+    background-color: red; 
+}
