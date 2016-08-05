@@ -8,6 +8,10 @@ services:
      - .:/usr/emblem-web
     depends_on:
      - emblem-db
+    links:
+     - emblem-db
     command: nodemon -L server/server.js
   emblem-db:
     image: postgres
+    environment:
+      - POSTGRES_PASSWORD=emblem
