@@ -1,14 +1,15 @@
 var webpack = require('webpack');
 
+
 module.exports = {
   entry: './src/App.js',
   output: {
-    path:'build/',
-    filename:'bundle.js'
+    path: './client/build/',
+    filename: 'bundle.js'
   },
   devserver: {
     inline: true,
-    port:8080
+    port:3000
   },
   
   module: {
