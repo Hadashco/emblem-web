@@ -10,7 +10,7 @@ services:
      - emblem-db
     links:
      - emblem-db
-    command: nodemon -L server/server.js
+    command: bash -c "npm install && nodemon -L server.js"
   emblem-db:
     image: postgres
     environment:
