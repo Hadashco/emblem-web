@@ -3,13 +3,6 @@ var morgan = require('morgan');
 var addRouter = require('./router');
 var path = require('path');
 var connection = require('./db/db');
-var webpackConfig = require('../client/webpack.config.js')
-var webpack = require('webpack');
-var WebpackDevServer = require('webpack-dev-server');
-// var webpackDevMiddleWare = require('webpack-dev-middleware');
-// var webpackHotMiddleWare = require('webpack-hot-middleware');
-
-var compiler = webpack(webpackConfig);
 
 var app = express();
 
