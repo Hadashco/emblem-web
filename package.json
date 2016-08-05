@@ -2,7 +2,7 @@
   "name": "emblem-web",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "bundle.js",
   "scripts": {
     "start": "docker-compose up",
     "test": "echo \"Error: no test specified\" && exit 1",
@@ -21,8 +21,7 @@
     "url": "https://github.com/Hadashco/emblem-web/issues"
   },
   "homepage": "https://github.com/Hadashco/emblem-web#readme",
-  "dependencies": {
-  },
+  "dependencies": {},
   "devDependencies": {
     "autoprefixer": "^6.3.7",
     "babel-core": "^6.10.4",
