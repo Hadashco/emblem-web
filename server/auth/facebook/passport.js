@@ -12,7 +12,7 @@ module.exports = (User, config) => {
   const handler = (accessToken, refreshToken, profile, done) => {
     User.find({ where: { facebookId: profile.id } })
       .then(user => {
-        if(user) {
+        if (user) {
           return done(null, user);
         }
         const newUser = User.build({
@@ -22,11 +22,13 @@ module.exports = (User, config) => {
           imgUrl: profile.photos[0].value,
           facebook: profile._json,
         });
-      });
-      return newUser.save()
-        .then(createdUser => done(null, createdUser))
-        .catch(err => done(err));
-    })
+
+        return newUser.save()
+          .then(createdUser => done(null, createdUser))
+          .catch(err => done(err));
+      })
     .catch(err => done(err));
-  }
-}
+  };
+
+  passport.use(new FacebookStrategy(settings, handler));
+};

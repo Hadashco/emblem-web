@@ -1,6 +1,6 @@
 const jwt = require('jsonwebtoken');
 const User = require('../db/db').User;
-const config = require('../config.js');
+const config = require('../.config.js');
 const expressJwt = require('express-jwt');
 
 const EXPIRY = 60 * 60 * 5;
@@ -9,6 +9,8 @@ const validateJwt = expressJwt({ secret: SECRET });
 
 // Include access_token query param in req.header for validateJwt
 const accessTokenHeader = (req, res, next) => {
+  if (req.query && req.query.hasOwnPropery('access_token')) {
+    req.headers.authorization = `Bearer ${req.query.access_token}`;
   }
   next();
 };
@@ -28,7 +30,7 @@ const populateReqUser = (req, res, next) => {
 };
 
 // TODO: Confirm this combination works
-//       Should validate tokens, attach user to a request 
+//       Should validate tokens, attach user to a request
 const isAuthenticated = (req, res, next) => {
   accessTokenHeader(req, res, next)
     .validateJwt()
