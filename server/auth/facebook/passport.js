@@ -1,16 +1,17 @@
 const passport = require('passport');
 const FacebookStrategy = require('passport-facebook').Strategy;
 
+// TODO: Update callback url for deployment
 module.exports = (User, config) => {
   const settings = {
-    clientId: config.facebook.clientID,
-    clientSecret: config.facebook.clientSecret,
-    callbackURL: config.facebook.callbackURL,
+    clientID: config.FACEBOOK_ID,
+    clientSecret: config.SESSION_SECRET,
+    callbackURL: 'http://localhost:3000/auth/facebook/callback',
     profileFields: ['id', 'displayName', 'link', 'photos', 'email'],
   };
 
   const handler = (accessToken, refreshToken, profile, done) => {
-    User.find({ where: { facebookId: profile.id } })
+    User.find({ where: { fbookId: profile.id } })
       .then(user => {
         if (user) {
           return done(null, user);
@@ -20,7 +21,7 @@ module.exports = (User, config) => {
           email: profile.emails[0].value,
           fbookId: profile.id,
           imgUrl: profile.photos[0].value,
-          facebook: profile._json,
+          // facebook: profile._json,
         });
 
         return newUser.save()
