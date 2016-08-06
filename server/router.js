@@ -1,8 +1,8 @@
-var userRouter = require('./resources/user/userRoute');
-var placeRouter = require('./resources/place/placeRoute');
-var artRouter = require('./resources/art/artRoute');
+const userRouter = require('./resources/user/userRoute');
+const placeRouter = require('./resources/place/placeRoute');
+const artRouter = require('./resources/art/artRoute');
 
-module.exports = function(app) {
+module.exports = (app) => {
   app.use('/user', userRouter);
   app.use('/place', placeRouter);
   app.use('/art', artRouter);
