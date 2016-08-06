@@ -1,6 +1,6 @@
 const io = require('socket.io');
-const sockets; // Provides same scope for sockets, below
-const listeners = {};
+let sockets; // Provides same scope for sockets, below
+let listeners = {};
 
 const listenToSocket = socket => {
   Object.keys(listeners).forEach(event => {
