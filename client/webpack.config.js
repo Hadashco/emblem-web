@@ -21,24 +21,16 @@ module.exports = {
           $: 'jquery'
 
       })
-      // new webpack.optimize.OccurenceOrderPlugin(),
-      // new webpack.HotModuleReplacementPlugin(),
-      // new webpack.NoErrorsPlugin()
    ],
   
   module: {
     loaders: [
-      //  {
-      //   test: /\.js$/,
-      //   exclude: /node_modules/,
-      //   loader: 'react-hot'
-      // },
       {
         test:/\.js$/,
         exclude: /node_modules/,
         loader: 'babel',
         query:{
-          presets: ['es2015', 'react', 'react-hmre']
+          presets: ['es2015', 'react']
         }
       }
     ]

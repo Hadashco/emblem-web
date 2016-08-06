@@ -1,18 +1,31 @@
 
 import React from 'react';
 import ReactDOM from 'react-dom';
-import MapView from './resources/map/MapView'
+import MapView from './resources/map/MapView';
+import Header from './resources/headerComponent.js'
+import {Provider} from 'react-redux';
+import {store} from './Store.js';
 
-const Dashboard = function() {
-    // render() {
+class Dashboard extends React.Component {
+    constructor(props) {
+        super(props);
+    }
+
+    addMarker(latLong) {
+        console.log(latLong);
+    }
+
+    render() {
         return (
         <div>
-            <div className='container'>Hello World</div>
-            <MapView markers={[{key:0, position:{ lat: 37.754862, lng: -122.431558 }}]}/>
+            <Header />
+            <div className='mapUserContainer'>
+                <div className='container'>Hello World</div>
+                <MapView />
+                <button onClick={this.addMarker('marker added')}>Add a Marker!</button>
+            </div>
         </div>
         );
-        
-    // }
+    }
 }
-
-ReactDOM.render(<Dashboard />, document.querySelector('#app')); 
+ReactDOM.render(<Provider store={store}><Dashboard/></Provider>, document.querySelector('#app')); 
