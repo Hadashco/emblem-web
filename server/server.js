@@ -1,8 +1,9 @@
-var express = require('express');
-var morgan = require('morgan');
-var addRouter = require('./router');
-var path = require('path');
-var connection = require('./db/db');
+const express = require('express');
+const morgan = require('morgan');
+const addRouter = require('./router');
+const path = require('path');
+const connection = require('./db/db');
+const db = connection.db;
 
 var app = express();
 

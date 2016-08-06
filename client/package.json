@@ -4,6 +4,7 @@
   "description": "",
   "main": "bundle.js",
   "scripts": {
+    "build": "npm install && webpack",
     "start": "webpack --progress --colors --watch",
     "dev": "webpack-dev-server --inline --progress --colors --hot",
     "test": "echo \"Error: no test specified\" && exit 1"

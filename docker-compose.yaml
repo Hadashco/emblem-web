@@ -1,7 +1,7 @@
 version: '2'
 services:
   emblem-web-server:
-    build: ./server/
+    build: .
     ports:
      - "3000:3000"
     volumes:
@@ -10,7 +10,7 @@ services:
      - emblem-db
     links:
      - emblem-db
-    command: bash -c "npm install && nodemon -L server.js"
+    command: npm start
   emblem-db:
     image: postgres
     environment:
