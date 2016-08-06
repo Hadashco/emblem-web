@@ -38,3 +38,6 @@ jspm_packages
 
 # Webpack bundle
 bundle.js
+
+### Emblem ###
+.config.js
