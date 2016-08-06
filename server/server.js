@@ -1,14 +1,15 @@
 const express = require('express');
 const morgan = require('morgan');
-const addRouter = require('./router');
 const path = require('path');
-const connection = require('./db/db');
-const db = connection.db;
+const bodyParser = require('body-parser');
+const addRouter = require('./router');
 
 var app = express();
+var server = require('http').Server(app);
 
 var port = 3000;
 
+app.use(bodyParser.json())
 app.use(morgan('dev'));
 
 addRouter(app);
