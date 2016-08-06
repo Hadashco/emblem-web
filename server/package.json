@@ -25,6 +25,7 @@
     "morgan": "^1.7.0",
     "pg": "^6.0.3",
     "pg-hstore": "^2.3.2",
-    "sequelize": "^3.23.6"
+    "sequelize": "^3.23.6",
+    "socket.io": "^1.4.8"
   }
 }
