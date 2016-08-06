@@ -21,7 +21,10 @@
     "url": "https://github.com/Hadashco/emblem-web/issues"
   },
   "homepage": "https://github.com/Hadashco/emblem-web#readme",
-  "dependencies": {},
+  "dependencies": {
+    "express-jwt": "^3.4.0",
+    "jsonwebtoken": "^7.1.7"
+  },
   "devDependencies": {
     "autoprefixer": "^6.3.7",
     "concurrently": "^2.2.0",
