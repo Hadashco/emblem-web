@@ -1,55 +1,44 @@
 import { connect } from 'react-redux';
 import { addToActions } from '../../Store.js';
-import 'whatwg-fetch';
+import 'whatwg-fetch'
 
-const actions = {};
+var actions = {};
 
-actions.addMarker = (previousState, data) => {
-  const map = previousState.map;
-  const markers = previousState.map.markers;
-  const newMarker = markers.slice();
-  newMarker.push(data);
-  map.markers = newMarker;
-  const newState = Object.assign({}, previousState, { map });
-  console.log(data.position.lat(), 'dfasdasf');
-  fetch('/place', {
-    method: 'POST',
-    headers: {
-      'Accept': 'application/json',
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify({ lat: data.position.lat(), long: data.position.lng() }),
-  });
-  return newState;
-};
-
-actions.removeMarker = (previousState, data) => {
-  const map = previousState.map;
-  const markers = previousState.map.markers;
-  const markerToRemove = markers.slice();
-  markerToRemove.splice(data, 1);
-  for (let i = 0; i < markerToRemove.length; i++) {
-    markerToRemove[i].key = i;
-  }
-  map.markers = markerToRemove;
-  const newState = Object.assign({}, previousState, { map });
-  return newState;
-};
+actions.removeMarker = function(previousState, data) {
+    var map = previousState.map;
+    var markers = previousState.map.markers;
+    var markerToRemove = markers.slice();
+    markerToRemove.splice(data, 1);
+    for (var i = 0; i < markerToRemove.length; i++) {
+        markerToRemove[i].key = i;
+    }
+    map.markers = markerToRemove;
+    var newState = Object.assign({}, previousState, {map: map});
+    return newState;
+}
 
 const mapStateToProps = state => {
   return { markers: state.map.markers };
 };
 
-const mapDispatchToProps = dispatch => {
-  return {
-    addMarker: marker => {
-      dispatch({ type: 'addMarker', data: marker });
-    },
-    removeMarker: index => {
-      dispatch({ type: 'removeMarker', data: index });
-    },
-  };
-};
+var mapDispatchToProps = function(dispatch) {
+    return {addMarker: function(marker) {
+      fetch('/place', {
+        method: 'POST',
+        headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({lat: marker.position.lat(), long: marker.position.lng()}),
+    }).then(function(response) {
+        return response.json();
+    });
+  },
+     removeMarker: function(index) {
+        dispatch({type: 'removeMarker', data: index})
+    }
+}};
+
 
 addToActions(actions);
 
