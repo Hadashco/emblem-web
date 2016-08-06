@@ -3,17 +3,23 @@ var Place = require('../../db/db').Place;
 
 router.get('/', function(req, res) {
   Place.sync().then(() => {
-    // create to be removed
-    Place.create({ long: 2.44, lat: 3.22 }).then(() => {
-      Place.findAll().then(result => {
-        console.log(result);
-        res.send(result);
-      });
+    Place.findAll().then(result => {
+      res.send(result);
     });
   });
 });
 
+router.post('/', function(req, res) {
+  Place.sync().then(() => {
+    Place.create({ long: req.body.long, lat: req.body.lat })
+      .then(() => {
+        res.send('Post successful.');
+      });
+  });
+});
+
 router.get('/:id', function(req, res) {
+  console.log(req.params.id);
   res.send('this is a place with an id');
 });
 
