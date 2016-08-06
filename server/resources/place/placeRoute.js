@@ -1,8 +1,8 @@
-var router = require('express').Router();
-var sockets = require('../../sockets');
-var Place = require('../../db/db').Place;
+const router = require('express').Router();
+const sockets = require('../../sockets');
+const Place = require('../../db/db').Place;
 
-router.get('/', function(req, res) {
+router.get('/', (req, res) => {
   Place.sync().then(() => {
     Place.findAll().then(result => {
       res.send(result);
@@ -10,7 +10,7 @@ router.get('/', function(req, res) {
   });
 });
 
-router.post('/', function(req, res) {
+router.post('/', (req, res) => {
   Place.sync().then(() => {
     Place.create({ long: req.body.long, lat: req.body.lat })
       .then(place => {
@@ -20,7 +20,7 @@ router.post('/', function(req, res) {
   });
 });
 
-router.get('/:id', function(req, res) {
+router.get('/:id', (req, res) => {
   console.log(req.params.id);
   res.send('this is a place with an id');
 });
