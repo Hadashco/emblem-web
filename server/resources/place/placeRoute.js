@@ -14,7 +14,7 @@ router.post('/', function(req, res) {
   Place.sync().then(() => {
     Place.create({ long: req.body.long, lat: req.body.lat })
       .then(place => {
-        sockets.broadcast('placeAdded', place);
+        sockets.broadcast('place/createPlace', place);
         res.send('Post successful.');
       });
   });
