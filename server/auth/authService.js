@@ -4,7 +4,7 @@ const config = require('../.config.js');
 const expressJwt = require('express-jwt');
 
 const EXPIRY = 60 * 60 * 5;
-const SECRET = config.secrets.session;
+const SECRET = config.SESSION_SECRET;
 const validateJwt = expressJwt({ secret: SECRET });
 
 // Include access_token query param in req.header for validateJwt
