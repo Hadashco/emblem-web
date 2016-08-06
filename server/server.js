@@ -1,30 +1,40 @@
 const express = require('express');
 const morgan = require('morgan');
+const addRouter = require('./router');
 const path = require('path');
 const bodyParser = require('body-parser');
-const addRouter = require('./router');
 const sockets = require('./sockets');
+const connection = require('./db/db');
+const db = connection.db;
 
-var app = express();
+const app = express();
+const port = 3000;
 
-var port = 3000;
+const log = message => {
+  /* eslint-disable no-console */
+  console.log(message);
+  /* eslint-enable no-console */
+};
 
-app.use(bodyParser.json())
 app.use(morgan('dev'));
 
 addRouter(app);
 
-app.get('/', function(req, res) {
-  res.sendFile(path.join(__dirname + '/../client/index.html'));
+app.get('/', (req, res) => {
+  res.sendFile(path.join(__dirname.concat('/../client/index.html')));
 });
 
-app.use('/build', express.static(path.join(__dirname + '/../client/build')));
-app.use('/assets', express.static(path.join(__dirname + '/../client/assets')));
+app.use('/build', express.static(path.join(__dirname.concat('/../client/build'))));
+app.use('/assets', express.static(path.join(__dirname.concat('/../client/assets'))));
 
-var server = require('http').Server(app);
+const server = require('http').Server(app);
 sockets.addSockets(server);
 
-server.listen(port, function(err) {
-  if (err) {throw err;};
-  console.log('listening on port ', port);
-});
+db.sync()
+  .then(() => {
+    server.listen(port, (err) => {
+      if (err) { throw err; }
+      log(`listening on port: ${port}`);
+    });
+  })
+  .catch(err => log(`Server failed to start: ${err}`));
