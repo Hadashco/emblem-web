@@ -3,9 +3,9 @@ const morgan = require('morgan');
 const path = require('path');
 const bodyParser = require('body-parser');
 const addRouter = require('./router');
+const sockets = require('./sockets');
 
 var app = express();
-var server = require('http').Server(app);
 
 var port = 3000;
 
@@ -21,7 +21,10 @@ app.get('/', function(req, res) {
 app.use('/build', express.static(path.join(__dirname + '/../client/build')));
 app.use('/assets', express.static(path.join(__dirname + '/../client/assets')));
 
-app.listen(port, function(err) {
+var server = require('http').Server(app);
+sockets.addSockets(server);
+
+server.listen(port, function(err) {
   if (err) {throw err;};
   console.log('listening on port ', port);
 });

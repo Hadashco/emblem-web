@@ -1,10 +1,10 @@
-
 import React from 'react';
 import ReactDOM from 'react-dom';
 import MapView from './resources/map/MapView';
 import Header from './resources/headerComponent.js'
 import {Provider} from 'react-redux';
 import {store} from './Store.js';
+import Socket from './Socket';
 
 class Dashboard extends React.Component {
     constructor(props) {
@@ -28,4 +28,4 @@ class Dashboard extends React.Component {
         );
     }
 }
-ReactDOM.render(<Provider store={store}><Dashboard/></Provider>, document.querySelector('#app')); 
+ReactDOM.render(<Provider store={store}><Dashboard/></Provider>, document.querySelector('#app'));
