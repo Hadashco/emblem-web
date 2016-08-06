@@ -32,5 +32,5 @@ module.exports = {
       console.log('a new connection!');
       listenToSocket(socket);
     });
-  }
+  },
 };
