@@ -1,8 +1,8 @@
 const express = require('express');
 const morgan = require('morgan');
-const addRouter = require('./router');
 const path = require('path');
 const bodyParser = require('body-parser');
+const addRouter = require('./router');
 const sockets = require('./sockets');
 const connection = require('./db/db');
 const db = connection.db;
@@ -15,6 +15,12 @@ const log = message => {
   console.log(message);
   /* eslint-enable no-console */
 };
+
+app.use(bodyParser.json());
+
+app.use(bodyParser.raw({
+  limit: '50mb'
+}));
 
 app.use(morgan('dev'));
 
