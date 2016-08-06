@@ -3,7 +3,8 @@
   "installedESLint": true,
   "env": {
     "browser": true,
-    "node": true
+    "node": true,
+    "mocha": true,
   },
   "parser": "babel-eslint",
   "import/resolver": "webpack",
