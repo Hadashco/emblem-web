@@ -1,2 +1,2 @@
 import React from 'react';
-import {GoogleMapLoader, GoogleMap, Marker} from 'react-google-maps';
+import {Marker} from 'react-google-maps';
