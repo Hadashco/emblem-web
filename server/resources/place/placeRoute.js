@@ -15,7 +15,7 @@ router.post('/', (req, res) => {
     Place.create({ long: req.body.long, lat: req.body.lat })
       .then(place => {
         sockets.broadcast('place/createPlace', place);
-        res.send('Post successful.');
+        res.send(JSON.stringify(place));
       });
   });
 });
