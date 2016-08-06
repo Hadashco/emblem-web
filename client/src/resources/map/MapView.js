@@ -6,8 +6,24 @@ class MapView extends React.Component {
   
   constructor(props) {
     super(props);
-    console.log(props, 'these are the props!');
-    props.addMarker({key:0, position:{ lat: 37.754862, lng: -122.431558 }});
+    this.onMapClick = this.onMapClick.bind(this);
+
+    this.onMarkerRightclick = this.onMarkerRightclick.bind(this);
+  }
+
+  onMapClick(event) {
+    this.props.addMarker(
+      {
+        key: this.props.markers.length,
+        position: event.latLng,
+        defaultAnimation: 2
+      }
+    )
+    console.log(this.props.markers)
+  }
+
+  onMarkerRightclick (index) {
+    this.props.removeMarker(index);
   }
 
   render() {
@@ -29,13 +45,13 @@ class MapView extends React.Component {
               ref={(map) => console.log(map)}
               defaultZoom={12}
               defaultCenter={{ lat: 37.754862, lng: -122.431558 }}
-              onClick={this.props.onMapClick}
+              onClick={this.onMapClick}
             >
               {this.props.markers.map((marker, index) => {
                 return (
                   <Marker
                     {...marker}
-                    onRightclick={() => this.props.onMarkerRightclick(index)} />
+                    onRightclick={() => this.onMarkerRightclick(index)} />
                 );
               })}
             </GoogleMap>
