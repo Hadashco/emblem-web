@@ -1,5 +1,7 @@
+const Art = require('../art/artRoute');
+
 module.exports = function Place(db, Sequelize) {
-  return db.define('Place', {
+  return PlaceModel =  db.define('Place', {
     long: {
       type: Sequelize.DOUBLE,
       allowNull: false,
@@ -8,5 +10,15 @@ module.exports = function Place(db, Sequelize) {
       type: Sequelize.DOUBLE,
       allowNull: false,
     },
-  });
+  },
+  {
+    instanceMethods: {
+      assignArtById: (artId) => {
+        Art.findById(artId).then(art => {
+          PlaceModel.addArt(art);
+        });
+      }
+      }
+    }
+  );
 };
