@@ -4,7 +4,6 @@ const mkdirp = require('mkdirp');
 const router = require('express').Router();
 const sockets = require('../../sockets');
 const Art = require('../../db/db').Art;
-
 const storagePath = path.join(__dirname.concat('/../../storage/art'));
 
 router.post('/', (req, res) => {

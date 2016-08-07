@@ -1,6 +1,8 @@
 const router = require('express').Router();
 const sockets = require('../../sockets');
 const Place = require('../../db/db').Place;
+const Art = require('../../db/db').Art;
+
 
 router.get('/', (req, res) => {
   Place.findAll().then(result => {
@@ -17,9 +19,15 @@ router.post('/', (req, res) => {
 });
 
 router.post('/:id', (req, res) => {
-  Place.find({id: req.params.id})
-    .then(place => {
-      place.assignArtById(req.body.artId);
+  Art.findById(req.params.id)
+    .then(art => {
+      return Place.find({id: req.params.id})
+        .then(place => {
+          return place.addArt(art);
+        })
+        .then(place => {
+          res.send(place);
+        });
     });
 });
 
