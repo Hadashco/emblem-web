@@ -19,7 +19,7 @@ const log = message => {
 app.use(bodyParser.json());
 
 app.use(bodyParser.raw({
-  limit: '50mb'
+  limit: '50mb',
 }));
 
 app.use(morgan('dev'));
