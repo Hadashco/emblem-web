@@ -1,7 +1,7 @@
-module.exports = function Art(sequelize, DataTypes) {
-  return sequelize.define('Art', {
+module.exports = function Art(db, Sequelize) {
+  return db.define('Art', {
     type: {
-      type: DataTypes.STRING,
+      type: Sequelize.STRING,
       allowNull: false,
     },
   });
