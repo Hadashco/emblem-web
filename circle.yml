@@ -8,4 +8,4 @@ dependencies:
     - docker-compose up -d
 test:
   override:
-    - sudo lxc-attach -n "$(docker inspect --format "{{.Id}}" emblemweb_emblem-web-server_1)" -- bash -c "mocha"
+    - sudo lxc-attach -n "$(docker inspect --format "{{.Id}}" emblemweb_emblem-web-server_1)" -- bash -c "cd /usr/emblem-web/server && ls && mocha"

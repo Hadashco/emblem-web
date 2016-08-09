@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "DBHOST=localhost mocha",
+    "test": "mocha",
     "install": "npm install --no-bin-links",
     "start": "npm run build && nodemon -L server.js",
     "build": "npm install && cd ../client && npm run build && cd ../server"
