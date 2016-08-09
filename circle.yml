@@ -9,5 +9,4 @@ dependencies:
     - docker-compose up -d
 test:
   override:
-    - cd server
-    - npm run test
+    - cd server && npm run test
