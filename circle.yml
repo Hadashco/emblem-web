@@ -10,4 +10,4 @@ dependencies:
     - docker-compose up -d
 test:
   override:
-    - cd server && npm install mocha -g && npm run test
+    - cd server && npm install mocha -g && npm install && npm run test
