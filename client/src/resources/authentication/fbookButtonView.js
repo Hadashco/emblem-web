@@ -1,34 +1,32 @@
 import React from 'react';
+import 'whatwg-fetch';
 
 export default class FacebookButton extends React.Component {
   constructor(props) {
     super(props);
-    this.FB = props.fb;
 
     this.state = {
       message: '',
     };
+
+    this.handleClick = this.handleClick.bind(this);
   }
 
-  componentDidMount() {
-    this.FB.Event.subscribe('auth.logout',
-      this.onLogout.bind(this));
-
-    this.FB.Event.subscribe('auth.statusChange',
-      this.onStatusChange.bind(this));
+  handleClick() {
+    console.log('here we go');
+    fetch('/auth/facebook', {
+      method: 'GET',
+      mode: 'no-cors', //'Access-Control-Allow-Origin'
+      headers: {
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+      },
+    });
   }
 
   onStatusChange(response) {
     console.log('statusChange response is:', response);
     const self = this;
-
-    if (response.status === 'connected') {
-      this.FB.api('/me', response => {
-        const message = `Welcome ${response.name}`;
-        self.setState({ message });
-        console.log('Facebook API me:', response);
-      });
-    }
   }
 
   onLogout(response) {
@@ -40,15 +38,13 @@ export default class FacebookButton extends React.Component {
   render() {
     return (
       <div>
-        <div
-          className="fb-login-button"
-          data-max-rows="1"
-          data-size="large"
-          data-show-faces="false"
-          data-auto-logout-link="true"
-        >
-        </div>
+        <
+          input type="button"
+          value="Click Me!"
+          onClick={this.handleClick}
+        />
         <div>{this.state.message}</div>
+        <p>Some text</p>
       </div>
     );
   }
