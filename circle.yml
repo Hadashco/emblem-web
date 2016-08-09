@@ -8,7 +8,10 @@ dependencies:
     - sudo service postgresql stop
     - docker info
     - docker-compose up -d
-    - sudo curl -L https://www.npmjs.com/install.sh | sh
+    - sudo ln -s /usr/local/bin/node /usr/bin/node
+    - sudo ln -s /usr/local/lib/node /usr/lib/node
+    - sudo ln -s /usr/local/bin/npm /usr/bin/npm
+    - sudo ln -s /usr/local/bin/node-waf /usr/bin/node-waf
     - cd server && sudo npm install mocha -g
     - cd server && sudo npm install
 test:
