@@ -19,7 +19,8 @@
     "react-router": "^2.6.1",
     "redux": "^3.5.2",
     "socket.io-client": "^1.4.8",
-    "webpack": "^1.13.1"
+    "webpack": "^1.13.1",
+    "whatwg-fetch": "^1.0.0"
   },
   "devDependencies": {
     "babel-core": "^6.11.4",
