@@ -5,7 +5,7 @@ dependencies:
   override:
     - sudo service postgresql stop
     - docker info
-    - docker-compose up -d
+    - docker-compose up -f docker-compose.prod.yaml -d
 test:
   override:
     - sudo lxc-attach -n "$(docker inspect --format "{{.Id}}" emblemweb_emblem-web-server_1)" -- bash -c "cd /usr/emblem-web/server && ls && mocha"

@@ -1,0 +1,17 @@
+#v1 for compatability with Circle CI
+emblem-web-server:
+  build: .
+  ports:
+   - "3000:3000"
+  environment:
+   - DBHOST=emblem-db
+   - SESSION_SECRET=${SESSION_SECRET}
+   - FACEBOOK_ID=${FACEBOOK_ID}
+   - FACEBOOK_SECRET=${FACEBOOK_SECRET}
+  links:
+   - emblem-db
+  command: npm start
+emblem-db:
+  image: postgres
+  environment:
+    - POSTGRES_PASSWORD=emblem
