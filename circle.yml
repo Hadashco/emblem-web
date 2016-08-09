@@ -9,7 +9,7 @@ dependencies:
     - docker info
     - docker-compose up -d
     - cd server && npm install mocha -g
-    - chmod -R 755 /home/ubuntu/emblem-web/server/node_modules
+    - mkdir /home/ubuntu/emblem-web/server/node_modules && chmod -R 755 /home/ubuntu/emblem-web/server/node_modules
     - npm install
 test:
   override:
