@@ -42,7 +42,6 @@ bundle.js
 ### Emblem ###
 .config.sh
 .config.win.sh
-bfg.jar
 
 ### Art Storage ###
 storage

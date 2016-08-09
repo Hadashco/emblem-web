@@ -1,11 +1,9 @@
 const jwt = require('jsonwebtoken');
 const User = require('../db/db').User;
-const config = require('../.config.js');
 const expressJwt = require('express-jwt');
 
 const EXPIRY = 60 * 60 * 5;
-const SECRET = config.SESSION_SECRET;
-const validateJwt = expressJwt({ secret: SECRET });
+const validateJwt = expressJwt({ secret: process.env.SESSION_SECRET });
 
 // Include access_token query param in req.header for validateJwt
 const accessTokenHeader = (req, res, next) => {
