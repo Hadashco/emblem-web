@@ -1,5 +1,6 @@
 import {connect} from 'react-redux';
 import {addToActions} from '../../Store.js';
+import 'whatwg-fetch'
 
 var actions = {};
 
@@ -10,6 +11,15 @@ actions.addMarker = function(previousState, data) {
     newMarker.push(data);
     map.markers = newMarker;
     var newState = Object.assign({}, previousState, {map: map});
+    console.log(data.position.lat(),'dfasdasf')
+    fetch('/place', {
+        method: 'POST',
+        headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+          },
+        body: JSON.stringify({lat: data.position.lat(), long: data.position.lng()}),
+    });
     return newState;
 }
 
@@ -26,10 +36,6 @@ actions.removeMarker = function(previousState, data) {
     return newState;
 }
 
-actions.postToServer = function(previousState, data) {
-    
-}
-
 var mapStateToProps = function(state) {
     return {markers: state.map.markers};
 };
@@ -39,9 +45,8 @@ var mapDispatchToProps = function(dispatch) {
         dispatch({type: 'addMarker', data: marker});
     }, removeMarker: function(index) {
         dispatch({type: 'removeMarker', data: index})
-    }, postToServer: function() {
-        dispatch({type: 'postToServer', data: post})}
-};
+    }
+}};
 
 
 addToActions(actions);

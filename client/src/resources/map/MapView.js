@@ -12,6 +12,7 @@ class MapView extends React.Component {
   }
 
   onMapClick(event) {
+      console.log(event);
     this.props.addMarker(
       {
         key: this.props.markers.length,

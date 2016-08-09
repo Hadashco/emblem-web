@@ -21,8 +21,7 @@
     "url": "https://github.com/Hadashco/emblem-web/issues"
   },
   "homepage": "https://github.com/Hadashco/emblem-web#readme",
-  "dependencies": {
-  },
+  "dependencies": {},
   "devDependencies": {
     "autoprefixer": "^6.3.7",
     "concurrently": "^2.2.0",
