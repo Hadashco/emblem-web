@@ -1,11 +1,10 @@
+#v1 for compatability with Circle CI
 emblem-web-server:
   build: .
   ports:
    - "3000:3000"
   volumes:
    - .:/usr/emblem-web
-  depends_on:
-   - emblem-db
   environment:
    - DBHOST=emblem-db
   links:
