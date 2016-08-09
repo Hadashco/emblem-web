@@ -40,4 +40,9 @@ jspm_packages
 bundle.js
 
 ### Emblem ###
-.config.js
+.config.sh
+.config.win.sh
+bfg.jar
+
+### Art Storage ###
+storage

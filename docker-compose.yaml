@@ -2,16 +2,21 @@ version: '2'
 services:
   emblem-web-server:
     build: .
+    dns: 8.8.8.8
     ports:
      - "3000:3000"
     volumes:
      - .:/usr/emblem-web
     depends_on:
      - emblem-db
+    environment:
+     - DBHOST=emblem-db
     links:
      - emblem-db
     command: npm start
   emblem-db:
     image: postgres
+    ports:
+      - "5432:5432"
     environment:
       - POSTGRES_PASSWORD=emblem
