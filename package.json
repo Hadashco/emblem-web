@@ -4,7 +4,7 @@
   "description": "",
   "main": "bundle.js",
   "scripts": {
-    "start": "docker-compose up",
+    "start": "bash .config.sh && docker-compose up",
     "test": "echo \"Error: no test specified\" && exit 1",
     "lint": "concurrently -r 'npm run lint:client' 'npm run lint:server'",
     "lint:client": "eslint client; exit 0",
