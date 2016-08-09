@@ -3,6 +3,7 @@ const FacebookStrategy = require('passport-facebook').Strategy;
 
 // TODO: Update callback url for deployment
 module.exports = (User, config) => {
+  console.log('passport hit');
   const settings = {
     clientID: config.FACEBOOK_ID,
     clientSecret: config.SESSION_SECRET,
@@ -11,6 +12,7 @@ module.exports = (User, config) => {
   };
 
   const handler = (accessToken, refreshToken, profile, done) => {
+    console.log('handler triggered');
     User.find({ where: { fbookId: profile.id } })
       .then(user => {
         if (user) {
@@ -21,7 +23,7 @@ module.exports = (User, config) => {
           email: profile.emails[0].value,
           fbookId: profile.id,
           imgUrl: profile.photos[0].value,
-          // facebook: profile._json,
+          facebook: profile._json,
         });
 
         return newUser.save()

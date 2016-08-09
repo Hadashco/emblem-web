@@ -19,7 +19,7 @@ class Dashboard extends React.Component {
       <div>
         <Header />
           <div className="container">Welcome to <i>Emblem</i></div>
-          <FacebookButton fb={FB} />
+          <FacebookButton />
       </div>
     );
   }
