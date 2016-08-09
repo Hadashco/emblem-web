@@ -37,7 +37,7 @@ const isAuthenticated = (req, res, next) => {
     .populateReqUser(req, res, next);
 };
 
-const signToken = id => jwt.sign({ id: id }, SECRET, { expiresIn: EXPIRY });
+const signToken = id => jwt.sign({ id }, SECRET, { expiresIn: EXPIRY });
 
 const setTokenCookie = (req, res) => {
   if (!req.user) {
@@ -48,9 +48,9 @@ const setTokenCookie = (req, res) => {
 };
 
 module.exports = {
-  accessTokenHeader: accessTokenHeader,
-  populateReqUser: populateReqUser,
-  isAuthenticated: isAuthenticated,
-  signToken: signToken,
-  setTokenCookie: setTokenCookie,
+  accessTokenHeader,
+  populateReqUser,
+  isAuthenticated,
+  signToken,
+  setTokenCookie,
 };

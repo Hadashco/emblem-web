@@ -1,10 +1,12 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import MapView from './resources/map/MapView';
+import LoginView from './resources/authentication/LoginView';
 import Header from './resources/headerComponent.js';
 import { Provider } from 'react-redux';
 import { store } from './Store.js';
 import Socket from './Socket';
+import FacebookButton from './resources/authentication/fbookButtonView';
 
 class Dashboard extends React.Component {
 
@@ -16,11 +18,8 @@ class Dashboard extends React.Component {
     return (
       <div>
         <Header />
-        <div className="mapUserContainer">
-          <div className="container">Hello World</div>
-          <MapView />
-          <button onClick={this.addMarker('marker added')}>Add a Marker!</button>
-        </div>
+          <div className="container">Welcome to <i>Emblem</i></div>
+          <FacebookButton />
       </div>
     );
   }
