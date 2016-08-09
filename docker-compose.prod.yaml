@@ -3,8 +3,6 @@ emblem-web-server:
   build: .
   ports:
    - "3000:3000"
-  volumes:
-   - .:/usr/emblem-web
   environment:
    - DBHOST=emblem-db
    - SESSION_SECRET=${SESSION_SECRET}
