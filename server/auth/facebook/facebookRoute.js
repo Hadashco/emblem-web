@@ -7,12 +7,12 @@ const router = require('express').Router();
 // Route to Facebook for authentication and login
 router.get('/', passport.authenticate('facebook', {
   scope: ['email', 'public_profile'],
-  failureRedirect: '/place', // TODO: Change to Login or similar
+  failureRedirect: '/login', // TODO: Change to Login or similar
   session: false,
 }));
 
 router.get('/callback', passport.authenticate('facebook', {
-  failureRedirect: '/place', // TODO: Change to Login or similar
+  failureRedirect: '/login', // TODO: Change to Login or similar
   session: false,
 }), setTokenCookie);
 
