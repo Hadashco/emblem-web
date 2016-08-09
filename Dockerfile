@@ -8,8 +8,8 @@ COPY . .
 WORKDIR /usr/emblem-web/server
 
 RUN npm install nodemon -g -q \
-    && npm install mocha -g \
-    && npm install webpack -g \
+    && npm install mocha -g -q \
+    && npm install webpack -g -q \
     && npm run build
 
 RUN npm config set bin-links false

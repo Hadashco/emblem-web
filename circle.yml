@@ -5,10 +5,9 @@ machine:
 dependencies:
   override:
     - docker info
-    - docker-compose build
+    - docker-compose up
 
 test:
   override:
-    - docker-compose up
     - cd server
     - npm run test
