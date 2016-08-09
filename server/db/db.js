@@ -1,6 +1,6 @@
 const Sequelize = require('sequelize');
 
-const db = new Sequelize('postgres://postgres:emblem@emblem-db:5432/postgres');
+const db = new Sequelize(`postgres://postgres:emblem@${process.env.DBHOST}:5432/postgres`);
 
 const User = require('../resources/user/userModel')(db, Sequelize);
 const Art = require('../resources/art/artModel')(db, Sequelize);

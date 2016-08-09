@@ -4,9 +4,10 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "mocha",
+    "test": "DBHOST=localhost mocha",
+    "install": "npm install --no-bin-links",
     "start": "npm run build && nodemon -L server.js",
-    "build": "npm install && npm run test && cd ../client && npm run build && cd ../server"
+    "build": "npm install && cd ../client && npm run build && cd ../server"
   },
   "author": "",
   "license": "ISC",
