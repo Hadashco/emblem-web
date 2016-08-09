@@ -15,7 +15,5 @@ emblem-web-server:
   command: npm start
 emblem-db:
   image: postgres
-  ports:
-    - "5432:5432"
   environment:
     - POSTGRES_PASSWORD=emblem
