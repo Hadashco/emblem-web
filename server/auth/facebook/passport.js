@@ -5,7 +5,7 @@ const FacebookStrategy = require('passport-facebook').Strategy;
 module.exports = (User, config) => {
   const settings = {
     clientID: config.FACEBOOK_ID,
-    clientSecret: config.SESSION_SECRET,
+    clientSecret: config.FACEBOOK_SECRET,
     callbackURL: 'http://localhost:3000/auth/facebook/callback',
     profileFields: ['id', 'displayName', 'link', 'photos', 'email'],
   };
@@ -21,7 +21,7 @@ module.exports = (User, config) => {
           email: profile.emails[0].value,
           fbookId: profile.id,
           imgUrl: profile.photos[0].value,
-          // facebook: profile._json,
+          facebook: profile._json,
         });
 
         return newUser.save()
