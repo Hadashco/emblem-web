@@ -6,8 +6,7 @@ dependencies:
   override:
     - sudo service postgresql stop
     - docker info
-    - docker-compose up
-
+    - docker-compose up -d
 test:
   override:
     - cd server
