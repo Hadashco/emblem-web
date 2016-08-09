@@ -1,5 +1,5 @@
 module.exports = function Place(db, Sequelize) {
-  return PlaceModel =  db.define('Place', {
+  return db.define('Place', {
     long: {
       type: Sequelize.DOUBLE,
       allowNull: false,
