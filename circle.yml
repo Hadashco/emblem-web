@@ -8,6 +8,7 @@ dependencies:
     - sudo service postgresql stop
     - docker info
     - docker-compose up -d
+    - cd server && npm install mocha -g && npm install
 test:
   override:
-    - cd server && sudo npm install mocha -g && sudo npm install && sudo npm run test
+    -  npm run test
