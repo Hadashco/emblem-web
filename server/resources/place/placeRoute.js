@@ -3,7 +3,6 @@ const sockets = require('../../sockets');
 const Place = require('../../db/db').Place;
 const Art = require('../../db/db').Art;
 
-
 router.get('/', (req, res) => {
   Place.findAll().then(result => {
     res.send(result);
@@ -25,8 +24,8 @@ router.post('/:id', (req, res) => {
         .then(place => {
           return place.addArt(art);
         })
-        .then(place => {
-          res.send(place);
+        .then(() => {
+          res.send('updated');
         });
     });
 });
