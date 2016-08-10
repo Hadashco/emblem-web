@@ -8,4 +8,4 @@ dependencies:
     - docker-compose -f docker-compose.prod.yaml up -d
 test:
   override:
-    - sudo lxc-attach -n "$(docker inspect --format "{{.Id}}" emblemweb_emblem-web-server_1)" -- bash -c "sleep 60s && cd /usr/emblem-web/server && mocha"
+    - sudo lxc-attach -n "$(docker inspect --format "{{.Id}}" emblemweb_emblem-web-server_1)" -- bash -c "sleep 60s && cd /usr/emblem-web && npm run test"

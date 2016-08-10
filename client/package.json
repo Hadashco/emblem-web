@@ -4,10 +4,11 @@
   "description": "",
   "main": "bundle.js",
   "scripts": {
-    "build": "npm install && webpack",
-    "start": "webpack --progress --colors --watch",
+    "start": "webpack-dev-server --inline --progress --colors --hot",
+    "build": "webpack",
     "dev": "webpack-dev-server --inline --progress --colors --hot",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start:prod": "webpack",
+    "test": "echo 'No test step for client.'"
   },
   "author": "",
   "license": "ISC",
