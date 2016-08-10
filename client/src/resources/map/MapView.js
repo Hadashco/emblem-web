@@ -30,7 +30,7 @@ class MapView extends React.Component {
   render() {
     return (
 
-      <section className='mapContainer'>
+      <section className='map'>
         <GoogleMapLoader
           containerElement={
             <div

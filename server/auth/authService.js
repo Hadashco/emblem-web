@@ -3,6 +3,7 @@ const User = require('../db/db').User;
 const expressJwt = require('express-jwt');
 
 const EXPIRY = 60 * 60 * 5;
+const SECRET = process.env.SESSION_SECRET;
 const validateJwt = expressJwt({ secret: process.env.SESSION_SECRET });
 
 // Include access_token query param in req.header for validateJwt

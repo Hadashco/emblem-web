@@ -1,11 +1,9 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import MapView from './resources/map/MapView';
-import LoginView from './resources/authentication/LoginView';
 import Header from './resources/headerComponent.js';
 import { Provider } from 'react-redux';
 import { store } from './Store.js';
-import Socket from './Socket';
 import FacebookButton from './resources/authentication/fbookButtonView';
 
 class Dashboard extends React.Component {
@@ -16,11 +14,22 @@ class Dashboard extends React.Component {
 
   render() {
     return (
-      <div>
-        <Header />
-          <div className="container">Welcome to <i>Emblem</i></div>
-          <MapView />
-          <FacebookButton />
+      <div className="main">
+        <div className="headerContainer">
+          <Header />
+          <div className="fbook-button"><FacebookButton /></div>
+        </div>
+        <div className="container">
+          <div className="list">
+            <ul>
+              <li>I'm Conor</li>
+              <li>And I immensely enjoy apps</li>
+              <li>Long walks on the beach</li>
+              <li>And fruity beverages</li>
+            </ul>
+          </div>
+          <div className="mapContainer"><MapView /></div>
+        </div>
       </div>
     );
   }
