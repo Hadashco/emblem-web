@@ -17,17 +17,8 @@ actions.removeMarker = function(previousState, data) {
     return newState;
 }
 
-actions.removeMarker = (previousState, data) => {
-  const map = previousState.map;
-  const markers = previousState.map.markers;
-  const markerToRemove = markers.slice();
-  markerToRemove.splice(data, 1);
-  for (let i = 0; i < markerToRemove.length; i++) {
-    markerToRemove[i].key = i;
-  }
-  map.markers = markerToRemove;
-  const newState = Object.assign({}, previousState, { map });
-  return newState;
+const mapStateToProps = state => {
+  return { markers: state.map.markers };
 };
 
 var mapDispatchToProps = function(dispatch) {
@@ -48,16 +39,6 @@ var mapDispatchToProps = function(dispatch) {
     }
 }};
 
-const mapDispatchToProps = dispatch => {
-  return {
-    addMarker: marker => {
-      dispatch({ type: 'addMarker', data: marker });
-    },
-    removeMarker: index => {
-      dispatch({ type: 'removeMarker', data: index });
-    },
-  };
-};
 
 addToActions(actions);
 
