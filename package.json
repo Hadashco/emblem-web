@@ -6,7 +6,7 @@
   "scripts": {
     "start": "npm install && npm run build && npm run start:dev",
     "start:dev": "npm run start:client & npm run start:serv",
-    "start:prod": "npm install && npm run build && npm start:client:prod && npm start:serv:prod",
+    "start:prod": "npm install && npm run build && npm run start:client:prod && npm run start:serv:prod",
     "install": "npm run install:client && npm run install:serv",
     "build": "npm run build:client && npm run build:serv",
     "test": "npm run test:client && npm run test:serv",
