@@ -4,11 +4,11 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "mocha",
+    "start": "npm install && nodemon -L server.js",
+    "start:prod": "npm install && node server.js",
     "install": "npm install --no-bin-links",
-    "start": "npm run build && nodemon -L server.js",
-    "start:prod": "npm run build && node server.js",
-    "build": "npm install && cd ../client && npm run build && cd ../server"
+    "test": "mocha",
+    "build": "echo 'No build step for server.'"
   },
   "author": "",
   "license": "ISC",

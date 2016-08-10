@@ -10,7 +10,7 @@ emblem-web-server:
    - FACEBOOK_SECRET=${FACEBOOK_SECRET}
   links:
    - emblem-db
-  command: npm start
+  command: npm run start:prod
 emblem-db:
   image: postgres
   environment:

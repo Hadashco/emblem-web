@@ -1,16 +1,15 @@
 FROM node:6
 MAINTAINER Hadeshco
 
-RUN mkdir -p /usr/emblem-web /usr/emblem-web/server
+RUN mkdir -p /usr/emblem-web
 WORKDIR /usr/emblem-web
 
 COPY . .
-WORKDIR /usr/emblem-web/server
 
 RUN npm install nodemon -g -q \
     && npm install mocha -g -q \
     && npm install webpack -g -q \
-    && npm run build
+    && npm install
 
 RUN npm config set bin-links false
 
