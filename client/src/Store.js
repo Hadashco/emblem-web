@@ -1,5 +1,5 @@
 import { createStore } from 'redux';
-import { actions } from './Actions.js';
+import { actions as globalActions } from './Actions.js';
 
 // actions object where keys are action names and value is action
 const defaultState = {
@@ -8,11 +8,11 @@ const defaultState = {
   },
 };
 
-var actiones = actions;
+var actions = Object.assign({}, globalActions);
 
 var reducer = function(previousState = defaultState, action) {
-    if (actiones[action.type]) {
-        return actiones[action.type](previousState, action.data);
+    if (actions[action.type]) {
+        return actions[action.type](previousState, action.data);
     } else {
         console.warn(`action ${action.type} does not exist`);
         return previousState;
@@ -20,7 +20,7 @@ var reducer = function(previousState = defaultState, action) {
 }
 
 var addToActions = function(newActions) {
-    actiones = Object.assign({}, actiones, newActions);
+    actions = Object.assign({}, actions, newActions);
 }
 
 const store = createStore(reducer);
