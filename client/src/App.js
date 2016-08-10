@@ -1,9 +1,11 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import MapView from './resources/map/MapView';
+import MapView from './resources/map/MapView.js';
+import LoginView from './resources/authentication/LoginView';
 import Header from './resources/headerComponent.js';
 import { Provider } from 'react-redux';
 import { store } from './Store.js';
+import { socket } from './Socket';
 import FacebookButton from './resources/authentication/fbookButtonView';
 
 class Dashboard extends React.Component {
