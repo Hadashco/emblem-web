@@ -6,9 +6,8 @@ const User = require('../db/db').User;
 const config = {
   SESSION_SECRET: process.env.SESSION_SECRET,
   FACEBOOK_ID: process.env.FACEBOOK_ID,
-  FACEBOOK_SECRET: process.env.FACEBOOK_SECRET
+  FACEBOOK_SECRET: process.env.FACEBOOK_SECRET,
 };
-console.log(config);
 
 facebookSetup(User, config);
 
