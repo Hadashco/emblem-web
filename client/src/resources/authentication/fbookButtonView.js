@@ -1,5 +1,4 @@
 import React from 'react';
-import 'whatwg-fetch';
 
 export default class FacebookButton extends React.Component {
   constructor(props) {
@@ -12,16 +11,16 @@ export default class FacebookButton extends React.Component {
     window.location = '/auth/facebook';
   }
 
+  // TODO: Format button with official Facebook styling
+      // className="fb-login-button"
+      // data-max-rows="1"
+      // data-size="medium"
+      // data-show-faces="false"
+      // data-auto-logout-link="false"
+
   render() {
     return (
-      <div>
-        <
-          input type="button"
-          value="Click Me!"
-          onClick={this.handleClick}
-        />
-        <p>Some text</p>
-      </div>
+      <button onClick={this.handleClick}>Facebook</button>
     );
   }
 }

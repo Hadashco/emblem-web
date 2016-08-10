@@ -8,6 +8,7 @@ const config = {
   FACEBOOK_ID: process.env.FACEBOOK_ID,
   FACEBOOK_SECRET: process.env.FACEBOOK_SECRET
 };
+console.log(config);
 
 facebookSetup(User, config);
 
