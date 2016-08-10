@@ -7,12 +7,10 @@ class MapView extends React.Component {
   constructor(props) {
     super(props);
     this.onMapClick = this.onMapClick.bind(this);
-
     this.onMarkerRightclick = this.onMarkerRightclick.bind(this);
   }
 
   onMapClick(event) {
-      console.log(event);
     this.props.addMarker(
       {
         key: this.props.markers.length,
@@ -20,7 +18,6 @@ class MapView extends React.Component {
         defaultAnimation: 2
       }
     )
-    console.log(this.props.markers)
   }
 
   onMarkerRightclick (index) {
@@ -29,8 +26,8 @@ class MapView extends React.Component {
 
   render() {
     return (
-
-      <section className='map'>
+    <span>
+      <section className='mapContainer'>
         <GoogleMapLoader
           containerElement={
             <div
@@ -43,15 +40,16 @@ class MapView extends React.Component {
           }
           googleMapElement={
             <GoogleMap
-              ref={(map) => console.log(map)}
+              ref='map'
               defaultZoom={12}
               defaultCenter={{ lat: 37.754862, lng: -122.431558 }}
               onClick={this.onMapClick}
             >
               {this.props.markers.map((marker, index) => {
                 return (
-                  <Marker
-                    {...marker}
+                  <Marker 
+                  key={marker.id}
+                  position={{lat:marker.lat, lng:marker.long}}
                     onRightclick={() => this.onMarkerRightclick(index)} />
                 );
               })}
@@ -59,6 +57,7 @@ class MapView extends React.Component {
           }
         />
       </section>
+    </span>
     );
   }
 }
