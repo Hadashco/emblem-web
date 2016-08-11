@@ -1,5 +1,6 @@
 import React from 'react';
 import Modal from 'react-modal';
+import { Button, ButtonToolbar } from 'react-bootstrap';
 import DropletView from './DropletView';
 
 const customStyles = {
@@ -41,8 +42,8 @@ export default class UploadView extends React.Component {
 
   render() {
     return (
-      <div>
-        <button onClick={this.openModal}>Open Modal</button>
+      <span>
+        <Button bsStyle="success" onClick={this.openModal}>Open Modal</Button>
         <Modal
           isOpen={this.state.modalIsOpen}
           onAfterOpen={this.afterOpenModal}
@@ -51,9 +52,9 @@ export default class UploadView extends React.Component {
         >
           <h2>Upload Art</h2>
           <DropletView />
-          <button onClick={this.closeModal}>close</button>
+          <Button className='button' bsStyle="success" onClick={this.closeModal}>close</Button>
         </Modal>
-      </div>
+      </span>
     );
   }
 }
