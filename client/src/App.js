@@ -19,8 +19,6 @@ class Dashboard extends React.Component {
       <div className="main">
         <div className="headerContainer">
           <Header />
-          <AddMarkerButton />
-          <span className="fbook-button"><FacebookButton /></span>
           <UploadView />
         </div>
         <div className="container">

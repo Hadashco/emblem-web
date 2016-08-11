@@ -1,7 +1,9 @@
 import React from 'react';
 import Modal from 'react-modal';
 import { Button, ButtonToolbar } from 'react-bootstrap';
+import {connection} from './uploadState.js';
 import DropletView from './DropletView';
+import UploadButton from './UploadButton.js';
 
 const customStyles = {
   content: {
@@ -10,17 +12,17 @@ const customStyles = {
     right: 'auto',
     bottom: 'auto',
     marginRight: '-50%',
-    transform: 'translate(-50%, -50%',
+    transform: 'translate(-50%, -50%)',
   },
 };
 
-export default class UploadView extends React.Component {
-  constructor() {
-    super();
+class UploadView extends React.Component {
+  constructor(props) {
+    super(props);
 
-    this.state = {
-      modalIsOpen: false,
-    };
+    // this.state = {
+    //   modalIsOpen: false,
+    // };
 
     this.openModal = this.openModal.bind(this);
     this.afterOpenModal = this.afterOpenModal.bind(this);
@@ -28,7 +30,7 @@ export default class UploadView extends React.Component {
   }
 
   openModal() {
-    this.setState({ modalIsOpen: true });
+    // this.setState({ modalIsOpen: true });
   }
 
   afterOpenModal() {
@@ -37,7 +39,7 @@ export default class UploadView extends React.Component {
   }
 
   closeModal() {
-    this.setState({ modalIsOpen: false });
+    // this.setState({ modalIsOpen: false });
   }
 
   render() {
@@ -45,16 +47,18 @@ export default class UploadView extends React.Component {
       <span className='modalButton'>
         <Button bsStyle="success" onClick={this.openModal}>Open Modal</Button>
         <Modal
-          isOpen={this.state.modalIsOpen}
+          isOpen={this.props.modalState}
           onAfterOpen={this.afterOpenModal}
           onRequestClose={this.closeModal}
           style={customStyles}
         >
           <h2>Upload Art</h2>
           <DropletView />
-          <Button className='button' bsStyle="success" onClick={this.closeModal}>close</Button>
+          <UploadButton />
         </Modal>
       </span>
     );
   }
 }
+
+export default connection(UploadView);

@@ -7,6 +7,9 @@ const defaultState = {
     markers: [],
     addMarkerToMapState: false
   },
+  upload: {
+    modalState: false
+  }
 };
 
 var actions = Object.assign({}, globalActions);
