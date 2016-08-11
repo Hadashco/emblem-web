@@ -5,6 +5,7 @@ import { actions as globalActions } from './Actions.js';
 const defaultState = {
   map: {
     markers: [],
+    addMarkerToMapState: false
   },
 };
 

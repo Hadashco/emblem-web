@@ -11,6 +11,11 @@ body {
   display: inline-block;
 }
 
+.modalButton {
+  position: relative;
+  top: 10px;
+}
+
 #app {
   height: 100%;
 }
@@ -23,7 +28,7 @@ body {
 }
 
 .header {
-  width: 78%;
+  width: 76%;
   float: left;
   text-align: left;
 }

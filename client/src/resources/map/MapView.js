@@ -11,13 +11,16 @@ class MapView extends React.Component {
   }
 
   onMapClick(event) {
-    this.props.addMarker(
-      {
-        key: this.props.markers.length,
-        position: event.latLng,
-        defaultAnimation: 2
-      }
-    )
+    if (this.props.addMarkerToMapState) {
+      this.props.addMarker(
+        {
+          key: this.props.markers.length,
+          position: event.latLng,
+          defaultAnimation: 2
+        }
+      )
+      this.props.addMarkerToMapStateSwitch();
+    }
   }
 
   onMarkerRightclick (index) {

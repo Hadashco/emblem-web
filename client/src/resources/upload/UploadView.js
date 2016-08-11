@@ -42,7 +42,7 @@ export default class UploadView extends React.Component {
 
   render() {
     return (
-      <span>
+      <span className='modalButton'>
         <Button bsStyle="success" onClick={this.openModal}>Open Modal</Button>
         <Modal
           isOpen={this.state.modalIsOpen}

@@ -2,6 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { Button, ButtonToolbar } from 'react-bootstrap';
 import MapView from './resources/map/MapView.js';
+import AddMarkerButton from './resources/map/AddMarkerButton.js';
 import LoginView from './resources/authentication/LoginView';
 import Header from './resources/headerComponent.js';
 import ArtSelector from './resources/map/ArtSelectorComponent.js'
@@ -18,10 +19,9 @@ class Dashboard extends React.Component {
       <div className="main">
         <div className="headerContainer">
           <Header />
-          <span>
-            <UploadView />
-            <span className="fbook-button"><FacebookButton /></span>
-          </span>
+          <AddMarkerButton />
+          <span className="fbook-button"><FacebookButton /></span>
+          <UploadView />
         </div>
         <div className="container">
           <div className="list">
