@@ -3,16 +3,13 @@ import ReactDOM from 'react-dom';
 import MapView from './resources/map/MapView.js';
 import LoginView from './resources/authentication/LoginView';
 import Header from './resources/headerComponent.js';
+import ArtSelector from './resources/map/ArtSelectorComponent.js'
 import { Provider } from 'react-redux';
 import { store } from './Store.js';
 import { socket } from './Socket';
 import FacebookButton from './resources/authentication/fbookButtonView';
 
 class Dashboard extends React.Component {
-
-  addMarker(latLong) {
-    console.log(latLong);
-  }
 
   render() {
     return (
@@ -23,12 +20,7 @@ class Dashboard extends React.Component {
         </div>
         <div className="container">
           <div className="list">
-            <ul>
-              <li>I'm Conor</li>
-              <li>And I immensely enjoy apps</li>
-              <li>Long walks on the beach</li>
-              <li>And fruity beverages</li>
-            </ul>
+            <ArtSelector />
           </div>
           <div className="mapContainer"><MapView /></div>
         </div>
