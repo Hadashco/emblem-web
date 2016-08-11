@@ -27,14 +27,14 @@ class MapView extends React.Component {
   render() {
     return (
     <span>
-      <section className='mapContainer'>
+      <section className='map'>
         <GoogleMapLoader
           containerElement={
             <div
               {...this.props.containerElementProps}
               style={{
-                height: "95%",
-                width: "95%"
+                height: "100%",
+                width: "100%"
               }}
             />
           }

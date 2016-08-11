@@ -4,7 +4,7 @@
   "description": "",
   "main": "bundle.js",
   "scripts": {
-    "start": "webpack-dev-server --inline --progress --colors --hot",
+    "start": "webpack --watch --inline --progress --colors",
     "build": "webpack",
     "dev": "webpack-dev-server --inline --progress --colors --hot",
     "start:prod": "webpack",

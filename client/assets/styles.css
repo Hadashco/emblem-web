@@ -38,22 +38,35 @@ body {
 
 .container {
   height: 95%;
+  width: 100%;
 }
 
 .main {
   height: 100%;
-  background-color: rgba(255, 255, 255, .5) !important;
+  background-color: rgba(255, 255, 255, .5);
   display: block;
 }
 
 .list {
-  height: 76.85%;
+  height: 90%;
   width: 20%;
   position: left;
   display: inline-block;
   float: left;
   background-color: grey;
-  margin-right: 1%;
+  margin-right: 3%;
+  margin-left: 1%;
+  overflow: auto;
+}
+
+.artPiece {
+  height: 45px;
+  border-bottom: 1px solid black;
+  text-align: center;
+}
+
+.artContainer {
+  width: 100%;
 }
 
 .mapContainer {
