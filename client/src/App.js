@@ -7,6 +7,7 @@ import { Provider } from 'react-redux';
 import { store } from './Store.js';
 import { socket } from './Socket';
 import FacebookButton from './resources/authentication/fbookButtonView';
+import UploadView from './resources/upload/UploadView';
 
 class Dashboard extends React.Component {
 
@@ -21,6 +22,7 @@ class Dashboard extends React.Component {
           <Header />
           <div className="fbook-button"><FacebookButton /></div>
         </div>
+        <UploadView />
         <div className="container">
           <div className="list">
             <ul>
