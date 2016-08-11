@@ -14,6 +14,7 @@ body {
 .headerContainer {
   width: 100%;
   height: 5%;
+  text-align: center;
   clear: bottom;
 }
 
@@ -23,9 +24,12 @@ body {
 }
 
 .fbook-button {
+  position: relative;
   height: 100%;
   width: 10%;
+  top: 10px;
   float: left;
+  color: blue;
 }
 
 .fb-login-button {
@@ -38,12 +42,12 @@ body {
 
 .main {
   height: 100%;
-  background-color: rgba(255, 255, 255, .8);
+  background-color: rgba(255, 255, 255, .5) !important;
   display: block;
 }
 
 .list {
-  height: 100%;
+  height: 76.85%;
   width: 20%;
   position: left;
   display: inline-block;

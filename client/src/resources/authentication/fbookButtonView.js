@@ -1,4 +1,5 @@
 import React from 'react';
+import { Button } from 'react-bootstrap';
 
 export default class FacebookButton extends React.Component {
   constructor(props) {
@@ -20,7 +21,7 @@ export default class FacebookButton extends React.Component {
 
   render() {
     return (
-      <button onClick={this.handleClick}>Facebook</button>
+      <Button bsStyle="primary" onClick={this.handleClick}>Facebook</Button>
     );
   }
 }
