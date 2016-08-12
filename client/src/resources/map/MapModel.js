@@ -1,6 +1,6 @@
 import { connect } from 'react-redux';
 import { addToActions } from '../../Store.js';
-import 'whatwg-fetch'
+import 'whatwg-fetch';
 
 var actions = {};
 
@@ -18,7 +18,7 @@ actions.removeMarker = function(previousState, data) {
 }
 
 const mapStateToProps = state => {
-  return { markers: state.map.markers };
+  return { markers: state.map.markers, addMarkerToMapState: state.map.addMarkerToMapState };
 };
 
 var mapDispatchToProps = function(dispatch) {
@@ -36,6 +36,9 @@ var mapDispatchToProps = function(dispatch) {
   },
      removeMarker: function(index) {
         dispatch({type: 'removeMarker', data: index})
+    },
+    addMarkerToMapStateSwitch: function(bool) {
+      dispatch({type: 'addMarkerToMapStateSwitch'})
     }
 }};
 

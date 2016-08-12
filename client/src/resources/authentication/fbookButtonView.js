@@ -21,7 +21,7 @@ export default class FacebookButton extends React.Component {
 
   render() {
     return (
-      <Button bsStyle="primary" onClick={this.handleClick}>Facebook</Button>
+      <Button className='button' bsStyle="primary" onClick={this.handleClick}>Facebook</Button>
     );
   }
 }
