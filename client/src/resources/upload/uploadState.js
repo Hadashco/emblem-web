@@ -5,10 +5,10 @@ const uploadStateToProps = state => {
   return { modalState: state.upload.modalState , };
 };
 
-var uploadDispatchToProps = function(dispatch) {
+const uploadDispatchToProps = dispatch => {
   return {
-  switchUploadModalState: function(bool) {
-    dispatch({type: 'switchUploadModalState'})
+  switchUploadModalState: bool => {
+    dispatch({ type: 'switchUploadModalState' });
   }
 }};
 
