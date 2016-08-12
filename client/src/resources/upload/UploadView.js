@@ -4,6 +4,8 @@ import { Button, ButtonToolbar } from 'react-bootstrap';
 import {connection} from './uploadState.js';
 import DropletView from './DropletView';
 import UploadButton from './UploadButton.js';
+import DropzoneView from './DropzoneView';
+
 
 const customStyles = {
   content: {
@@ -25,17 +27,11 @@ class UploadView extends React.Component {
     // };
 
     this.openModal = this.openModal.bind(this);
-    this.afterOpenModal = this.afterOpenModal.bind(this);
     this.closeModal = this.closeModal.bind(this);
   }
 
   openModal() {
     // this.setState({ modalIsOpen: true });
-  }
-
-  afterOpenModal() {
-    // references now sync'd, can be accessed
-    this.refs.subtitle.style.color = '#f00';
   }
 
   closeModal() {
@@ -53,7 +49,7 @@ class UploadView extends React.Component {
           style={customStyles}
         >
           <h2>Upload Art</h2>
-          <DropletView />
+          <DropzoneView />
           <UploadButton />
         </Modal>
       </span>
