@@ -7,10 +7,14 @@ const uploadStateToProps = state => {
 
 const uploadDispatchToProps = dispatch => {
   return {
-  switchUploadModalState: bool => {
-    dispatch({ type: 'switchUploadModalState' });
+  	switchUploadModalState: () => {
+    	dispatch({ type: 'switchUploadModalState' });
+  	},
+    fileUpload: (files) => {
+      dispatch({ type: 'fileUpload', data: files })
+    }
   }
-}};
+};
 
 
 const connection = connect(uploadStateToProps, uploadDispatchToProps);

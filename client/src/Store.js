@@ -1,14 +1,15 @@
 import { createStore } from 'redux';
-import { actions as globalActions } from './actions.js';
+import { actions as globalActions } from './Actions.js';
 
 // actions object where keys are action names and value is action
-const defaultState = {
+let defaultState = {
   map: {
     markers: [],
     addMarkerToMapState: false,
   },
   upload: {
     modalState: false,
+    files: [],
   },
 };
 

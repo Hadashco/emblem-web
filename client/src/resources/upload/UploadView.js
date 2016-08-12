@@ -2,7 +2,6 @@ import React from 'react';
 import Modal from 'react-modal';
 import { Button, ButtonToolbar } from 'react-bootstrap';
 import {connection} from './uploadState.js';
-import DropletView from './DropletView';
 import UploadButton from './UploadButton.js';
 import DropzoneView from './DropzoneView';
 
@@ -19,7 +18,7 @@ class UploadView extends React.Component {
           isOpen={this.props.modalState}
         >
           <h2>Upload Art</h2>
-          <DropletView />
+          <DropzoneView />
           <UploadButton text='Close'/>
         </Modal>
       </span>

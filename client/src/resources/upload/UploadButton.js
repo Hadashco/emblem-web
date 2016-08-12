@@ -1,6 +1,6 @@
 import React from 'react';
 import { Button } from 'react-bootstrap';
-import { connection } from './uploadState.js'
+import { connection } from './uploadState.js';
 
 class UploadButton extends React.Component {
 	constructor(props) {
@@ -10,7 +10,6 @@ class UploadButton extends React.Component {
 
 	changeModalState() {
 		this.props.switchUploadModalState();
-		console.log(this.props)
 	}
 
 	render() {

@@ -30,12 +30,12 @@ var mapDispatchToProps = function(dispatch) {
           'Content-Type': 'application/json'
         },
         body: JSON.stringify({lat: marker.position.lat(), long: marker.position.lng()}),
-    }).then(function(response) {
+      }).then(function(response) {
         return response.json();
-    });
-  },
-     removeMarker: function(index) {
-        dispatch({type: 'removeMarker', data: index})
+      });
+    },
+    removeMarker: function(index) {
+      dispatch({type: 'removeMarker', data: index})
     },
     addMarkerToMapStateSwitch: function(bool) {
       dispatch({type: 'addMarkerToMapStateSwitch'})
