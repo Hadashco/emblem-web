@@ -1,8 +1,9 @@
 import React from 'react';
 import Dropzone from 'react-dropzone';
+import { Button } from 'react-bootstrap';
 import 'whatwg-fetch';
 
-export default class DropletView extends React.Component {
+export default class DropzoneView extends React.Component {
   constructor() {
     super();
 
@@ -38,7 +39,7 @@ export default class DropletView extends React.Component {
         <Dropzone onDrop={this.onDrop}>
           <div>Drop some files here to test</div>
         </Dropzone>
-        <button onClick={this.onSave}>Save</button>
+        <Button bsStyle='primary' onClick={this.onSave}>Save</Button>
       </div>
     );
   }

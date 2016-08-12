@@ -18,7 +18,7 @@ actions.removeMarker = function(previousState, data) {
 }
 
 const mapStateToProps = state => {
-  return { markers: state.map.markers, addMarkerToMapState: state.map.addMarkerToMapState };
+  return { markers: state.map.markers, addMarkerToMapState: state.map.addMarkerToMapState, modalState: state.upload.modalState };
 };
 
 var mapDispatchToProps = function(dispatch) {
@@ -30,16 +30,19 @@ var mapDispatchToProps = function(dispatch) {
           'Content-Type': 'application/json'
         },
         body: JSON.stringify({lat: marker.position.lat(), long: marker.position.lng()}),
-    }).then(function(response) {
+      }).then(function(response) {
         return response.json();
-    });
-  },
-     removeMarker: function(index) {
-        dispatch({type: 'removeMarker', data: index})
+      });
+    },
+    removeMarker: function(index) {
+      dispatch({type: 'removeMarker', data: index})
     },
     addMarkerToMapStateSwitch: function(bool) {
       dispatch({type: 'addMarkerToMapStateSwitch'})
-    }
+    }, 
+    switchUploadModalState: function(bool) {
+      dispatch({type: 'switchUploadModalState'})
+  }
 }};
 
 

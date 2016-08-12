@@ -1,5 +1,5 @@
 // global actions shared across application
-const actions = {};
+let actions = {};
 
 // MAP ACTIONS
 actions.addMarker = (previousState, data) => {
@@ -23,11 +23,11 @@ actions.addMarkerToMapStateSwitch = (previousState) => {
 
 // UPLOAD ACTIONS
 actions.switchUploadModalState = (previousState) => {
-  const upload = previousState.upload;
-  const uploadModalState = previousState.upload.modalState;
-  const newModalState = !uploadModalState;
-  upload.uploadModalState = newModalState;
-  const newState = Object.assign({}, previousState, { upload });
+  let upload = previousState.upload;
+  let uploadModalState = previousState.upload.modalState;
+  let newModalState = !uploadModalState;
+  upload.modalState = newModalState;
+  let newState = Object.assign({}, previousState, { upload });
   return newState;
 };
 

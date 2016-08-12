@@ -1,6 +1,5 @@
 html {
   height: 100%;
-  background-image: url('robo-mural.jpg');
 }
 
 body {
@@ -14,10 +13,16 @@ body {
 .modalButton {
   position: relative;
   top: 10px;
+  margin-left: 20px;
 }
 
 #app {
   height: 100%;
+}
+
+.buttonToolbar {
+  position: relative;
+  left: 36%;
 }
 
 .headerContainer {
@@ -28,22 +33,9 @@ body {
 }
 
 .header {
-  width: 76%;
+  width: 100%;
   float: left;
-  text-align: left;
-}
-
-.fbook-button {
-  position: relative;
-  height: 100%;
-  width: 10%;
-  top: 10px;
-  float: left;
-  color: blue;
-}
-
-.fb-login-button {
-  height: 100%;
+  text-align: center;
 }
 
 .container {
@@ -83,7 +75,7 @@ body {
   position: left;
   display: inline-block;
   height: 90%;
-  width: 75%;
+  width: 100%;
   float: left;
 }
 

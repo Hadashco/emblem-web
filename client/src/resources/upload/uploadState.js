@@ -2,15 +2,19 @@ import { connect } from 'react-redux';
 import { addToActions } from '../../Store.js';
 
 const uploadStateToProps = state => {
-  return { modalState: state.upload.modalState , };
+  return { modalState: state.upload.modalState };
 };
 
 const uploadDispatchToProps = dispatch => {
   return {
-  switchUploadModalState: bool => {
-    dispatch({ type: 'switchUploadModalState' });
+  	switchUploadModalState: () => {
+    	dispatch({ type: 'switchUploadModalState' });
+  	},
+    fileUpload: (files) => {
+      dispatch({ type: 'fileUpload', data: files })
+    }
   }
-}};
+};
 
 
 const connection = connect(uploadStateToProps, uploadDispatchToProps);
