@@ -5,7 +5,6 @@ import MapView from './resources/map/MapView.js';
 import AddMarkerButton from './resources/map/AddMarkerButton.js';
 import LoginView from './resources/authentication/LoginView';
 import Header from './resources/headerComponent.js';
-import ArtSelector from './resources/map/ArtSelectorComponent.js'
 import { Provider } from 'react-redux';
 import { store } from './Store.js';
 import { socket } from './Socket';
@@ -22,9 +21,6 @@ class Dashboard extends React.Component {
           <UploadView />
         </div>
         <div className="container">
-          <div className="list">
-            <ArtSelector />
-          </div>
           <div className="mapContainer"><MapView /></div>
         </div>
       </div>

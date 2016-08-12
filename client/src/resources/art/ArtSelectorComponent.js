@@ -1,5 +1,4 @@
 import React from 'react';
-import {connection} from './MapModel.js';
 
 
 class ArtComponent extends React.Component {
@@ -22,7 +21,6 @@ class ArtSelector extends React.Component {
     }
 
     render() {
-      console.log(this.props);
       var arr = [1,2,3,4,5,6,7,8,9];
       return (
         <div className='artContainer'>

@@ -18,7 +18,7 @@ actions.removeMarker = function(previousState, data) {
 }
 
 const mapStateToProps = state => {
-  return { markers: state.map.markers, addMarkerToMapState: state.map.addMarkerToMapState };
+  return { markers: state.map.markers, addMarkerToMapState: state.map.addMarkerToMapState, modalState: state.upload.modalState };
 };
 
 var mapDispatchToProps = function(dispatch) {
@@ -39,7 +39,10 @@ var mapDispatchToProps = function(dispatch) {
     },
     addMarkerToMapStateSwitch: function(bool) {
       dispatch({type: 'addMarkerToMapStateSwitch'})
-    }
+    }, 
+    switchUploadModalState: function(bool) {
+      dispatch({type: 'switchUploadModalState'})
+  }
 }};
 
 

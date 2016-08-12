@@ -19,6 +19,7 @@ class MapView extends React.Component {
           defaultAnimation: 2
         }
       )
+      this.props.switchUploadModalState();
       this.props.addMarkerToMapStateSwitch();
     }
   }

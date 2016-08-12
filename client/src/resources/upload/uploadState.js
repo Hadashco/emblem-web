@@ -2,7 +2,7 @@ import { connect } from 'react-redux';
 import { addToActions } from '../../Store.js';
 
 const uploadStateToProps = state => {
-  return { modalState: state.upload.modalState , };
+  return { modalState: state.upload.modalState };
 };
 
 const uploadDispatchToProps = dispatch => {

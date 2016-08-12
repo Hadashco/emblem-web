@@ -9,9 +9,9 @@ export default function headerComponent(props) {
   return (
     <div className="header">
       <h1>Welcome to <i>Emblem</i></h1>
-      <ButtonToolbar>
+      <ButtonToolbar className='buttonToolbar'>
       	<AddMarkerButton />
-      	<UploadButton />
+      	<UploadButton text='Upload Art'/>
       	<FacebookButton />
       </ButtonToolbar>
     </div>
