@@ -35,7 +35,9 @@
     "url": "https://github.com/Hadashco/emblem-web/issues"
   },
   "homepage": "https://github.com/Hadashco/emblem-web#readme",
-  "dependencies": {},
+  "dependencies": {
+    "passport-facebook-token": "^3.3.0"
+  },
   "devDependencies": {
     "autoprefixer": "^6.3.7",
     "concurrently": "^2.2.0",
