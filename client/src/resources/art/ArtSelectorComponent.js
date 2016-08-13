@@ -32,7 +32,7 @@ class ArtSelector extends React.Component {
       console.log(this.props.files);
       return (
         <Modal
-          isOpen={this.props.modalState}>
+          isOpen={false}>
           <div className='artContainer'>
           {art.map(num => <ArtComponent art={num.id}/>)}
           </div>

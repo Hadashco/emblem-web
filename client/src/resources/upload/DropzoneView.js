@@ -1,6 +1,5 @@
 import React from 'react';
 import Dropzone from 'react-dropzone';
-import { Button } from 'react-bootstrap';
 import { connection } from './uploadState.js';
 
 class DropzoneView extends React.Component {
