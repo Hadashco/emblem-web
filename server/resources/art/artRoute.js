@@ -7,12 +7,10 @@ const Art = require('../../db/db').Art;
 const storagePath = path.join(__dirname.concat('/../../storage/art'));
 
 router.post('/', (req, res) => {
-  console.log('art req:', req.body.toString());
   let fileType = req.headers['file-type'];
   Art.create({ type: fileType })
     .then(art => {
       let dir = `${storagePath}/${art.id}`;
-      console.log(dir, 'This is the created dir');
       mkdirp(dir, (err) => {
         if (err) console.error(err);
         let wstream = fs.createWriteStream(`${dir}/${art.id}_FULL`);
