@@ -11,6 +11,9 @@ router.get('/', passport.authenticate('facebook', {
   session: false,
 }));
 
+router.get('/token', passport.authenticate('facebook-token'),
+  (req, res) => res.sendStatus(req.user? 200 : 401))
+
 router.get('/callback', passport.authenticate('facebook', {
   failureRedirect: '/login', // TODO: Change to Login or similar
   session: false,

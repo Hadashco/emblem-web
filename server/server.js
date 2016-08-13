@@ -4,6 +4,7 @@ const path = require('path');
 const bodyParser = require('body-parser');
 const addRouter = require('./router');
 const sockets = require('./sockets');
+const passport = require('passport');
 const connection = require('./db/db');
 const db = connection.db;
 
@@ -17,7 +18,7 @@ const log = message => {
 };
 
 app.use(bodyParser.json());
-
+app.use(passport.initialize());
 app.use(bodyParser.raw({
   limit: '50mb',
 }));
