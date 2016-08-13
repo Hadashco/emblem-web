@@ -12,8 +12,6 @@ const customStyles = {
     right: 0,
     bottom: 0,
     backgroundColor: 'rgba(255, 255, 255, 0.74902)'
-    // display: 'flex'
-    // overflow: 'auto'
   },
   content: {
     position: 'relative',
@@ -49,10 +47,6 @@ class ArtComponent extends React.Component {
 }
 
 class ArtSelector extends React.Component {
-  // box component with many different Art components inside it
-  // grabs all art from call to server for art pieces
-    // loop through art piece array and create new art
-    //component for each one
     constructor(props) {
       super(props);
       
