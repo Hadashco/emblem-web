@@ -6,6 +6,11 @@ body {
   height: 100%;
 }
 
+.ArtComponent {
+  width: 100px;
+  height: 100px;
+}
+
 .button {
   display: inline-block;
 }
@@ -49,26 +54,31 @@ body {
   display: block;
 }
 
-.list {
-  height: 90%;
-  width: 20%;
-  position: left;
-  display: inline-block;
-  float: left;
-  background-color: grey;
-  margin-right: 3%;
-  margin-left: 1%;
-  overflow: auto;
+.mainArt {
+  position: static;
+  margin-left: 20px;
+  left: 22%;
+  height: 100%;
+  width: 80%;
+}
+
+.ArtModalButton {
+  float: right;
 }
 
 .artPiece {
-  height: 45px;
+  height: 70px;
+  width: 140px;
+  margin-bottom: 5px;
   border-bottom: 1px solid black;
-  text-align: center;
 }
 
 .artContainer {
-  width: 100%;
+  width: 20%;
+  height: 100%;
+  padding-right: 20px;
+  border-right: 1px solid grey;
+  overflow: auto;
 }
 
 .mapContainer {
