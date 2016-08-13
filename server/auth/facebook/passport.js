@@ -1,5 +1,6 @@
 const passport = require('passport');
 const FacebookStrategy = require('passport-facebook').Strategy;
+const FacebookTokenStrategy = require('passport-facebook-token');
 
 // TODO: Update callback url for deployment
 module.exports = (User, config) => {
@@ -30,6 +31,9 @@ module.exports = (User, config) => {
       })
     .catch(err => done(err));
   };
+  passport.serializeUser((user, done) => done(null, user));
+  passport.deserializeUser((user, done) => done(null, user));
 
+  passport.use(new FacebookTokenStrategy(settings, handler));
   passport.use(new FacebookStrategy(settings, handler));
 };
