@@ -4,6 +4,7 @@ import { Button, ButtonToolbar } from 'react-bootstrap';
 import {connection} from './uploadState.js';
 import UploadButton from './UploadButton.js';
 import DropzoneView from './DropzoneView';
+import SaveButton from './SaveButton.js';
 
 
 class UploadView extends React.Component {
@@ -15,11 +16,14 @@ class UploadView extends React.Component {
     return (
       <span className='modalButton'>
         <Modal
-          isOpen={this.props.modalState}
+          isOpen={false}
         >
           <h2>Upload Art</h2>
           <DropzoneView />
-          <UploadButton text='Close'/>
+          <ButtonToolbar>
+            <SaveButton />
+            <UploadButton text='Close'/>
+          </ButtonToolbar>
         </Modal>
       </span>
     );

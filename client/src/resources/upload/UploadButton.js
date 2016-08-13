@@ -5,15 +5,10 @@ import { connection } from './uploadState.js';
 class UploadButton extends React.Component {
 	constructor(props) {
 		super(props);
-		this.changeModalState = this.changeModalState.bind(this);
-	}
-
-	changeModalState() {
-		this.props.switchUploadModalState();
 	}
 
 	render() {
-		return <Button bsStyle='success' onClick={this.changeModalState}>{ this.props.text }</Button>
+		return <Button bsStyle='success' onClick={this.props.switchUploadModalState}>{ this.props.text }</Button>
 	}
 }
 

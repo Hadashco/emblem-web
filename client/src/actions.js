@@ -1,7 +1,13 @@
 // global actions shared across application
 let actions = {};
 
-// MAP ACTIONS
+/****************************************************************
+
+                          MAP ACTIONS
+
+*****************************************************************/
+
+
 actions.addMarker = (previousState, data) => {
   const map = previousState.map;
   const markers = previousState.map.markers;
@@ -21,7 +27,13 @@ actions.addMarkerToMapStateSwitch = (previousState) => {
   return newState;
 };
 
-// UPLOAD ACTIONS
+/****************************************************************
+
+                        UPLOAD ACTIONS
+
+*****************************************************************/
+
+
 actions.switchUploadModalState = (previousState) => {
   let upload = previousState.upload;
   let uploadModalState = previousState.upload.modalState;
@@ -30,5 +42,49 @@ actions.switchUploadModalState = (previousState) => {
   let newState = Object.assign({}, previousState, { upload });
   return newState;
 };
+
+actions.uploadFiles = (previousState, data) => {
+  const upload = previousState.upload;
+  const files = previousState.upload.files;
+  const newFiles = files.slice();
+  data.forEach(dataChunk => {
+    newFiles.push(dataChunk);
+  });
+  upload.files = newFiles;
+  const newState = Object.assign({}, previousState, { upload });
+  return newState;
+};
+
+actions.addDragAndDropFiles = (previousState, data) => {
+  let upload = previousState.upload;
+  let toUpload = previousState.upload.toUpload;
+  let newFiles = toUpload.slice();
+  newFiles.push(data);
+  upload.toUpload = newFiles;
+  let newState = Object.assign({}, previousState, { upload });
+  return newState;
+};
+
+actions.emptyToUploadFiles = (previousState) => {
+  let upload = previousState.upload;
+  let toUpload = previousState.upload.toUpload;
+  let newUpload = [];
+  upload.toUpload = newUpload;
+  let newState = Object.assign({}, previousState, { upload });
+  return newState;
+}
+
+actions.populateArtFiles = (previousState, data) => {
+  let upload = previousState.upload;
+  let files = previousState.upload.files;
+  let newFiles = files.slice();
+  console.log(data.body.toString(), 'THIS IS THE DATA');
+  data.body.toString().forEach(dataChunk => {
+    newFiles.push(dataChunk);
+  });
+  upload.files = newFiles;
+  const newState = Object.assign({}, previousState, { upload });
+  return newState;
+}
 
 export { actions };
