@@ -13,7 +13,7 @@ const ArtPlace = db.define('art_place', {
 Place.belongsToMany(Art, { through: ArtPlace });
 Art.belongsToMany(Place, { through: ArtPlace });
 
-User.hasMany(Art);
+Art.belongsTo(User);
 
 module.exports = {
   db: db,

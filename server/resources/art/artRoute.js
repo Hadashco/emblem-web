@@ -10,6 +10,7 @@ router.post('/', (req, res) => {
   let fileType = req.headers['file-type'];
   Art.create({ type: fileType })
     .then(art => {
+      art.setUser(req.user);
       let dir = `${storagePath}/${art.id}`;
       mkdirp(dir, (err) => {
         if (err) console.error(err);
