@@ -23,6 +23,7 @@ const uploadDispatchToProps = dispatch => {
               'File-Type': file.type,
               'UserId': '1',
             },
+            credentials: 'same-origin', // ADDED
             method: 'POST',
             body: arrayBufferStr,
           });

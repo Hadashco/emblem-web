@@ -16,7 +16,7 @@ class UploadView extends React.Component {
     return (
       <span className='modalButton'>
         <Modal
-          isOpen={false}
+          isOpen={this.props.modalState}
         >
           <h2>Upload Art</h2>
           <DropzoneView />
