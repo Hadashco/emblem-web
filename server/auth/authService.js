@@ -8,10 +8,7 @@ const SECRET = process.env.SESSION_SECRET;
 const validateJwt = expressJwt({ secret: process.env.SESSION_SECRET });
 
 // Include access_token query param in req.header for validateJwt
-// RENAME: getRequestToken 
-const accessTokenHeader = (req, res, next) => {
-  // see if request has a cookie of name 'token'
-  // then check req.headers.auth... (line ~16)
+const getTokenHeader = (req, res, next) => {
   if (req.query && Object.prototype.hasOwnProperty.call(req.query, 'access_token')) {
     req.headers.authorization = `Bearer ${req.query.access_token}`;
   } else if (req.cookies['token']) {
@@ -37,7 +34,7 @@ const populateReqUser = (req, res, next) => {
 };
 
 const isAuthenticated = () => compose()
-  .use(compose().use(accessTokenHeader).use(validateJwt))
+  .use(compose().use(getTokenHeader).use(validateJwt))
   .use(populateReqUser);
 
 const signToken = id => jwt.sign({ id }, SECRET, { expiresIn: EXPIRY });
@@ -51,7 +48,7 @@ const setTokenCookie = (req, res) => {
 };
 
 module.exports = {
-  accessTokenHeader,
+  getTokenHeader,
   populateReqUser,
   isAuthenticated,
   signToken,
