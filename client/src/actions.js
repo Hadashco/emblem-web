@@ -87,4 +87,13 @@ actions.populateArtFiles = (previousState, data) => {
   return newState;
 }
 
+actions.updateCurrentArt = (previousState, data) => {
+  let upload = previousState.upload;
+  let toUpload = previousState.upload.currentArt;
+  let newUpload = data;
+  upload.currentArt = newUpload;
+  let newState = Object.assign({}, previousState, { upload });
+  return newState;
+}
+
 export { actions };

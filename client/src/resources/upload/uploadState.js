@@ -2,7 +2,7 @@ import { connect } from 'react-redux';
 import { addToActions } from '../../Store.js';
 
 const uploadStateToProps = state => {
-  return { modalState: state.upload.modalState, files: state.upload.files, toUpload: state.upload.toUpload };
+  return { modalState: state.upload.modalState, files: state.upload.files, toUpload: state.upload.toUpload, currentArt: state.upload.currentArt };
 };
 
 const uploadDispatchToProps = dispatch => {
@@ -48,6 +48,9 @@ const uploadDispatchToProps = dispatch => {
         console.log('RESPONSSSSSSSSSEEEEEEEE', JSON.stringify(response));
         dispatch({ type: 'populateArtFiles', data: response })
       });
+    },
+    updateCurrentArt: (data) => {
+      dispatch({ type: 'updateCurrentArt', data: data })
     }
   }
 };
