@@ -32,6 +32,7 @@ app.get('/', (req, res) => {
 
 app.use('/build', express.static(path.join(__dirname.concat('/../client/build'))));
 app.use('/assets', express.static(path.join(__dirname.concat('/../client/assets'))));
+app.use('/storage', express.static(path.join(__dirname.concat('/storage'))));
 
 const server = require('http').Server(app);
 sockets.addSockets(server);

@@ -1,4 +1,6 @@
 import React from 'react';
+import Modal from 'react-modal';
+import { connection } from './../upload/uploadState.js';
 
 
 class ArtComponent extends React.Component {
@@ -7,7 +9,8 @@ class ArtComponent extends React.Component {
 	}
 
 	render() {
-    return (<div className='artPiece'>{this.props.art}</div>);
+    let source = '/storage/art/' + this.props.art + '/' + this.props.art + '_FULL'
+    return (<img className='artPiece' src={source} />);
 	}
 }
 
@@ -20,12 +23,20 @@ class ArtSelector extends React.Component {
       super(props);
     }
 
+    componentDidMount() {
+      this.props.populateArtFiles();
+    }
+
     render() {
-      var arr = [1,2,3,4,5,6,7,8,9];
+      var art = this.props.files.splice(12, this.props.files.length-13);
+      console.log(this.props.files);
       return (
-        <div className='artContainer'>
-        {this.props.markers.map(num => <ArtComponent art={num.id}/>)}
-        </div>
+        <Modal
+          isOpen={this.props.modalState}>
+          <div className='artContainer'>
+          {art.map(num => <ArtComponent art={num.id}/>)}
+          </div>
+        </Modal>
       );
     }
 }

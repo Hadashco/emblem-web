@@ -7,6 +7,6 @@ class ArtViewer extends React.Component {
 	// this will be the main viewing component
 	// ArtSelectorComponent will be the side bar to choose from the history of art at that location
 	render() {
-		return <div></div>;
+		return <img className='viewer' src='/storage/art/12/12_FULL' />;
 	}
 }
