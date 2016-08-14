@@ -11,7 +11,7 @@ export default function headerComponent(props) {
       <h1>Welcome to <i>Emblem</i></h1>
       <ButtonToolbar className='buttonToolbar'>
       	<AddMarkerButton />
-      	<UploadButton text='Upload Art'/>
+      	<UploadButton text='Art Library' />
       	<FacebookButton />
       </ButtonToolbar>
     </div>

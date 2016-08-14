@@ -6,6 +6,17 @@ import UploadButton from './UploadButton.js';
 import DropzoneView from './DropzoneView';
 import SaveButton from './SaveButton.js';
 
+const customStyles = {
+  overlay: {
+    position: 'fixed',
+    top: 0,
+    left: 0,
+    right: 0,
+    bottom: 0,
+    backgroundColor: 'rgba(255, 255, 255, 0.74902)',
+    zIndex: 2
+  }
+}
 
 class UploadView extends React.Component {
   constructor(props) {
@@ -17,12 +28,13 @@ class UploadView extends React.Component {
       <span className='modalButton'>
         <Modal
           isOpen={this.props.modalState}
+          style={ customStyles }
         >
           <h2>Upload Art</h2>
           <DropzoneView />
           <ButtonToolbar>
             <SaveButton />
-            <UploadButton text='Close'/>
+            <UploadButton text='Close' clickFunc={this.props.switchUploadModalState} />
           </ButtonToolbar>
         </Modal>
       </span>

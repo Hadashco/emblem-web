@@ -17,9 +17,11 @@ module.exports = (User, config) => {
         if (user) {
           return done(null, user);
         }
+        let emails = profile.emails;
+        emails ? emails = emails[0].value : emails = null;
         const newUser = User.build({
           name: profile.displayName,
-          email: profile.emails[0].value,
+          email: emails,
           fbookId: profile.id,
           imgUrl: profile.photos[0].value,
           facebook: profile._json,

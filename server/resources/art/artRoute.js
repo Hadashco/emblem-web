@@ -27,13 +27,6 @@ router.post('/', (req, res) => {
     });
 });
 
-router.get('/', (req, res) => {
-  Art.findAll()
-    .then(arts => {
-      res.status(200).send(arts);
-    });
-});
-
 router.get('/:id', (req, res) => {
   console.log(req.params.id);
   res.send('this is an art with an id');
