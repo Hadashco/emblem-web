@@ -25,6 +25,7 @@ var mapDispatchToProps = function(dispatch) {
     return {addMarker: function(marker) {
       fetch('/place', {
         method: 'POST',
+        credentials: 'same-origin',
         headers: {
           'Accept': 'application/json',
           'Content-Type': 'application/json'

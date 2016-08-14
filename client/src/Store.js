@@ -9,6 +9,7 @@ let defaultState = {
   },
   upload: {
     modalState: false,
+    artModalState: false,
     currentArt: 12,
     toUpload: [],
     files: [],

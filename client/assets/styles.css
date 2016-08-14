@@ -62,6 +62,15 @@ body {
   width: 80%;
 }
 
+
+.ArtModal {
+  z-index: 1;
+}
+
+.UploadModal {
+  z-index: 2;
+}
+
 .ArtModalButton {
   float: right;
 }

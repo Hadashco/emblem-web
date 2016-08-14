@@ -1,5 +1,6 @@
 import React from 'react';
 import Modal from 'react-modal';
+import { ButtonToolbar } from 'react-bootstrap';
 import ArtViewer from './ArtViewer.js';
 import UploadButton from './../upload/UploadButton.js';
 import { connection } from './../upload/uploadState.js';
@@ -11,7 +12,8 @@ const customStyles = {
     left: 0,
     right: 0,
     bottom: 0,
-    backgroundColor: 'rgba(255, 255, 255, 0.74902)'
+    backgroundColor: 'rgba(255, 255, 255, 0.74902)',
+    zIndex: 1
   },
   content: {
     position: 'relative',
@@ -63,14 +65,18 @@ class ArtSelector extends React.Component {
       var context = this;
       return (
         <Modal
-          isOpen={this.props.modalState}
+          className='ArtModal'
+          isOpen={this.props.artModalState}
           style={ customStyles }>
           <div className='artContainer col-xs-2'>
             {context.art.map(num => <div><ArtComponent photoClick={this.props.updateCurrentArt} art={num.id} /><br/></div>)}
           </div>
           <ArtViewer art={this.props.currentArt} />
           <div className='col-xs-12' style={{paddingRight: 0}}>
-            <UploadButton className='col-xs-1 col-xs-offset-10' class='ArtModalButton' text='close' btn-mad clearfix form-control/>
+            <ButtonToolbar className='col-xs-4 col-xs-offset-9' style={{ float: 'right' }}>
+              <UploadButton  class='ArtModalButton' text='Upload Photos' clickFunc={this.props.switchUploadModalState}  btn-mad clearfix form-control/>
+              <UploadButton  class='ArtModalButton' text='Close'  btn-mad clearfix form-control/>
+            </ButtonToolbar>
           </div>
         </Modal>
       );

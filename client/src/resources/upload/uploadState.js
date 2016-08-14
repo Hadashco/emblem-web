@@ -2,7 +2,7 @@ import { connect } from 'react-redux';
 import { addToActions } from '../../Store.js';
 
 const uploadStateToProps = state => {
-  return { modalState: state.upload.modalState, files: state.upload.files, toUpload: state.upload.toUpload, currentArt: state.upload.currentArt };
+  return { artModalState: state.upload.artModalState, modalState: state.upload.modalState, files: state.upload.files, toUpload: state.upload.toUpload, currentArt: state.upload.currentArt };
 };
 
 const uploadDispatchToProps = dispatch => {
@@ -10,6 +10,9 @@ const uploadDispatchToProps = dispatch => {
   	switchUploadModalState: () => {
     	dispatch({ type: 'switchUploadModalState' });
   	},
+    switchArtModalState: () => {
+      dispatch({ type: 'switchArtModalState' });
+    },
     uploadFiles: (files) => {
       files.forEach(file => {
         const fileReader = new FileReader(file);
@@ -23,7 +26,7 @@ const uploadDispatchToProps = dispatch => {
               'File-Type': file.type,
               'UserId': '1',
             },
-            credentials: 'same-origin', // ADDED
+            credentials: 'same-origin',
             method: 'POST',
             body: arrayBufferStr,
           });
@@ -40,6 +43,7 @@ const uploadDispatchToProps = dispatch => {
     populateArtFiles: () => {
       fetch('/art', {
         method: 'GET',
+        credentials: 'same-origin',
         headers: {
           'Accept': 'application/json',
           'Content-Type': 'application/json'

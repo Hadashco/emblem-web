@@ -43,6 +43,15 @@ actions.switchUploadModalState = (previousState) => {
   return newState;
 };
 
+actions.switchArtModalState = (previousState) => {
+  let upload = previousState.upload;
+  let artModalState = previousState.upload.artModalState;
+  let newModalState = !artModalState;
+  upload.artModalState = newModalState;
+  let newState = Object.assign({}, previousState, { upload });
+  return newState;
+};
+
 actions.uploadFiles = (previousState, data) => {
   const upload = previousState.upload;
   const files = previousState.upload.files;
@@ -78,7 +87,7 @@ actions.populateArtFiles = (previousState, data) => {
   let upload = previousState.upload;
   let files = previousState.upload.files;
   let newFiles = files.slice();
-  console.log(data.body.toString(), 'THIS IS THE DATA');
+  console.log(data.body, 'THIS IS THE DATA');
   data.body.toString().forEach(dataChunk => {
     newFiles.push(dataChunk);
   });
