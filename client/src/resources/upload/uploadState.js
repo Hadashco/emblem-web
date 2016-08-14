@@ -7,38 +7,38 @@ const uploadStateToProps = state => {
 
 const uploadDispatchToProps = dispatch => {
   return {
-  	switchUploadModalState: () => {
-    	dispatch({ type: 'switchUploadModalState' });
-  	},
+    switchUploadModalState: () => {
+      dispatch({ type: 'switchUploadModalState' });
+    },
     switchArtModalState: () => {
       dispatch({ type: 'switchArtModalState' });
     },
     uploadFiles: (files) => {
       files.forEach(file => {
         const fileReader = new FileReader(file);
-        fileReader.readAsArrayBuffer(file);
-        fileReader.onload = function(e) {
+        fileReader.readAsArrayBuffer(file);
+        fileReader.onload = e => {
           const arrayBufferStr = fileReader.result;
-          fetch('/art', {
-            headers: {
-              'Accept': 'application/octet-stream',
-              'Content-Type': 'application/octet-stream',
-              'File-Type': file.type,
-              'UserId': '1',
-            },
+          fetch('/art', {
+            headers: {
+              'Accept': 'application/octet-stream',
+              'Content-Type': 'application/octet-stream',
+              'File-Type': file.type,
+              'UserId': '1',
+            },
             credentials: 'same-origin',
-            method: 'POST',
-            body: arrayBufferStr,
-          });
-        }
-      });
+            method: 'POST',
+            body: arrayBufferStr,
+          });
+        };
+      });
       dispatch({ type: 'uploadFiles', data: files });
     },
     emptyToUploadFiles: () => {
       dispatch({ type: 'emptyToUploadFiles' });
     },
     addDragAndDropFiles: (file) => {
-      dispatch({ type: 'addDragAndDropFiles', data: file })
+      dispatch({ type: 'addDragAndDropFiles', data: file });
     },
     populateArtFiles: () => {
       fetch('/art', {
@@ -46,17 +46,16 @@ const uploadDispatchToProps = dispatch => {
         credentials: 'same-origin',
         headers: {
           'Accept': 'application/json',
-          'Content-Type': 'application/json'
+          'Content-Type': 'application/json',
         },
-      }).then(function(response) {
-        console.log('RESPONSSSSSSSSSEEEEEEEE', JSON.stringify(response));
-        dispatch({ type: 'populateArtFiles', data: response })
+      }).then(response => {
+        dispatch({ type: 'populateArtFiles', data: response });
       });
     },
     updateCurrentArt: (data) => {
-      dispatch({ type: 'updateCurrentArt', data: data })
-    }
-  }
+      dispatch({ type: 'updateCurrentArt', data });
+    },
+  };
 };
 
 

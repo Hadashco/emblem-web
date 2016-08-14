@@ -61,7 +61,7 @@ class ArtSelector extends React.Component {
 
 
     render() {
-      console.log(this.art, 'jdsa');
+      console.log('artSelector Objects:', this.art);
       var context = this;
       return (
         <Modal
