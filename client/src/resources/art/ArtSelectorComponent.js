@@ -12,7 +12,7 @@ const customStyles = {
     left: 0,
     right: 0,
     bottom: 0,
-    backgroundColor: 'rgba(255, 255, 255, 0.74902)',
+    backgroundColor: 'rgba(239, 249, 245, 0.74902)',
     zIndex: 1
   },
   content: {
@@ -25,7 +25,7 @@ const customStyles = {
     overflow: 'auto',
     borderRadius: '4px',
     padding: '20px',
-    background: 'rgb(255, 255, 255)',
+    background: 'rgba(255, 255, 255, .7)',
     width: '90%'
   }
 };
@@ -73,8 +73,8 @@ class ArtSelector extends React.Component {
           </div>
           <ArtViewer art={this.props.currentArt} />
           <div className='col-xs-12' style={{paddingRight: 0}}>
-            <ButtonToolbar className='col-xs-4 col-xs-offset-9' style={{ float: 'right' }}>
-              <UploadButton  class='ArtModalButton' text='Upload Photos' clickFunc={this.props.switchUploadModalState}  btn-mad clearfix form-control/>
+            <ButtonToolbar className='col-xs-4 col-xs-offset-8' style={{ float: 'right' }}>
+              <UploadButton  class='ArtModalButton' text='Upload Photos' clickFunc={ this.props.switchUploadModalState }  btn-mad clearfix form-control/>
               <UploadButton  class='ArtModalButton' text='Close'  btn-mad clearfix form-control/>
             </ButtonToolbar>
           </div>

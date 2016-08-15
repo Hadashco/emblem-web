@@ -1,5 +1,6 @@
 import React from 'react';
 import { Button } from 'react-bootstrap';
+import UploadButton from './UploadButton.js'
 import { connection } from './uploadState.js';
 
 class SaveButton extends React.Component {
@@ -15,7 +16,7 @@ class SaveButton extends React.Component {
   }
 
   render() {
-    return <Button bsStyle='success' onClick={this.onSave}>Save</Button>
+    return <UploadButton bsStyle='success' text='Save' clickFunc={this.onSave} />
   }
 }
 

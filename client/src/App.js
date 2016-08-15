@@ -11,6 +11,7 @@ import { socket } from './Socket';
 import FacebookButton from './resources/authentication/fbookButtonView';
 import UploadView from './resources/upload/UploadView';
 import ArtSelectorComponent from './resources/art/ArtSelectorComponent.js';
+import InfoPage from './resources/stateless/InfoPage.js';
 
 class Dashboard extends React.Component {
 
@@ -24,6 +25,7 @@ class Dashboard extends React.Component {
         </div>
         <div className="container">
           <div className="mapContainer"><MapView /></div>
+          <div className="infoContainer"><InfoPage /></div>
         </div>
       </div>
     );

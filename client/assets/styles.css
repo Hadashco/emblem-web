@@ -4,35 +4,32 @@ html {
 
 body {
   height: 100%;
-}
-
-.ArtComponent {
-  width: 100px;
-  height: 100px;
-}
-
-.button {
-  display: inline-block;
-}
-
-.modalButton {
-  position: relative;
-  top: 10px;
-  margin-left: 20px;
+  font-family: 'Neuton', serif;
+  font-size: 14px;
 }
 
 #app {
   height: 100%;
+  overflow: auto;
 }
 
-.buttonToolbar {
-  position: relative;
-  left: 36%;
+.main {
+  height: 100%;
+  width: 100%;
+  background-color: rgba(255, 255, 255, .5);
+  display: block;
+  overflow: auto;
 }
+
+/**********************************************************
+
+                      Header Styles
+
+***********************************************************/
 
 .headerContainer {
   width: 100%;
-  height: 20%;
+  height: 10%;
   text-align: center;
   clear: bottom;
 }
@@ -43,32 +40,52 @@ body {
   text-align: center;
 }
 
-.container {
-  height: 95%;
-  width: 100%;
+/**********************************************************
+
+                      Button Styles
+
+***********************************************************/
+
+.buttonToolbar {
+  position: relative;
+  margin-right: 17px;
+  margin-top: 17px;
+  float: right;
 }
 
-.main {
+.container {
   height: 100%;
-  background-color: rgba(255, 255, 255, .5);
-  display: block;
+  width: 100%;
+  padding-right: 0;
+  padding-left: 0;
 }
+
+#Button { 
+  border-radius: 30px;
+}
+
+#Button:hover {
+background-color: rgb(17,153,158);
+}
+
+.button {
+  display: inline-block;
+}
+
+
+
+
+/**********************************************************
+
+                        Art Styles
+
+***********************************************************/
 
 .mainArt {
   position: static;
   margin-left: 20px;
-  left: 22%;
   height: 100%;
-  width: 80%;
-}
-
-
-.ArtModal {
-  z-index: 1;
-}
-
-.UploadModal {
-  z-index: 2;
+  width: 100%;
 }
 
 .ArtModalButton {
@@ -76,29 +93,75 @@ body {
 }
 
 .artPiece {
-  height: 70px;
-  width: 140px;
+  height: 75px;
+  width: 150px;
   margin-bottom: 5px;
   border-bottom: 1px solid black;
 }
 
 .artContainer {
-  width: 20%;
+  width: 21.5%;
   height: 100%;
-  padding-right: 20px;
+  padding-right: 25px;
   border-right: 1px solid grey;
   overflow: auto;
 }
 
+.ArtComponent {
+  width: 100px;
+  height: 100px;
+}
+
+/**********************************************************
+
+                        Map Styles
+
+***********************************************************/
+
 .mapContainer {
-  position: left;
+
   display: inline-block;
-  height: 90%;
+  height: 60%;
   width: 100%;
-  float: left;
 }
 
 .map {
   height: 100%;
   width: 100%;
+}
+
+/**********************************************************
+
+                      InfoPage Styles
+
+***********************************************************/
+
+.infoContainer {
+  background-image: url(http://cdn.citylab.com/media/img/citylab/legacy/2012/05/14/willyscreen.jpg);
+  background-repeat: no-repeat;
+  background-size: 100% auto;
+  width: 100%;
+  height: 75%;
+  margin-top: -25px;
+}
+
+.infoPage {
+  position: relative;
+  width: 90%;
+  height: 80%;
+  background-color: rgba(10, 10, 10, .7);
+  left: 5%;
+  top: 10%;
+  text-align: center;
+  color: white;
+}
+
+.infoHeader {
+  position: relative;
+  top: 25px;
+  margin-bottom: 70px;
+}
+
+p {
+  font-size: 17px;
 }
