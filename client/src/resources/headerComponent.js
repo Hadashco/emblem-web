@@ -8,12 +8,11 @@ import UploadButton from './upload/UploadButton.js'
 export default function headerComponent(props) {
   return (
     <div className="header">
-      <h1>Welcome to <i>Emblem</i></h1>
       <ButtonToolbar className='buttonToolbar'>
-      	<AddMarkerButton />
-      	<UploadButton text='Art Library' />
-      	<FacebookButton />
+        <UploadButton text='Art Library' />
+        <FacebookButton />
       </ButtonToolbar>
+      <h1>Welcome to <i>Emblem</i></h1>
     </div>
   );
 }
