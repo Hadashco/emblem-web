@@ -10,7 +10,7 @@ router.get('/', (req, res) => {
 });
 
 router.post('/', (req, res) => {
-  Place.create({ long: req.body.long, lat: req.body.lat })
+  Place.create({ long: req.body.long, lat: req.body.lat, sector: req.body.sector })
     .then(place => {
       sockets.broadcast('place/createPlace', place);
       res.send(JSON.stringify(place));
@@ -20,7 +20,7 @@ router.post('/', (req, res) => {
 router.post('/:id', (req, res) => {
   Art.findById(req.params.id)
     .then(art => {
-      return Place.find({id: req.params.id})
+      return Place.find({ id: req.params.id })
         .then(place => {
           return place.addArt(art);
         })
