@@ -8,7 +8,7 @@ class UploadButton extends React.Component {
 	}
 
 	render() {
-		return <Button id='Button' className={this.props.class || this.props.className} onClick={this.props.clickFunc || this.props.switchArtModalState}>{ this.props.text }</Button>
+		return <Button className='uibutton' onClick={this.props.clickFunc || this.props.switchArtModalState}>{ this.props.text }</Button>
 	}
 }
 
