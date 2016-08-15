@@ -1,10 +1,6 @@
 import React from 'react';
 import { Button } from 'react-bootstrap';
 
-const fbButtonStyles = {
-  borderRadius: 30 + 'px'
-}
-
 export default class FacebookButton extends React.Component {
   constructor(props) {
     super(props);
@@ -25,7 +21,7 @@ export default class FacebookButton extends React.Component {
 
   render() {
     return (
-      <Button className='button' bsStyle="primary" style={ fbButtonStyles } onClick={this.handleClick}>Login with Facebook</Button>
+      <Button className='uibutton confirm' onClick={this.handleClick}>Login with Facebook</Button>
     );
   }
 }
