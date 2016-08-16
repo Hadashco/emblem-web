@@ -1,12 +1,12 @@
 const router = require('express').Router();
 const sockets = require('../../sockets');
 const db = require('../../db/db');
-const { Place, ArtPlace } = db;
+const { Place } = db;
 
-// Add a new place
+// Add a new places
 router.post('/', (req, res) => {
-  // sector = lat.toFixed(5) + long.toFixed(5);
-  Place.create({ long: req.body.long, lat: req.body.lat, sector: req.body.sector })
+  const sector = req.body.lat.toFixed(5) + req.body.long.toFixed(5);
+  Place.create({ long: req.body.long, lat: req.body.lat, sector })
     .then(place => {
       place.setUser(req.user); // add creator ID
       sockets.broadcast('place/createPlace', place);
@@ -28,39 +28,24 @@ router.get('/:id', (req, res) => {
       if (place) {
         res.status(200).json(place);
       } else {
-        res.status(200).json('Place not found');
+        res.status(200).send('Place not found');
       }
     })
     .catch(err => res.status(401).send(JSON.stringify(err)));
 });
-
-
-/* ***************************************************************
-
-                      TEST FROM MOBILE APP
-
-*****************************************************************/
 
 // Get all art at a specific place
 // Assumes that input includes:
   // placeId in route
 router.get('/:id/art', (req, res) => {
   Place.findById(req.params.id)
-    .then(foundPlace => {
-      if (foundPlace) {
-        ArtPlace.findAll({ where: { PlaceId: req.params.id } })
-          .then(arts => {
-            if (arts) {
-              res.json(arts);
-            } else {
-              res.status(200).send(JSON.stringify(`No art found with placeId ${req.params.id}`));
-            }
-          });
-      } else {
-        res.status(200).send(JSON.stringify('Place not found'));
-      }
-    })
-    .catch(err => res.status(401).send(JSON.stringify(err)));
+    .then(place => {
+      place.getArts()
+        .then(arts => {
+          res.status(200).json(arts);
+        })
+        .catch(err => res.status(401).send(JSON.stringify(err)));
+    });
 });
 
 module.exports = router;

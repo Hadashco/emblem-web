@@ -31,8 +31,11 @@ router.post('/', (req, res) => {
 
 // Get specific art
 router.get('/:id', (req, res) => {
-  console.log(req.params.id);
-  res.send('this is an art with an id');
+  Art.findById(req.params.id)
+    .then(art => {
+      res.status(200).json(art);
+    })
+    .catch(err => res.status(401).send(JSON.stringify(err)));
 });
 
 // Get all art
@@ -45,22 +48,17 @@ router.get('/', (req, res) => {
     .catch(err => res.status(401).send(JSON.stringify(err)));
 });
 
-/* ***************************************************************
-
-                      TEST FROM MOBILE APP
-
-*****************************************************************/
-
 // Post art to a specific place
 // Assumes that input includes:
     // artId in route
-    // latitude, longitude
+    // latitude (lat), longitude (long)
 router.post('/:id/place', (req, res) => {
   let globalArt;
   Art.findById(req.params.id)
     .then(art => {
       globalArt = art;
-      Place.findAll({ where: { lat: req.body.lat, long: req.body.long } })
+      const sector = req.body.lat.toFixed(5) + req.body.long.toFixed(5);
+      Place.findAll({ where: { sector } })
         .then(place => {
           if (place) {
             globalArt.addPlace(place)
@@ -69,7 +67,7 @@ router.post('/:id/place', (req, res) => {
             Place.create({
               long: req.body.long,
               lat: req.body.lat,
-              sector: req.body.lat.toFixed(5) + req.body.long.toFixed(5),
+              sector,
             })
             .then(newPlace => {
               globalArt.addPlace(newPlace);
@@ -86,15 +84,16 @@ router.post('/:id/place', (req, res) => {
     // artId in route
     // comment title
 router.post('/:id/comment', (req, res) => {
-  let globalArt;
   Art.findById(req.params.id)
     .then(art => {
       if (art) {
-        globalArt = art;
         art.createComment({
           title: req.body.title,
         })
-        .then(() => res.json(globalArt))
+        .then(comment => {
+          comment.setUser(req.user); // add creator ID
+          res.json(comment);
+        })
         .catch(err => res.status(401).send(JSON.stringify(err)));
       } else {
         res.status(200).send(JSON.stringify(`No artwork associated with id ${req.params.id}`));
@@ -124,14 +123,41 @@ router.get('/:id/comment', (req, res) => {
     // vote value (+1 or -1)
     // add to art upvote / downvote
 router.post('/:id/vote', (req, res) => {
-  Art.findById('/:id/vote', (req, res) => {
-    // .then(art => {
-    //   art.createVote({
-    //     value: req.body.vote,
-    //   })
-    //   .then(()
-    // })
-  });
+  let globalArt;
+  Art.findById(req.params.id)
+    .then(art => {
+      if (art) {
+        globalArt = art;
+        art.createVote({
+          value: req.body.vote,
+        })
+        .then(vote => {
+          console.log('---- vote:', req.body.vote);
+          vote.setUser(req.user); // add creator ID
+          if (req.body.vote > 0) globalArt.increment('upvotes');
+          if (req.body.vote < 0) globalArt.increment('downvotes');
+          res.status(200).json(vote);
+        })
+        .catch(err => res.status(401).send(JSON.stringify(err)));
+      } else {
+        res.status(200).send(JSON.stringify(`No artwork associated with id ${req.params.id}`));
+      }
+    });
+});
+
+router.get('/:id/vote', (req, res) => {
+  Art.findById(req.params.id)
+    .then(art => {
+      if (art) {
+        art.getVotes()
+          .then(votes => {
+            res.status(200).json(votes);
+          })
+          .catch(err => res.status(401).send(JSON.stringify(err)));
+      } else {
+        res.status(200).send(JSON.stringify(`No artwork associated with id ${req.params.id}`));
+      }
+    });
 });
 
 module.exports = router;

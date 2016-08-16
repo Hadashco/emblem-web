@@ -7,9 +7,13 @@ module.exports = function Art(db, Sequelize) {
     // Tracked in votes model, sum saved for ease of access
     upvotes: {
       type: Sequelize.INTEGER,
+      defaultValue: 0,
+      allowNull: false,
     },
     downvotes: {
       type: Sequelize.INTEGER,
+      defaultValue: 0,
+      allowNull: false,
     },
   });
 };
