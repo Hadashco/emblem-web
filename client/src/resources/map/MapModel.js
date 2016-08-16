@@ -32,7 +32,6 @@ const mapDispatchToProps = dispatch => (
       const lat = marker.position.lat();
       const long = marker.position.lng();
       const sector = lat.toFixed(5) + long.toFixed(5);
-      console.log('sector:', sector);
       fetch('/place', {
         method: 'POST',
         credentials: 'same-origin',

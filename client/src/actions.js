@@ -81,7 +81,7 @@ actions.emptyToUploadFiles = (previousState) => {
   upload.toUpload = newUpload;
   let newState = Object.assign({}, previousState, { upload });
   return newState;
-}
+};
 
 actions.populateArtFiles = (previousState, data) => {
   let upload = previousState.upload;
@@ -94,7 +94,7 @@ actions.populateArtFiles = (previousState, data) => {
   upload.files = newFiles;
   const newState = Object.assign({}, previousState, { upload });
   return newState;
-}
+};
 
 actions.updateCurrentArt = (previousState, data) => {
   let upload = previousState.upload;
@@ -103,6 +103,7 @@ actions.updateCurrentArt = (previousState, data) => {
   upload.currentArt = newUpload;
   let newState = Object.assign({}, previousState, { upload });
   return newState;
-}
+};
+
 
 export { actions };
