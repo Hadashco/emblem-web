@@ -35,8 +35,7 @@ router.get('/:id', (req, res) => {
 });
 
 // Get all art at a specific place
-// Assumes that input includes:
-  // placeId in route
+// Assumes that input includes: 1) placeId in route
 router.get('/:id/art', (req, res) => {
   Place.findById(req.params.id)
     .then(place => {

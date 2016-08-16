@@ -132,7 +132,6 @@ router.post('/:id/vote', (req, res) => {
           value: req.body.vote,
         })
         .then(vote => {
-          console.log('---- vote:', req.body.vote);
           vote.setUser(req.user); // add creator ID
           if (req.body.vote > 0) globalArt.increment('upvotes');
           if (req.body.vote < 0) globalArt.increment('downvotes');
@@ -145,6 +144,7 @@ router.post('/:id/vote', (req, res) => {
     });
 });
 
+// Get votes for a specific Art ID
 router.get('/:id/vote', (req, res) => {
   Art.findById(req.params.id)
     .then(art => {

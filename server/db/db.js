@@ -7,13 +7,7 @@ const Art = require('../resources/art/artModel')(db, Sequelize);
 const Place = require('../resources/place/placeModel')(db, Sequelize);
 const Comment = require('../resources/comment/commentModel')(db, Sequelize);
 const Vote = require('../resources/vote/voteModel')(db, Sequelize);
-
-const ArtPlace = db.define('ArtPlace', {
-  active: Sequelize.BOOLEAN,
-  upvotes: Sequelize.INTEGER,   // Track total sum
-  downvotes: Sequelize.INTEGER, // stored in votes model
-  // TODO: add photo of marker location
-});
+const ArtPlace = require('../resources/artPlace/artPlaceModel')(db, Sequelize);
 
 Place.belongsToMany(Art, { through: ArtPlace });
 Art.belongsToMany(Place, { through: ArtPlace });
@@ -21,14 +15,14 @@ Art.belongsToMany(Place, { through: ArtPlace });
 Art.belongsTo(User);
 Place.belongsTo(User); // Originally posted by
 
+Comment.belongsTo(User);
+Vote.belongsTo(User);
 
 /* ***************************************************************
 
                       COMMENTS
 
 *****************************************************************/
-
-Comment.belongsTo(User);
 
 // Asign comments to ArtPlace
 ArtPlace.hasMany(Comment, {
@@ -64,9 +58,6 @@ Comment.belongsTo(Art, {
                       VOTES
 
 *****************************************************************/
-
-
-Vote.belongsTo(User);
 
 // Asign votes to ArtPlace
 ArtPlace.hasMany(Vote, {

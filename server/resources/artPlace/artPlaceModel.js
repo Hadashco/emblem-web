@@ -1,5 +1,11 @@
 module.exports = function ArtPlace(db, Sequelize) {
   return db.define('ArtPlace', {
+    _id: {
+      type: Sequelize.INTEGER,
+      allowNull: false,
+      primaryKey: true,
+      autoIncrement: true,
+    },
     active: Sequelize.BOOLEAN,
     upvotes: {
       type: Sequelize.INTEGER,
