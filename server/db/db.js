@@ -10,6 +10,8 @@ const Vote = require('../resources/vote/voteModel')(db, Sequelize);
 
 const ArtPlace = db.define('ArtPlace', {
   active: Sequelize.BOOLEAN,
+  upvotes: Sequelize.INTEGER,   // Track total sum
+  downvotes: Sequelize.INTEGER, // stored in votes model
   // TODO: add photo of marker location
 });
 
@@ -19,8 +21,14 @@ Art.belongsToMany(Place, { through: ArtPlace });
 Art.belongsTo(User);
 Place.belongsTo(User); // Originally posted by
 
-// Comment.belongsTo(User);
-// Vote.belongsTo(User);
+
+/* ***************************************************************
+
+                      COMMENTS
+
+*****************************************************************/
+
+Comment.belongsTo(User);
 
 // Asign comments to ArtPlace
 ArtPlace.hasMany(Comment, {
@@ -51,7 +59,16 @@ Comment.belongsTo(Art, {
 });
 
 
-// Asign votest to ArtPlace
+/* ***************************************************************
+
+                      VOTES
+
+*****************************************************************/
+
+
+Vote.belongsTo(User);
+
+// Asign votes to ArtPlace
 ArtPlace.hasMany(Vote, {
   foreignKey: 'voteable_id',
   constraints: false,
@@ -65,8 +82,7 @@ Vote.belongsTo(ArtPlace, {
   as: 'vote',
 });
 
-
-// Asign votest to Art
+// Asign votes to Art
 Art.hasMany(Vote, {
   foreignKey: 'voteable_id',
   constraints: false,
@@ -80,6 +96,11 @@ Vote.belongsTo(Art, {
   as: 'vote',
 });
 
+/* ***************************************************************
+
+                      DATABASE EXPORTS
+
+*****************************************************************/
 
 module.exports = {
   db,
@@ -88,4 +109,5 @@ module.exports = {
   User,
   Comment,
   Vote,
+  ArtPlace,
 };

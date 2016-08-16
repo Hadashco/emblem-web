@@ -2,9 +2,8 @@ const fs = require('fs');
 const path = require('path');
 const mkdirp = require('mkdirp');
 const router = require('express').Router();
-const sockets = require('../../sockets');
-const Art = require('../../db/db').Art;
-const Place = require('../../db/db').Place;
+const db = require('../../db/db');
+const { Art, Place, ArtPlace, Comment, Vote } = db;
 const storagePath = path.join(__dirname.concat('/../../storage/art'));
 
 // Post and store new art
@@ -46,7 +45,7 @@ router.get('/', (req, res) => {
     .catch(err => res.status(401).send(JSON.stringify(err)));
 });
 
-/****************************************************************
+/* ***************************************************************
 
                       TEST FROM MOBILE APP
 
@@ -60,7 +59,7 @@ router.get('/place', (req, res) => {
   Place.findAll({ where: { lat: req.body.lat, long: req.body.long } })
     .then(foundPlace => {
       if (foundPlace) {
-        Art.findAll({ where: { placeId: foundPlace.id } })
+        ArtPlace.findAll({ where: { placeId: foundPlace.id } })
           .then(arts => {
             res.json(arts);
           });
@@ -74,12 +73,12 @@ router.get('/place', (req, res) => {
 
 // Post art to a specific place
 // Assumes that input includes:
-    // artId
+    // artId in route
     // latitude, longitude
-router.post('/place', (req, res) => {
+router.post('/:id/place', (req, res) => {
   Place.findAll({ where: { lat: req.body.lat, long: req.body.long } })
     .then(foundPlace => {
-      Art.findAll({ where: { id: req.body.artId } })
+      Art.findById(req.params.id)
         .then(art => {
           if (foundPlace) {
             art.addPlace(foundPlace);
@@ -95,8 +94,61 @@ router.post('/place', (req, res) => {
           }
         })
         .then(() => res.json(req.art))
-        .catch(err => res.status(401).send(JSON.stringify(err)));
+      .catch(err => res.status(401).send(JSON.stringify(err)));
     });
+});
+
+// Add comment to art
+// Assumes that input includes:
+    // artId in route
+    // comment title
+router.post('/:id/comment', (req, res) => {
+  let globalArt;
+  Art.findById(req.params.id)
+    .then(art => {
+      if (art) {
+        globalArt = art;
+        art.createComment({
+          title: req.body.title,
+        })
+        .then(() => res.json(globalArt))
+        .catch(err => res.status(401).send(JSON.stringify(err)));
+      } else {
+        res.status(200).send(JSON.stringify(`No artwork associated with id ${req.params.id}`));
+      }
+    });
+});
+
+// Get all comments for art
+router.get('/:id/comment', (req, res) => {
+  Art.findById(req.params.id)
+    .then(art => {
+      if (art) {
+        art.getComments()
+          .then(comments => {
+            res.status(200).json(comments);
+          })
+          .catch(err => res.status(401).send(JSON.stringify(err)));
+      } else {
+        res.status(200).send(JSON.stringify(`No artwork associated with id ${req.params.id}`));
+      }
+    });
+});
+
+// Add vote to vote model, increment art upvote / downvote
+// Assumes that input includes:
+    // artId in route
+    // vote value (+1 or -1)
+    // add to art upvote / downvote
+router.post('/:id/vote', (req, res) => {
+  Art.findById('/:id/vote', (req, res) => {
+    // .then(art => {
+    //   art.createVote({
+    //     value: req.body.vote,
+    //   })
+    //   .then(()
+    // })
+  });
 });
 
 module.exports = router;
