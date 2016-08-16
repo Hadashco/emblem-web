@@ -1,7 +1,7 @@
 import React from 'react';
 import Modal from 'react-modal';
 import { Button, ButtonToolbar } from 'react-bootstrap';
-import {connection} from './uploadState.js';
+import { connection } from './uploadState.js';
 import UploadButton from './UploadButton.js';
 import DropzoneView from './DropzoneView';
 import SaveButton from './SaveButton.js';

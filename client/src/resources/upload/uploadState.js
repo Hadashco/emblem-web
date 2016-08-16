@@ -24,7 +24,6 @@ const uploadDispatchToProps = dispatch => {
               'Accept': 'application/octet-stream',
               'Content-Type': 'application/octet-stream',
               'File-Type': file.type,
-              'UserId': '1',
             },
             credentials: 'same-origin',
             method: 'POST',
