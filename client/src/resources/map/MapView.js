@@ -32,7 +32,6 @@ class MapView extends React.Component {
   render() {
     return (
       <span>
-        <AddMarkerButton />
         <section className="map">
           <GoogleMapLoader
             containerElement={

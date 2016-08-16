@@ -40,6 +40,7 @@ router.get('/:id', (req, res) => {
 router.get('/', (req, res) => {
   Art.findAll()
     .then(arts => {
+      console.log(JSON.stringify(arts), 'this is what is being sent back');
       res.status(200).send(JSON.stringify(arts));
     })
     .catch(err => res.status(401).send(JSON.stringify(err)));
