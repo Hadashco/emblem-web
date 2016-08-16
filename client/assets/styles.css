@@ -204,9 +204,11 @@ http://github.com/necolas/css3-facebook-buttons
 
 ***********************************************************/
 
-.preview div {
+.preview img {
   width: 100px;
   height: 100px;
+  margin-right: 3px;
+  margin-bottom: 10px;
 }
 
 /**********************************************************

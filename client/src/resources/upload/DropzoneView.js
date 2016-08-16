@@ -13,9 +13,6 @@ class DropzoneView extends React.Component {
     this.props.addDragAndDropFiles(file);
   }
 
-  // TODO: Add preview
-  //       https://github.com/okonet/react-dropzone
-  //       http://reactdropzone.azurewebsites.net/example/
   render() {
     return (
       <div>
@@ -26,16 +23,8 @@ class DropzoneView extends React.Component {
         <h2>Uploading {this.props.toUpload.length} files...</h2>
         <div className='preview'>
           {this.props.toUpload.map((file) => {
-            console.log(file);
-            var divStyle = {
-              display: 'inline-block',
-              marginRight: 3 + 'px',
-              backgroundImage: 'url(' + file[0].preview + ')', 
-              backgroundSize: 'cover'
-            };
-            console.log(divStyle);
             return (
-              <div style={divStyle}></div>
+              <img src={file[0].preview}/>
               )
           })}</div>
           </div> : null}
