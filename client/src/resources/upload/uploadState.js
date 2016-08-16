@@ -48,8 +48,8 @@ const uploadDispatchToProps = dispatch => {
         },
         method: 'GET',
         credentials: 'same-origin',
-      }).then(response => response.json()).then(body => {
-        console.log('this is the response', body);
+      }).then(response => response.json())
+      .then(body => {
         dispatch({ type: 'populateArtFiles', data: body });
       });
     },
