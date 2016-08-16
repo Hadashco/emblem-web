@@ -41,6 +41,11 @@ const mapDispatchToProps = dispatch => (
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({ lat, long, sector }),
+      }).catch(err => {
+        msg.show('Unauthorized access, please log in', {
+          time: 5000,
+          type: 'error',
+        });
       }).then(response => {
         return response.json();
       });

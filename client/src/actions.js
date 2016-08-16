@@ -3,6 +3,21 @@ let actions = {};
 
 /****************************************************************
 
+                         AUTHENTICATION
+
+*****************************************************************/
+
+actions.changeAuth = (previousState) => {
+  let auth = Object.assign({}, previousState.auth);
+  let isAuthorized = previousState.auth.isAuthorized;
+  let newAuth = !isAuthorized;
+  auth.isAuthorized = newAuth;
+  let newState = Object.assign({}, previousState, { auth });
+  return newState;
+};
+
+/****************************************************************
+
                           MAP ACTIONS
 
 *****************************************************************/
