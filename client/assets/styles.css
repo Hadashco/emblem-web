@@ -153,7 +153,7 @@ http://github.com/necolas/css3-facebook-buttons
 .mainArt {
   position: static;
   margin-left: 20px;
-  height: 100%;
+  height: 500px;
   width: 100%;
 }
 
@@ -162,15 +162,15 @@ http://github.com/necolas/css3-facebook-buttons
 }
 
 .artPiece {
-  height: 75px;
-  width: 150px;
+  height: 100px;
+  width: 100%;
   margin-bottom: 5px;
   border-bottom: 1px solid black;
 }
 
 .artContainer {
   width: 21.5%;
-  height: 100%;
+  height: 500px;
   padding-right: 25px;
   border-right: 1px solid grey;
   overflow: auto;
@@ -188,7 +188,6 @@ http://github.com/necolas/css3-facebook-buttons
 ***********************************************************/
 
 .mapContainer {
-
   display: inline-block;
   height: 60%;
   width: 100%;
@@ -197,6 +196,17 @@ http://github.com/necolas/css3-facebook-buttons
 .map {
   height: 100%;
   width: 100%;
+}
+
+/**********************************************************
+
+                      Upload Styles
+
+***********************************************************/
+
+.preview div {
+  width: 100px;
+  height: 100px;
 }
 
 /**********************************************************

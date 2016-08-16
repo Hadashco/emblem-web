@@ -13,7 +13,8 @@ const customStyles = {
     right: 0,
     bottom: 0,
     backgroundColor: 'rgba(239, 249, 245, 0.74902)',
-    zIndex: 1
+    zIndex: 1,
+    overflow: 'auto'
   },
   content: {
     position: 'relative',
@@ -52,15 +53,16 @@ class ArtSelector extends React.Component {
     constructor(props) {
       super(props);
       
-      this.art = [{id: 12}, {id: 13}, {id: 14}]//this.props.files.splice(12, this.props.files.length-13);
+      this.art = [];
     }
 
     componentDidMount() {
-      this.props.populateArtFiles();
+      this.props.populateArtFiles();//.then(this.art = this.props.files);
     }
 
 
     render() {
+      this.art = this.props.files
       console.log('artSelector Objects:', this.art);
       var context = this;
       return (

@@ -24,8 +24,21 @@ class DropzoneView extends React.Component {
         </Dropzone>
         {this.props.toUpload.length > 0 ? <div>
         <h2>Uploading {this.props.toUpload.length} files...</h2>
-        <div>{this.props.toUpload.map((file) => <img src={file.preview} /> )}</div>
-        </div> : null}
+        <div className='preview'>
+          {this.props.toUpload.map((file) => {
+            console.log(file);
+            var divStyle = {
+              display: 'inline-block',
+              marginRight: 3 + 'px',
+              backgroundImage: 'url(' + file[0].preview + ')', 
+              backgroundSize: 'cover'
+            };
+            console.log(divStyle);
+            return (
+              <div style={divStyle}></div>
+              )
+          })}</div>
+          </div> : null}
       </div>
     );
   }

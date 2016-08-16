@@ -87,8 +87,8 @@ actions.populateArtFiles = (previousState, data) => {
   let upload = previousState.upload;
   let files = previousState.upload.files;
   let newFiles = files.slice();
-  console.log(data.body, 'THIS IS THE DATA');
-  data.body.toString().forEach(dataChunk => {
+  data.forEach(dataChunk => {
+    console.log(dataChunk);
     newFiles.push(dataChunk);
   });
   upload.files = newFiles;

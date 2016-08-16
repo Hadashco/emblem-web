@@ -15,6 +15,7 @@ const uploadDispatchToProps = dispatch => {
     },
     uploadFiles: (files) => {
       files.forEach(file => {
+        file = file[0];
         const fileReader = new FileReader(file);
         fileReader.readAsArrayBuffer(file);
         fileReader.onload = e => {
@@ -29,7 +30,7 @@ const uploadDispatchToProps = dispatch => {
             credentials: 'same-origin',
             method: 'POST',
             body: arrayBufferStr,
-          });
+          })
         };
       });
       dispatch({ type: 'uploadFiles', data: files });
@@ -42,14 +43,15 @@ const uploadDispatchToProps = dispatch => {
     },
     populateArtFiles: () => {
       fetch('/art', {
-        method: 'GET',
-        credentials: 'same-origin',
         headers: {
           'Accept': 'application/json',
           'Content-Type': 'application/json',
         },
-      }).then(response => {
-        dispatch({ type: 'populateArtFiles', data: response });
+        method: 'GET',
+        credentials: 'same-origin',
+      }).then(response => response.json()).then(body => {
+        console.log('this is the response', body);
+        dispatch({ type: 'populateArtFiles', data: body });
       });
     },
     updateCurrentArt: (data) => {

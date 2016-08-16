@@ -11,7 +11,7 @@ class SaveButton extends React.Component {
   }
 
   onSave() {
-    this.props.uploadFiles(this.props.toUpload[0]);
+    this.props.uploadFiles(this.props.toUpload);
     this.props.emptyToUploadFiles();
   }
 
