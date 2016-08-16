@@ -14,8 +14,8 @@ class DropzoneView extends React.Component {
   }
 
   // TODO: Add preview
-  //       https://github.com/okonet/react-dropzone 
-  //       http://reactdropzone.azurewebsites.net/example/ 
+  //       https://github.com/okonet/react-dropzone
+  //       http://reactdropzone.azurewebsites.net/example/
   render() {
     return (
       <div>

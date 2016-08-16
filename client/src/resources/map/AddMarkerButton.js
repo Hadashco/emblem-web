@@ -13,7 +13,13 @@ class AddMarkerButton extends React.Component {
   }
 
   render() {
-    return <Button className='uibutton' onClick={this.setMarkerAddState}>Add Art</Button>
+    return (
+      <Button
+        className="addMarkerButton"
+        bsStyle="danger"
+        onClick={this.setMarkerAddState}
+      >Add Marker</Button>
+    );
   }
 }
 
