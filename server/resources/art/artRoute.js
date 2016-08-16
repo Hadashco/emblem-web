@@ -3,7 +3,7 @@ const path = require('path');
 const mkdirp = require('mkdirp');
 const router = require('express').Router();
 const db = require('../../db/db');
-const { Art, Place, ArtPlace, Comment, Vote } = db;
+const { Art, Place } = db;
 const storagePath = path.join(__dirname.concat('/../../storage/art'));
 
 // Post and store new art
@@ -51,37 +51,20 @@ router.get('/', (req, res) => {
 
 *****************************************************************/
 
-
-// Get all art at a specific place
-// Assumes that input includes:
-    // latitude, longitude
-router.get('/place', (req, res) => {
-  Place.findAll({ where: { lat: req.body.lat, long: req.body.long } })
-    .then(foundPlace => {
-      if (foundPlace) {
-        ArtPlace.findAll({ where: { placeId: foundPlace.id } })
-          .then(arts => {
-            res.json(arts);
-          });
-      } else {
-        res.status(200).send(JSON.stringify('No art found at this location'));
-      }
-    })
-    .catch(err => res.status(401).send(JSON.stringify(err)));
-});
-
-
 // Post art to a specific place
 // Assumes that input includes:
     // artId in route
     // latitude, longitude
 router.post('/:id/place', (req, res) => {
-  Place.findAll({ where: { lat: req.body.lat, long: req.body.long } })
-    .then(foundPlace => {
-      Art.findById(req.params.id)
-        .then(art => {
-          if (foundPlace) {
-            art.addPlace(foundPlace);
+  let globalArt;
+  Art.findById(req.params.id)
+    .then(art => {
+      globalArt = art;
+      Place.findAll({ where: { lat: req.body.lat, long: req.body.long } })
+        .then(place => {
+          if (place) {
+            globalArt.addPlace(place)
+              .then(res.json(globalArt));
           } else {
             Place.create({
               long: req.body.long,
@@ -89,12 +72,12 @@ router.post('/:id/place', (req, res) => {
               sector: req.body.lat.toFixed(5) + req.body.long.toFixed(5),
             })
             .then(newPlace => {
-              art.addPlace(newPlace);
-            });
+              globalArt.addPlace(newPlace);
+            })
+            .then(res.json(globalArt));
           }
         })
-        .then(() => res.json(req.art))
-      .catch(err => res.status(401).send(JSON.stringify(err)));
+        .catch(err => res.status(401).send(JSON.stringify(err)));
     });
 });
 
