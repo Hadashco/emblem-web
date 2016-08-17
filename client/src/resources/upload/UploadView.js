@@ -9,12 +9,15 @@ import SaveButton from './SaveButton.js';
 const customStyles = {
   overlay: {
     position: 'fixed',
-    top: 0,
-    left: 0,
+    height: 500 + 'px',
+    width: 900 + 'px',
+    top: 70,
+    left: 150,
     right: 0,
     bottom: 0,
-    backgroundColor: 'rgba(255, 255, 255, 0.74902)',
-    zIndex: 2
+    backgroundColor: 'rgba(239, 249, 245, 0.74902)',
+    zIndex: 2,
+    overflow: 'auto'
   }
 }
 

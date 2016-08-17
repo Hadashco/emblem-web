@@ -11,6 +11,10 @@ class MapView extends React.Component {
     this.onMarkerRightclick = this.onMarkerRightclick.bind(this);
   }
 
+  componentDidMount() {
+    this.props.populateMarkers();
+  }
+
   onMapClick(event) {
     if (this.props.addMarkerToMapState) {
       this.props.addMarker(

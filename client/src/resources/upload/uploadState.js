@@ -1,5 +1,6 @@
 import { connect } from 'react-redux';
 import { addToActions } from '../../Store.js';
+import React from 'react';
 
 const uploadStateToProps = state => {
   return { artModalState: state.upload.artModalState, modalState: state.upload.modalState, files: state.upload.files, toUpload: state.upload.toUpload, currentArt: state.upload.currentArt };
@@ -29,6 +30,11 @@ const uploadDispatchToProps = dispatch => {
             credentials: 'same-origin',
             method: 'POST',
             body: arrayBufferStr,
+          }).catch(err => {
+                msg.show('Please log in to get all of our awesome features!', {
+                  time: 5000,
+                  type: 'info',
+            });
           })
         };
       });
@@ -48,8 +54,15 @@ const uploadDispatchToProps = dispatch => {
         },
         method: 'GET',
         credentials: 'same-origin',
-      }).then(response => response.json()).then(body => {
-        console.log('this is the response', body);
+      }).then(response => {
+        return response.json();})
+      .catch(err => {
+        msg.show('Please log in to get all of our awesome features!', {
+          time: 5000,
+          type: 'info',
+    });
+      })
+      .then(body => {
         dispatch({ type: 'populateArtFiles', data: body });
       });
     },

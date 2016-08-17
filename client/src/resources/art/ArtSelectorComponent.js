@@ -34,12 +34,10 @@ const customStyles = {
 class ArtComponent extends React.Component {
 	constructor(props) {
 		super(props);
-    console.log(props)
     this.showPhoto = this.showPhoto.bind(this);
   }
     
     showPhoto(id) {
-      console.log(this.props);
       this.props.photoClick(id);
     }
 
@@ -57,13 +55,12 @@ class ArtSelector extends React.Component {
     }
 
     componentDidMount() {
-      this.props.populateArtFiles();//.then(this.art = this.props.files);
+      this.props.populateArtFiles();
     }
 
 
     render() {
       this.art = this.props.files
-      console.log('artSelector Objects:', this.art);
       var context = this;
       return (
         <Modal

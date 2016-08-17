@@ -1,8 +1,12 @@
 import { createStore } from 'redux';
+import {persistStore, autoRehydrate} from 'redux-persist';
 import { actions as globalActions } from './Actions.js';
 
 // actions object where keys are action names and value is action
 let defaultState = {
+  auth: {
+    isAuthorized: false,
+  },
   map: {
     markers: [],
     addMarkerToMapState: false,
@@ -31,6 +35,8 @@ const addToActions = (newActions) => {
   actions = Object.assign({}, actions, newActions);
 };
 
-const store = createStore(reducer);
+const store = createStore(reducer, undefined, autoRehydrate());
+persistStore(store);
+// const store = createStore(reducer);
 
 export { store, addToActions };

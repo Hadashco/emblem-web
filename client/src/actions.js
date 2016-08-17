@@ -3,18 +3,33 @@ let actions = {};
 
 /****************************************************************
 
+                         AUTHENTICATION
+
+*****************************************************************/
+
+actions.changeAuth = (previousState) => {
+  let auth = Object.assign({}, previousState.auth);
+  let isAuthorized = previousState.auth.isAuthorized;
+  let newAuth = !isAuthorized;
+  auth.isAuthorized = newAuth;
+  let newState = Object.assign({}, previousState, { auth });
+  return newState;
+};
+
+/****************************************************************
+
                           MAP ACTIONS
 
 *****************************************************************/
 
 
 actions.addMarker = (previousState, data) => {
-  const map = previousState.map;
-  const markers = previousState.map.markers;
-  const newMarker = markers.slice();
+  let map = previousState.map;
+  let markers = previousState.map.markers;
+  let newMarker = markers.slice();
   newMarker.push(data);
   map.markers = newMarker;
-  const newState = Object.assign({}, previousState, { map });
+  let newState = Object.assign({}, previousState, { map });
   return newState;
 };
 
@@ -23,6 +38,19 @@ actions.addMarkerToMapStateSwitch = (previousState) => {
   const addMarkerToMapState = previousState.map.addMarkerToMapState;
   const newMarkerAddState = !addMarkerToMapState;
   map.addMarkerToMapState = newMarkerAddState;
+  const newState = Object.assign({}, previousState, { map });
+  return newState;
+};
+
+actions.populateMarkers = (previousState, data) => {
+  let map = previousState.map;
+  let markers = previousState.map.markers;
+  let newFiles = markers.slice();
+  data.forEach(dataChunk => {
+    console.log(dataChunk);
+    newFiles.push(dataChunk);
+  });
+  map.markers = newFiles;
   const newState = Object.assign({}, previousState, { map });
   return newState;
 };

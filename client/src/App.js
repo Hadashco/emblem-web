@@ -9,6 +9,15 @@ import { socket } from './Socket';
 import UploadView from './resources/upload/UploadView';
 import ArtSelectorComponent from './resources/art/ArtSelectorComponent.js';
 import InfoPage from './resources/stateless/InfoPage.js';
+import AlertContainer from 'react-alert';
+
+const alertOptions = {
+  offset: 60,
+  position: 'top right',
+  theme: 'light',
+  time: 5000,
+  transition: 'scale'
+};
 
 class Dashboard extends React.Component {
 
@@ -19,6 +28,7 @@ class Dashboard extends React.Component {
           <Header />
           <UploadView />
           <ArtSelectorComponent />
+          <AlertContainer ref={(a) => global.msg = a} {...alertOptions}/>
         </div>
         <div className="container">
           <div className="mapContainer"><MapView /></div>

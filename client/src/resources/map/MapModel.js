@@ -19,7 +19,8 @@ actions.removeMarker = (previousState, data) => {
 
 const mapStateToProps = state => {
   return (
-    { markers: state.map.markers,
+    { 
+      markers: state.map.markers,
       addMarkerToMapState: state.map.addMarkerToMapState,
       modalState: state.upload.modalState,
     }
@@ -40,12 +41,30 @@ const mapDispatchToProps = dispatch => (
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({ lat, long, sector }),
+      }).catch(err => {
+        msg.show('Unauthorized access, please log in', {
+          time: 5000,
+          type: 'error',
+        });
       }).then(response => {
         return response.json();
       });
     },
     removeMarker: index => {
       dispatch({ type: 'removeMarker', data: index });
+    },
+    populateMarkers: () => {
+      fetch('/place', {
+        method: 'GET',
+        credentials: 'same-origin',
+        headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json',
+        }
+      }).then(response => response.json()).then(body => {
+          dispatch({ type: 'populateMarkers', data: body })
+        }
+      )
     },
     addMarkerToMapStateSwitch: bool => {
       dispatch({ type: 'addMarkerToMapStateSwitch' });
