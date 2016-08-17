@@ -29,6 +29,17 @@ router.post('/', (req, res) => {
     .catch(err => res.status(401).send(JSON.stringify(err)));
 });
 
+// Delete art (WIP)
+router.get('/:id/delete', (req, res) => {
+  Art.findById(req.params.id)
+    .then(art => {
+      art.destroy();
+      // TODO: Remove file
+      res.status(200).json(art);
+    })
+    .catch(err => res.status(401).send(JSON.stringify(err)));
+});
+
 // Get specific art
 router.get('/:id', (req, res) => {
   Art.findById(req.params.id)
@@ -60,7 +71,7 @@ router.post('/:id/place', (req, res) => {
       const sector = req.body.lat.toFixed(5) + req.body.long.toFixed(5);
       Place.findAll({ where: { sector } })
         .then(place => {
-          if (place) {
+          if (place.length > 0) {
             globalArt.addPlace(place)
               .then(res.json(globalArt));
           } else {

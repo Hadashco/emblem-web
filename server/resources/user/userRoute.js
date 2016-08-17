@@ -9,4 +9,12 @@ router.get('/:id/art', (req, res) => {
     });
 });
 
+// Update color for user (WIP)
+router.post('/:id/color', (req, res) => {
+  // Art.findAll({ where: { UserId: req.user.dataValues.id } })
+  //   .then(arts => {
+  //     res.status(200).send(JSON.stringify(arts));
+  //   });
+});
+
 module.exports = router;

@@ -13,5 +13,9 @@ module.exports = function User(db, Sequelize) {
     fbookId: Sequelize.STRING,
     imgUrl: Sequelize.STRING,
     facebook: Sequelize.JSON,
+    markerColor: {
+      type: Sequelize.STRING,
+      defaultValue: '#FE7569', 
+    },
   });
 };
