@@ -21,6 +21,39 @@ router.get('/', (req, res) => {
   });
 });
 
+// Find a place
+router.get('/find/:lat/:long', (req, res) => {
+  const sector = Number(req.params.lat).toFixed(5) + Number(req.params.long).toFixed(5);
+  Place.findAll({ where: { sector } })
+    .then(place => {
+      if (place) {
+        res.json(place);
+      } else {
+        res.status(200).send(`No PlaceId corresponds with lat (${req.params.lat}) - long ({req.params.long})`)
+      }
+    })
+});
+
+// Find art at a lat / long (place ID unknown)
+router.get('/find/art/:lat/:long', (req, res) => {
+  const sector = Number(req.params.lat).toFixed(5) + Number(req.params.long).toFixed(5);
+  Place.findOne({ where: { sector } })
+    .then(place => {
+      if (place) {
+        place.getArts()
+          .then(arts => {
+            console.log('now im in art');
+            res.status(200).json(arts);
+          })
+          .catch(err => res.status(401).send(JSON.stringify(err)));
+      } else {
+        res.status(200).send(`No PlaceId corresponds with lat (${req.params.lat}) - long (${req.params.long})`)
+      }
+    })
+    .catch(err => res.status(401).send(JSON.stringify(err)));
+});
+
+
 // Get a specific place
 router.get('/:id', (req, res) => {
   Place.findById(req.params.id)
@@ -39,6 +72,7 @@ router.get('/:id', (req, res) => {
 router.get('/:id/art', (req, res) => {
   Place.findById(req.params.id)
     .then(place => {
+      console.log('---- Working Place\n', place);
       place.getArts()
         .then(arts => {
           res.status(200).json(arts);

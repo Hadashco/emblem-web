@@ -1,12 +1,29 @@
 const router = require('express').Router();
 const db = require('../../db/db');
 const { ArtPlace } = db;
+const Sequelize = require('sequelize');
 
 // Get all ArtPlaces
 router.get('/', (req, res) => {
   ArtPlace.findAll().then(result => {
     res.status(200).json(result);
   });
+});
+
+// WIP
+// Get highest ArtPlace for each place
+// Must fall before
+router.get('/maxrank', (req, res) => {
+  // `SELECT ArtPlace._id, ArtPlace.upvotes, ArtPlace.downvotes, 
+  //                         ArtPlace.createdAt, ArtPlace.PlaceId, ArtPlace.ArtId, 
+  //                         Art.UserId, (ArtPlace.upvotes - ArtPlace.downvotes) AS netVotes
+  //                  FROM ArtPlace INNER JOIN Art ON ArtPlace.ArtId = Art.id`
+
+  // Sequelize.query("SELECT upvotes FROM ArtPlace", { type: Sequelize.QueryTypes.RAW })
+  //   .then(result => res.status(200).json(result))
+  //   .catch(err => res.status(401).send(JSON.stringify(err)));
+
+  res.send('hi');
 });
 
 // Get specific ArtPlace
@@ -16,13 +33,12 @@ router.get('/:id', (req, res) => {
   });
 });
 
-
 // Add comment to ArtPlace
 // Assumes that input includes: 1) artPlaceId 2) comment title
 router.post('/:id/comment', (req, res) => {
   ArtPlace.findById(req.params.id)
     .then(artPlace => {
-      if (artPlace) {
+      if (artPlace.length > 0) {
         artPlace.createComment({
           title: req.body.title,
         })
@@ -41,7 +57,7 @@ router.post('/:id/comment', (req, res) => {
 router.get('/:id/comment', (req, res) => {
   ArtPlace.findById(req.params.id)
     .then(artPlace => {
-      if (artPlace) {
+      if (artPlace.length > 0) {
         artPlace.getComments()
           .then(comments => {
             res.status(200).json(comments);

@@ -29,6 +29,16 @@ router.post('/', (req, res) => {
     .catch(err => res.status(401).send(JSON.stringify(err)));
 });
 
+// Delete art
+router.get('/:id/delete', (req, res) => {
+  Art.findById(req.params.id)
+    .then(art => {
+      art.destroy();
+      res.status(200).json(art);
+    })
+    .catch(err => res.status(401).send(JSON.stringify(err)));
+});
+
 // Get specific art
 router.get('/:id', (req, res) => {
   Art.findById(req.params.id)
@@ -60,7 +70,7 @@ router.post('/:id/place', (req, res) => {
       const sector = req.body.lat.toFixed(5) + req.body.long.toFixed(5);
       Place.findAll({ where: { sector } })
         .then(place => {
-          if (place) {
+          if (place.length > 0) {
             globalArt.addPlace(place)
               .then(res.json(globalArt));
           } else {
@@ -86,7 +96,7 @@ router.post('/:id/place', (req, res) => {
 router.post('/:id/comment', (req, res) => {
   Art.findById(req.params.id)
     .then(art => {
-      if (art) {
+      if (art.length > 0) {
         art.createComment({
           title: req.body.title,
         })
@@ -105,7 +115,7 @@ router.post('/:id/comment', (req, res) => {
 router.get('/:id/comment', (req, res) => {
   Art.findById(req.params.id)
     .then(art => {
-      if (art) {
+      if (art.length > 0) {
         art.getComments()
           .then(comments => {
             res.status(200).json(comments);
@@ -126,7 +136,7 @@ router.post('/:id/vote', (req, res) => {
   let globalArt;
   Art.findById(req.params.id)
     .then(art => {
-      if (art) {
+      if (art.length > 0) {
         globalArt = art;
         art.createVote({
           value: req.body.vote,
@@ -148,7 +158,7 @@ router.post('/:id/vote', (req, res) => {
 router.get('/:id/vote', (req, res) => {
   Art.findById(req.params.id)
     .then(art => {
-      if (art) {
+      if (art.length > 0) {
         art.getVotes()
           .then(votes => {
             res.status(200).json(votes);
