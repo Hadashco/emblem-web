@@ -24,7 +24,7 @@ router.get('/', (req, res) => {
 // Find a place
 router.get('/find/:lat/:long', (req, res) => {
   const sector = Number(req.params.lat).toFixed(5) + Number(req.params.long).toFixed(5);
-  Place.findAll({ where: { sector } })
+  Place.findOne({ where: { sector } })
     .then(place => {
       if (place) {
         res.json(place);

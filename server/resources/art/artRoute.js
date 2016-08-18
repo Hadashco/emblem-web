@@ -34,7 +34,7 @@ router.get('/:id/delete', (req, res) => {
   Art.findById(req.params.id)
     .then(art => {
       art.destroy();
-      res.status(200).json(art);
+        .then(() => res.status(200).json(art));
     })
     .catch(err => res.status(401).send(JSON.stringify(err)));
 });
