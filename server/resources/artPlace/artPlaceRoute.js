@@ -69,7 +69,7 @@ router.get('/:id/comment', (req, res) => {
     });
 });
 
-// Add vote, increment ArtPlaec upvote / downvote
+// Add vote, increment ArtPlace upvote / downvote
 // Assumes that input includes: 1) artPlaceId in route 2) vote value (+1 or -1)
 router.post('/:id/vote', (req, res) => {
   let globalArtPlace;
@@ -109,5 +109,10 @@ router.get('/:id/vote', (req, res) => {
     });
 });
 
+router.post('/:id/delete', (req, res) => {
+  ArtPlace.destroy({ where: { _id: req.params.id } })
+    .then(() => res.status(200).send(`Successfully deleted ArtPlaceId ${req.params.id}`))
+    .catch(err => res.status(401).send(JSON.stringify(err)));
+});
 
 module.exports = router;

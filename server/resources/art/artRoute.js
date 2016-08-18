@@ -29,8 +29,7 @@ router.post('/', (req, res) => {
     .catch(err => res.status(401).send(JSON.stringify(err)));
 });
 
-
-// Delete art
+// Delete art and correspondig artPlace
 router.post('/:id/delete', (req, res) => {
   Art.findById(req.params.id)
     .then(art => {
