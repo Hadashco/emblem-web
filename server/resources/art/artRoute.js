@@ -97,7 +97,7 @@ router.post('/:id/place', (req, res) => {
 router.post('/:id/comment', (req, res) => {
   Art.findById(req.params.id)
     .then(art => {
-      if (art.length > 0) {
+      if (art) {
         art.createComment({
           title: req.body.title,
         })
@@ -116,7 +116,7 @@ router.post('/:id/comment', (req, res) => {
 router.get('/:id/comment', (req, res) => {
   Art.findById(req.params.id)
     .then(art => {
-      if (art.length > 0) {
+      if (art) {
         art.getComments()
           .then(comments => {
             res.status(200).json(comments);
@@ -134,7 +134,7 @@ router.post('/:id/vote', (req, res) => {
   let globalArt;
   Art.findById(req.params.id)
     .then(art => {
-      if (art.length > 0) {
+      if (art) {
         globalArt = art;
         art.createVote({
           value: req.body.vote,
@@ -156,7 +156,7 @@ router.post('/:id/vote', (req, res) => {
 router.get('/:id/vote', (req, res) => {
   Art.findById(req.params.id)
     .then(art => {
-      if (art.length > 0) {
+      if (art) {
         art.getVotes()
           .then(votes => {
             res.status(200).json(votes);
