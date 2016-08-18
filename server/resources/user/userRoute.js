@@ -1,7 +1,7 @@
 const router = require('express').Router();
 const Art = require('../../db/db').Art;
 
-// Update color for user (WIP)
+// Update color for user
 router.post('/color', (req, res) => {
   req.user.updateAttributes({ markerColor: req.body.color })
     .then(() => res.status(200).send(`Color updated to ${req.body.color}`))
