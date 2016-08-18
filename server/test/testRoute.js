@@ -1,4 +1,4 @@
-const router = require('express').Router();
+ const router = require('express').Router();
 const User = require('../db/db').User;
 
 // Routes to be used during testing

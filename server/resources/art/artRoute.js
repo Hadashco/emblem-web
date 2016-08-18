@@ -3,7 +3,7 @@ const path = require('path');
 const mkdirp = require('mkdirp');
 const router = require('express').Router();
 const db = require('../../db/db');
-const { Art, Place } = db;
+const { Art, Place, TRAILING_DEC_SECTOR } = db;
 const storagePath = path.join(__dirname.concat('/../../storage/art'));
 
 // Post and store new art
@@ -67,7 +67,7 @@ router.post('/:id/place', (req, res) => {
   Art.findById(req.params.id)
     .then(art => {
       globalArt = art;
-      const sector = req.body.lat.toFixed(5) + req.body.long.toFixed(5);
+      const sector = req.body.lat.toFixed(TRAILING_DEC_SECTOR) + req.body.long.toFixed(TRAILING_DEC_SECTOR);
       Place.findAll({ where: { sector } })
         .then(place => {
           if (place.length > 0) {
