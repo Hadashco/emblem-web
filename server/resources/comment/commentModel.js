@@ -3,5 +3,8 @@ module.exports = function Comment(db, Sequelize) {
     title: Sequelize.STRING,
     commentable: Sequelize.STRING,
     commentable_id: Sequelize.INTEGER,
+  },
+  {
+    tableName: 'Comment'
   });
 };

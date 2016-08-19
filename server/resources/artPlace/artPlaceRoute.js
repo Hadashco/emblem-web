@@ -1,6 +1,6 @@
 const router = require('express').Router();
-const db = require('../../db/db');
-const { ArtPlace } = db;
+const dbFile = require('../../db/db');
+const { ArtPlace, db } = dbFile;
 const Sequelize = require('sequelize');
 
 // Get all ArtPlaces
@@ -10,20 +10,17 @@ router.get('/', (req, res) => {
   });
 });
 
-// WIP
 // Get highest ArtPlace for each place
-// Must fall before
-router.get('/maxrank', (req, res) => {
-  // `SELECT ArtPlace._id, ArtPlace.upvotes, ArtPlace.downvotes, 
-  //                         ArtPlace.createdAt, ArtPlace.PlaceId, ArtPlace.ArtId, 
-  //                         Art.UserId, (ArtPlace.upvotes - ArtPlace.downvotes) AS netVotes
-  //                  FROM ArtPlace INNER JOIN Art ON ArtPlace.ArtId = Art.id`
-
-  // Sequelize.query("SELECT upvotes FROM ArtPlace", { type: Sequelize.QueryTypes.RAW })
-  //   .then(result => res.status(200).json(result))
-  //   .catch(err => res.status(401).send(JSON.stringify(err)));
-
-  res.send('hi');
+router.get('/max/rank', (req, res) => {
+  const qry = `SELECT DISTINCT ON ("ArtPlace"."PlaceId") "ArtPlace"."PlaceId", "Art"."UserId", "ArtPlace"."ArtId", ("ArtPlace".upvotes - "ArtPlace".downvotes) AS "netVotes", "Place".lat, "Place".long
+               FROM "Place" INNER JOIN ("ArtPlace"  INNER JOIN "Art" ON "ArtPlace"."ArtId" = "Art".id) ON "ArtPlace"."PlaceId" = "Place".id
+               ORDER BY "ArtPlace"."PlaceId", ("ArtPlace".upvotes - "ArtPlace".downvotes) DESC`;
+  db.query(qry, { type: Sequelize.QueryTypes.SELECT })
+    .then(result => res.status(200).json(result))
+    .catch(err => {
+      console.log('artPlace/max/rank error:', err);
+      res.status(401).send(JSON.stringify(err));
+    });
 });
 
 // Get specific ArtPlace
@@ -69,7 +66,7 @@ router.get('/:id/comment', (req, res) => {
     });
 });
 
-// Add vote, increment ArtPlaec upvote / downvote
+// Add vote, increment ArtPlace upvote / downvote
 // Assumes that input includes: 1) artPlaceId in route 2) vote value (+1 or -1)
 router.post('/:id/vote', (req, res) => {
   let globalArtPlace;
@@ -109,5 +106,10 @@ router.get('/:id/vote', (req, res) => {
     });
 });
 
+router.post('/:id/delete', (req, res) => {
+  ArtPlace.destroy({ where: { _id: req.params.id } })
+    .then(() => res.status(200).send(`Successfully deleted ArtPlaceId ${req.params.id}`))
+    .catch(err => res.status(401).send(JSON.stringify(err)));
+});
 
 module.exports = router;

@@ -1,9 +1,9 @@
-const fs = require('fs');
+const fs = require('fs-extra');
 const path = require('path');
-const mkdirp = require('mkdirp');
+// const mkdirp = require('mkdirp');
 const router = require('express').Router();
 const db = require('../../db/db');
-const { Art, Place } = db;
+const { Art, Place, ArtPlace, TRAILING_DEC_SECTOR } = db;
 const storagePath = path.join(__dirname.concat('/../../storage/art'));
 
 // Post and store new art
@@ -13,7 +13,7 @@ router.post('/', (req, res) => {
     .then(art => {
       art.setUser(req.user); // add creator ID
       let dir = `${storagePath}/${art.id}`;
-      mkdirp(dir, (err) => {
+      fs.mkdirs(dir, (err) => {
         if (err) console.error(err);
         let wstream = fs.createWriteStream(`${dir}/${art.id}_FULL`);
         wstream.write(req.body);
@@ -29,13 +29,19 @@ router.post('/', (req, res) => {
     .catch(err => res.status(401).send(JSON.stringify(err)));
 });
 
-// Delete art (WIP)
-router.get('/:id/delete', (req, res) => {
+// Delete art and correspondig artPlace
+router.post('/:id/delete', (req, res) => {
   Art.findById(req.params.id)
     .then(art => {
-      art.destroy();
-      // TODO: Remove file
-      res.status(200).json(art);
+      let dir = `${storagePath}/${art.id}`;
+      fs.remove(dir, err => {
+        art.destroy()
+          .then(() => {
+            ArtPlace.destroy({ where: { ArtId: req.params.id } })
+              .then(() => res.status(200).send(`ArtId ${req.params.id} and associated ArtPlaces deleted.`))
+              .catch(err => res.status(401).send(JSON.stringify(err)));
+          });
+      });
     })
     .catch(err => res.status(401).send(JSON.stringify(err)));
 });
@@ -60,15 +66,12 @@ router.get('/', (req, res) => {
 });
 
 // Post art to a specific place
-// Assumes that input includes:
-    // artId in route
-    // latitude (lat), longitude (long)
 router.post('/:id/place', (req, res) => {
   let globalArt;
   Art.findById(req.params.id)
     .then(art => {
       globalArt = art;
-      const sector = req.body.lat.toFixed(5) + req.body.long.toFixed(5);
+      const sector = req.body.lat.toFixed(TRAILING_DEC_SECTOR) + req.body.long.toFixed(TRAILING_DEC_SECTOR);
       Place.findAll({ where: { sector } })
         .then(place => {
           if (place.length > 0) {
@@ -81,9 +84,9 @@ router.post('/:id/place', (req, res) => {
               sector,
             })
             .then(newPlace => {
-              globalArt.addPlace(newPlace);
-            })
-            .then(res.json(globalArt));
+              globalArt.addPlace(newPlace)
+                .then(art => { res.json(art) });
+            });
           }
         })
         .catch(err => res.status(401).send(JSON.stringify(err)));
@@ -91,9 +94,6 @@ router.post('/:id/place', (req, res) => {
 });
 
 // Add comment to art
-// Assumes that input includes:
-    // artId in route
-    // comment title
 router.post('/:id/comment', (req, res) => {
   Art.findById(req.params.id)
     .then(art => {
@@ -129,10 +129,7 @@ router.get('/:id/comment', (req, res) => {
 });
 
 // Add vote to vote model, increment art upvote / downvote
-// Assumes that input includes:
-    // artId in route
-    // vote value (+1 or -1)
-    // add to art upvote / downvote
+  // vote value (+1 or -1)
 router.post('/:id/vote', (req, res) => {
   let globalArt;
   Art.findById(req.params.id)

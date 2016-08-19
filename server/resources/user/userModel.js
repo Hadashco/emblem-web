@@ -17,5 +17,8 @@ module.exports = function User(db, Sequelize) {
       type: Sequelize.STRING,
       defaultValue: '#FE7569', 
     },
+  },
+  {
+    tableName: 'User'
   });
 };

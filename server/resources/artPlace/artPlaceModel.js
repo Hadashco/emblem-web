@@ -18,5 +18,8 @@ module.exports = function ArtPlace(db, Sequelize) {
       allowNull: false,
     },
     // TODO: add photo of marker location
+  }, 
+  {
+   tableName: 'ArtPlace'
   });
 };

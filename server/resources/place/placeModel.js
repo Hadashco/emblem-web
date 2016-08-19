@@ -13,6 +13,9 @@ module.exports = function Place(db, Sequelize) {
     sector: {
       type: Sequelize.STRING,
       allowNull: false,
-    },
+    }, 
+  },
+  {
+    tableName: 'Place'
   });
 };

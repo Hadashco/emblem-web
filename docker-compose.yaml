@@ -17,3 +17,5 @@ emblem-db:
   image: postgres
   environment:
     - POSTGRES_PASSWORD=emblem
+  ports:
+    - "5432:5432"

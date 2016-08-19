@@ -1,17 +1,23 @@
 const router = require('express').Router();
 const sockets = require('../../sockets');
 const db = require('../../db/db');
-const { Place } = db;
+const { Place, TRAILING_DEC_SECTOR } = db;
 
 // Add a new places
 router.post('/', (req, res) => {
-  const sector = req.body.lat.toFixed(5) + req.body.long.toFixed(5);
-  Place.create({ long: req.body.long, lat: req.body.lat, sector })
-    .then(place => {
-      // move into place instance or functionalize
-      place.setUser(req.user); // add creator ID
-      sockets.broadcast('place/createPlace', place);
-      res.send(JSON.stringify(place));
+  const sector = req.body.lat.toFixed(TRAILING_DEC_SECTOR) + req.body.long.toFixed(TRAILING_DEC_SECTOR);
+  Place.findOne({ where: { sector } })
+    .then(place => { 
+      if (place) {
+        res.status(200).json(place); // Prevent duplicate entry of same place
+      } else {
+        Place.create({ long: req.body.long, lat: req.body.lat, sector })
+          .then(place => {
+            place.setUser(req.user); // add creator ID
+            sockets.broadcast('place/createPlace', place);
+            res.send(JSON.stringify(place));
+          });
+      }
     });
 });
 
@@ -24,7 +30,7 @@ router.get('/', (req, res) => {
 
 // Find a place
 router.get('/find/:lat/:long', (req, res) => {
-  const sector = Number(req.params.lat).toFixed(5) + Number(req.params.long).toFixed(5);
+  const sector = Number(req.params.lat).toFixed(TRAILING_DEC_SECTOR) + Number(req.params.long).toFixed(TRAILING_DEC_SECTOR);
   Place.findOne({ where: { sector } })
     .then(place => {
       if (place) {
@@ -42,13 +48,12 @@ router.get('/find/:lat/:long', (req, res) => {
 
 // Find art at a lat / long (place ID unknown)
 router.get('/find/art/:lat/:long', (req, res) => {
-  const sector = Number(req.params.lat).toFixed(5) + Number(req.params.long).toFixed(5);
+  const sector = Number(req.params.lat).toFixed(TRAILING_DEC_SECTOR) + Number(req.params.long).toFixed(TRAILING_DEC_SECTOR);
   Place.findOne({ where: { sector } })
     .then(place => {
       if (place) {
         place.getArts()
           .then(arts => {
-            console.log('now im in art');
             res.status(200).json(arts);
           })
           .catch(err => res.status(401).send(JSON.stringify(err)));
@@ -78,7 +83,6 @@ router.get('/:id', (req, res) => {
 router.get('/:id/art', (req, res) => {
   Place.findById(req.params.id)
     .then(place => {
-      console.log('---- Working Place\n', place);
       place.getArts()
         .then(arts => {
           res.status(200).json(arts);
