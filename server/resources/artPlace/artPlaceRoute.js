@@ -10,21 +10,18 @@ router.get('/', (req, res) => {
   });
 });
 
-// WIP
-/*
 // Get highest ArtPlace for each place
-// Must fall before
 router.get('/max/rank', (req, res) => {
-  // `SELECT ArtPlace._id, ArtPlace.upvotes, ArtPlace.downvotes, 
-  //                         ArtPlace.createdAt, ArtPlace.PlaceId, ArtPlace.ArtId, 
-  //                         Art.UserId, (ArtPlace.upvotes - ArtPlace.downvotes) AS netVotes
-  //                  FROM ArtPlace INNER JOIN Art ON ArtPlace.ArtId = Art.id`
-
-  db.query(`SELECT * FROM "Art"`, { type: Sequelize.QueryTypes.SELECT })
+  const qry = `SELECT DISTINCT ON ("ArtPlace"."PlaceId") "ArtPlace"."PlaceId", "Art"."UserId", "ArtPlace"."ArtId", ("ArtPlace".upvotes - "ArtPlace".downvotes) AS "netVotes", "Place".lat, "Place".long
+               FROM "Place" INNER JOIN ("ArtPlace"  INNER JOIN "Art" ON "ArtPlace"."ArtId" = "Art".id) ON "ArtPlace"."PlaceId" = "Place".id
+               ORDER BY "ArtPlace"."PlaceId", ("ArtPlace".upvotes - "ArtPlace".downvotes) DESC`;
+  db.query(qry, { type: Sequelize.QueryTypes.SELECT })
     .then(result => res.status(200).json(result))
-    .catch(err => res.status(401).send(JSON.stringify(err)));
+    .catch(err => {
+      console.log('artPlace/max/rank error:', err);
+      res.status(401).send(JSON.stringify(err));
+    });
 });
-*/
 
 // Get specific ArtPlace
 router.get('/:id', (req, res) => {

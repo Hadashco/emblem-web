@@ -84,9 +84,9 @@ router.post('/:id/place', (req, res) => {
               sector,
             })
             .then(newPlace => {
-              globalArt.addPlace(newPlace);
-            })
-            .then(res.json(globalArt));
+              globalArt.addPlace(newPlace)
+                .then(art => { res.json(art) });
+            });
           }
         })
         .catch(err => res.status(401).send(JSON.stringify(err)));
