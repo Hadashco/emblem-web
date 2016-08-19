@@ -24,6 +24,8 @@ const s3bucket = new AWS.S3({params: { Bucket: 'hadashco-emblem' } });
                       BEGIN AWS PORTION
 
 *****************************************************************/
+// Art can be accessed at the following link:
+//  'https://s3.amazonaws.com/hadashco-emblem/' + art.id
 
 // Post and store new art
 router.post('/', (req, res) => {
@@ -55,9 +57,7 @@ router.post('/', (req, res) => {
 router.get('/:id/download', (req, res) => {
   Art.findById(req.params.id)
     .then(art => {
-      const params = {
-        Key: art.id.toString(),
-      };
+      const params = { Key: art.id.toString() };
 
       s3bucket.getObject(params, function(err, data) {
         if (!err) {
@@ -71,31 +71,29 @@ router.get('/:id/download', (req, res) => {
     .catch(err => res.status(401).send(JSON.stringify(err)));
 })
 
-// TODO: Delete record from AWS
+// Delete art and correspondig artPlace
+router.post('/:id/delete', (req, res) => {
+  Art.destroy({ where: { id: req.params.id } })
+      .then(() => {
+        const params = { Key: req.params.id.toString() };
+
+        s3bucket.deleteObject(params, function(err, data) {
+          if (!err) {
+            res.send(data.Body);
+          } else {
+            res.status(500).send(err);
+          }
+        });
+        res.status(200).send(`ArtId ${req.params.id} and associated ArtPlaces deleted.`);  
+      })
+      .catch(err => res.status(401).send(JSON.stringify(err)));
+});
 
 /* ***************************************************************
 
                       END AWS PORTION
 
 *****************************************************************/
-
-
-// Delete art and correspondig artPlace
-router.post('/:id/delete', (req, res) => {
-  Art.findById(req.params.id)
-    .then(art => {
-      let dir = `${storagePath}/${art.id}`;
-      fs.remove(dir, err => {
-        art.destroy()
-          .then(() => {
-            ArtPlace.destroy({ where: { ArtId: req.params.id } })
-              .then(() => res.status(200).send(`ArtId ${req.params.id} and associated ArtPlaces deleted.`))
-              .catch(err => res.status(401).send(JSON.stringify(err)));
-          });
-      });
-    })
-    .catch(err => res.status(401).send(JSON.stringify(err)));
-});
 
 // Get specific art
 router.get('/:id', (req, res) => {
