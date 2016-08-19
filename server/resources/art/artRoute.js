@@ -15,8 +15,8 @@ AWS.config.update({
   secretAccessKey: process.env.AWS_SECRET
 });
 
-//
-var s3bucket = new AWS.S3({params: { Bucket: 'hadashco-emblem' } });
+// Create reference to existing bucket
+const s3bucket = new AWS.S3({params: { Bucket: 'hadashco-emblem' } });
 
 
 /* ***************************************************************
@@ -31,7 +31,7 @@ router.post('/', (req, res) => {
   Art.create({ type: fileType })
     .then(art => {
       art.setUser(req.user); // add creator ID
-      var params = {
+      const params = {
         ACL: 'public-read', 
         Key: art.id.toString(), 
         Body: req.body,
@@ -39,38 +39,39 @@ router.post('/', (req, res) => {
         ContentType: fileType,
       };
       
-      s3bucket.upload(params, function(err, data) {
+      s3bucket.upload(params, err, data => {
         if (err) {
           console.log('Error uploading data:', err);
           res.status(301).json(err);
         } else {
           console.log("Successfully uploaded data to myBucket/myKey");
-          res.status(400).json('https://s3-us-east-1.amazonaws.com/hadashco-emblem/' + art.id);
+          res.status(400).json('https://s3.amazonaws.com/hadashco-emblem/' + art.id);
         }
       });
-
-      // let dir = `${storagePath}/${art.id}`;
-      // fs.mkdirs(dir, (err) => {
-      //   if (err) console.error(err);
-      //   let wstream = fs.createWriteStream(`${dir}/${art.id}_FULL`);
-      //   wstream.write(req.body);
-      //   wstream.on('finish', () => {
-      //     res.end(JSON.stringify({ id: art.id }));
-      //   });
-      //   wstream.on('error', (error) => {
-      //     console.log(error, 'error!');
-      //   });
-      //   wstream.end();
-      // });
-
-
-
-
-
-
     })
     .catch(err => res.status(401).send(JSON.stringify(err)));
 });
+
+router.get('/:id/download', (req, res) => {
+  Art.findById(req.params.id)
+    .then(art => {
+      const params = {
+        Key: art.id.toString(),
+      };
+
+      s3bucket.getObject(params, function(err, data) {
+        if (!err) {
+          // Reference additional Body properties: http://docs.aws.amazon.com/AWSJavaScriptSDK/latest/AWS/S3.html#getObject-property
+          res.send(data.Body);
+        } else {
+          res.status(500).send(err);
+        }
+      });
+    })
+    .catch(err => res.status(401).send(JSON.stringify(err)));
+})
+
+// TODO: Delete record from AWS
 
 /* ***************************************************************
 
@@ -109,8 +110,7 @@ router.get('/:id', (req, res) => {
 router.get('/', (req, res) => {
   Art.findAll()
     .then(arts => {
-      console.log(arts, 'this is what is being sent back');
-      res.status(200).send(arts);
+      res.status(200).send(JSON.stringify(arts));
     })
     .catch(err => {
       console.log('Get art error ', err);
