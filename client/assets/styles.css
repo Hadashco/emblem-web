@@ -23,14 +23,51 @@ body {
 
 /**********************************************************
 
-                      Header Styles
+                                Login Styles
+
+***********************************************************/
+
+.login {
+  margin-top: -20px;
+  margin-right: -15px;
+  width: 100%;
+  height: 100%;
+  background-image: url('http://www.marinainn.com/assets/themes/marinainn/img/san-francisco-skyline.jpg');
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+.loginContainer {
+  position: relative;
+  left: 30%;
+  top: 30%;
+  width: 40%;
+  height: 40%;
+  border-radius: 200px;
+  text-align: center;
+  background-color: rgba(255,255,255,.7);
+}
+
+.loginContainer h1 {
+  position: relative;
+  top: 25%;
+}
+
+.loginButtonDiv {
+  position: relative;
+  top: 30%;
+}
+
+/**********************************************************
+
+                              Header Styles
 
 ***********************************************************/
 
 .headerContainer {
   width: 100%;
   height: 10%;
-  text-align: left;
+  text-align: center;
   clear: bottom;
 }
 
@@ -49,7 +86,7 @@ body {
 
 .buttonToolbar {
   position: relative;
-  margin-right: 0px;
+  margin-right: 30px;
   margin-top: 17px;
   float: right;
 }
@@ -67,81 +104,35 @@ MIT License
 http://github.com/necolas/css3-facebook-buttons
 ------------------------------------------ */
 
-.uibutton,
-.uibutton:visited {
-    position: relative;
-    z-index: 1;
-    overflow: visible;
-    display: inline-block;
-    padding: 0.3em 0.6em 0.375em;
-    border: 1px solid #999;
-    border-bottom-color: #888;
-    margin: 0;
-    text-decoration: none;
-    text-align: center;
-    font: bold 11px/normal 'lucida grande', tahoma, verdana, arial, sans-serif;
-    white-space: nowrap;
-    cursor: pointer;
-    /* outline: none; */
-    color: #333;
-    background-color: #eee;
-    background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#f5f6f6), to(#e4e4e3));
-    background-image: -moz-linear-gradient(#f5f6f6, #e4e4e3);
-    background-image: -o-linear-gradient(#f5f6f6, #e4e4e3);
-    background-image: linear-gradient(#f5f6f6, #e4e4e3);
-    filter: progid:DXImageTransform.Microsoft.gradient(startColorStr='#f5f6f6', EndColorStr='#e4e4e3'); /* for IE 6 - 9 */
-    -webkit-box-shadow: 0 1px 0 rgba(0, 0, 0, 0.1), inset 0 1px 0 #fff;
-    -moz-box-shadow: 0 1px 0 rgba(0, 0, 0, 0.1), inset 0 1px 0 #fff;
-    box-shadow: 0 1px 0 rgba(0, 0, 0, 0.1), inset 0 1px 0 #fff;
-    /* IE hacks */
-    zoom: 1;
-    *display: inline;
+.buttonToolbar {
+  position: relative;
+  margin-right: 17px;
+  margin-top: 17px;
+  float: right;
 }
 
-.uibutton:hover,
-.uibutton:focus,
-.uibutton:active {
-    border-color: #777 #777 #666;
+.container {
+  height: 100%;
+  width: 100%;
+  padding-right: 0;
+  padding-left: 0;
 }
 
-.uibutton:active {
-    border-color: #aaa;
-    background: #ddd;
-    filter: none;
-    -webkit-box-shadow: none;
-    -moz-box-shadow: none;
-    box-shadow: none;
+#Button { 
+  border-radius: 50px;
+  background-color: blue;
+  color: white;
 }
 
-/* overrides extra padding on button elements in Firefox */
-.uibutton::-moz-focus-inner {
-    padding: 0;
-    border: 0;
+#Button:hover {
+background-color: rgb(17,153,158);
 }
 
-/* blue style buttons */
-.uibutton.confirm {
-    border-color: #29447e #29447e #1a356e;
-    color: #fff;
-    background-color: #5B74A8;
-    background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#637bad), to(#5872a7));
-    background-image: -moz-linear-gradient(#637bad, #5872a7);
-    background-image: -o-linear-gradient(#637bad, #5872a7);
-    background-image: linear-gradient(#637bad, #5872a7);
-    filter: progid:DXImageTransform.Microsoft.gradient(startColorStr='#637bad', EndColorStr='#5872a7'); /* for IE 6 - 9 */
-    -webkit-box-shadow: 0 1px 0 rgba(0, 0, 0, 0.1), inset 0 1px 0 #8a9cc2;
-    -moz-box-shadow: 0 1px 0 rgba(0, 0, 0, 0.1), inset 0 1px 0 #8a9cc2;
-    box-shadow: 0 1px 0 rgba(0, 0, 0, 0.1), inset 0 1px 0 #8a9cc2;
+.button {
+  display: inline-block;
 }
 
-.uibutton.confirm:active {
-    border-color: #29447E;
-    background: #4F6AA3;
-    filter: none;
-    -webkit-box-shadow: none;
-    -moz-box-shadow: none;
-    box-shadow: none;
-}
+
 
 
 /**********************************************************

@@ -14,7 +14,7 @@ let defaultState = {
   upload: {
     modalState: false,
     artModalState: false,
-    currentArt: 12,
+    currentArt: 1,
     toUpload: [],
     files: [],
   },
@@ -36,7 +36,7 @@ const addToActions = (newActions) => {
 };
 
 const store = createStore(reducer, undefined, autoRehydrate());
-persistStore(store);
-// const store = createStore(reducer);
+persistStore(store).purge(['map', 'upload']);
+
 
 export { store, addToActions };

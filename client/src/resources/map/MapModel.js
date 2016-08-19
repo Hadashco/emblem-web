@@ -1,6 +1,5 @@
 import { connect } from 'react-redux';
 import { addToActions } from '../../Store.js';
-import 'whatwg-fetch';
 
 const actions = {};
 

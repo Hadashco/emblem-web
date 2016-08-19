@@ -59,10 +59,13 @@ router.get('/:id', (req, res) => {
 router.get('/', (req, res) => {
   Art.findAll()
     .then(arts => {
-      console.log(JSON.stringify(arts), 'this is what is being sent back');
-      res.status(200).send(JSON.stringify(arts));
+      console.log(arts, 'this is what is being sent back');
+      res.status(200).send(arts);
     })
-    .catch(err => res.status(401).send(JSON.stringify(err)));
+    .catch(err => {
+      console.log('Get art error ', err);
+      res.status(400).send(JSON.stringify(err));
+    });
 });
 
 // Post art to a specific place

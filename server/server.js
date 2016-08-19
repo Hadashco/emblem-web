@@ -29,13 +29,14 @@ app.use(morgan('dev'));
 
 addRouter(app);
 
-app.get('/', (req, res) => {
-  res.sendFile(path.join(__dirname.concat('/../client/index.html')));
-});
 
 app.use('/build', express.static(path.join(__dirname.concat('/../client/build'))));
 app.use('/assets', express.static(path.join(__dirname.concat('/../client/assets'))));
 app.use('/storage', express.static(path.join(__dirname.concat('/storage'))));
+
+app.get('/*', (req, res) => {
+  res.sendFile(path.join(__dirname.concat('/../client/index.html')));
+});
 
 const server = require('http').Server(app);
 sockets.addSockets(server);

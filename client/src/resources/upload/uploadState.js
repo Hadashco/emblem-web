@@ -3,7 +3,7 @@ import { addToActions } from '../../Store.js';
 import React from 'react';
 
 const uploadStateToProps = state => {
-  return { artModalState: state.upload.artModalState, modalState: state.upload.modalState, files: state.upload.files, toUpload: state.upload.toUpload, currentArt: state.upload.currentArt };
+  return { artModalState: state.upload.artModalState, modalState: state.upload.modalState, files: state.upload.files, toUpload: state.upload.toUpload, currentArt: state.upload.currentArt, isAuthorized: state.auth.isAuthorized };
 };
 
 const uploadDispatchToProps = dispatch => {
