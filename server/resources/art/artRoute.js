@@ -6,25 +6,70 @@ const db = require('../../db/db');
 const { Art, Place, ArtPlace, TRAILING_DEC_SECTOR } = db;
 const storagePath = path.join(__dirname.concat('/../../storage/art'));
 
+var AWS = require('aws-sdk'); 
+
+// Set up region for requests
+AWS.config.update({
+  region: 'us-east-1',
+  accessKeyId: process.env.AWS_ID,
+  secretAccessKey: process.env.AWS_SECRET
+});
+
+//
+var s3bucket = new AWS.S3({params: {Bucket: 'hadashco-emblem'}});
+
+
+/* ***************************************************************
+
+                      BEGIN AWS PORTION
+
+*****************************************************************/
+
 // Post and store new art
 router.post('/', (req, res) => {
   let fileType = req.headers['file-type'];
   Art.create({ type: fileType })
     .then(art => {
       art.setUser(req.user); // add creator ID
-      let dir = `${storagePath}/${art.id}`;
-      fs.mkdirs(dir, (err) => {
-        if (err) console.error(err);
-        let wstream = fs.createWriteStream(`${dir}/${art.id}_FULL`);
-        wstream.write(req.body);
-        wstream.on('finish', () => {
-          res.end(JSON.stringify({ id: art.id }));
-        });
-        wstream.on('error', (error) => {
-          console.log(error, 'error!');
-        });
-        wstream.end();
+
+
+      var params = {
+        Bucket: 'myBucket', 
+        Key: art.id, 
+        Body: req.body, // currently of type octect-stream
+        ContentEncoding: 'base64',
+        ContentType: fileType,
+      };
+
+      s3.upload(params, function(err, data) {
+        if (err) {
+          console.log('Error uploading data:', err);
+          res.status(301).json(err);
+        } else {
+          console.log("Successfully uploaded data to myBucket/myKey");
+          res.json('https://s3-us-east-1.amazonaws.com/hadashco-emblem/' + art.id);
+        }
       });
+
+      // let dir = `${storagePath}/${art.id}`;
+      // fs.mkdirs(dir, (err) => {
+      //   if (err) console.error(err);
+      //   let wstream = fs.createWriteStream(`${dir}/${art.id}_FULL`);
+      //   wstream.write(req.body);
+      //   wstream.on('finish', () => {
+      //     res.end(JSON.stringify({ id: art.id }));
+      //   });
+      //   wstream.on('error', (error) => {
+      //     console.log(error, 'error!');
+      //   });
+      //   wstream.end();
+      // });
+
+
+
+
+
+
     })
     .catch(err => res.status(401).send(JSON.stringify(err)));
 });
