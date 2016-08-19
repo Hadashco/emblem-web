@@ -34,11 +34,16 @@ router.get('/find/:lat/:long', (req, res) => {
   Place.findOne({ where: { sector } })
     .then(place => {
       if (place) {
-        res.json(place);
+        res.status(200).json(place);
       } else {
-        res.status(200).send(`No PlaceId corresponds with lat (${req.params.lat}) - long ({req.params.long})`)
+        return Place.create({ long: req.params.long, lat: req.params.lat, sector });
       }
     })
+    .then(place => {
+      place.setUser(req.user);
+      sockets.broadcast('place/createPlace', place);
+      res.status(201).json(place);
+    });
 });
 
 // Find art at a lat / long (place ID unknown)
