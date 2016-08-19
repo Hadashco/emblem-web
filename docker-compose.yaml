@@ -10,6 +10,8 @@ emblem-web-server:
    - SESSION_SECRET=${SESSION_SECRET}
    - FACEBOOK_ID=${FACEBOOK_ID}
    - FACEBOOK_SECRET=${FACEBOOK_SECRET}
+   - AWS_ID=${AWS_ID}
+   - AWS_SECRET=${AWS_SECRET}
   links:
    - emblem-db
   command: npm start

@@ -9,7 +9,7 @@ router.post('/color', (req, res) => {
 });
 
 // Get all art associated with a given user
-router.get('/:id/art', (req, res) => {
+router.get('/art', (req, res) => {
   Art.findAll({ where: { UserId: req.user.dataValues.id } })
     .then(arts => {
       res.status(200).send(JSON.stringify(arts));

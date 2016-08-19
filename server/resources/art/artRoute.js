@@ -16,7 +16,7 @@ AWS.config.update({
 });
 
 //
-var s3bucket = new AWS.S3({params: {Bucket: 'hadashco-emblem'}});
+var s3bucket = new AWS.S3({params: { Bucket: 'hadashco-emblem' } });
 
 
 /* ***************************************************************
@@ -31,23 +31,21 @@ router.post('/', (req, res) => {
   Art.create({ type: fileType })
     .then(art => {
       art.setUser(req.user); // add creator ID
-
-
       var params = {
-        Bucket: 'myBucket', 
-        Key: art.id, 
-        Body: req.body, // currently of type octect-stream
-        ContentEncoding: 'base64',
+        ACL: 'public-read', 
+        Key: art.id.toString(), 
+        Body: req.body,
+        ContentEncoding: 'base64', // binary
         ContentType: fileType,
       };
-
-      s3.upload(params, function(err, data) {
+      
+      s3bucket.upload(params, function(err, data) {
         if (err) {
           console.log('Error uploading data:', err);
           res.status(301).json(err);
         } else {
           console.log("Successfully uploaded data to myBucket/myKey");
-          res.json('https://s3-us-east-1.amazonaws.com/hadashco-emblem/' + art.id);
+          res.status(400).json('https://s3-us-east-1.amazonaws.com/hadashco-emblem/' + art.id);
         }
       });
 
@@ -73,6 +71,13 @@ router.post('/', (req, res) => {
     })
     .catch(err => res.status(401).send(JSON.stringify(err)));
 });
+
+/* ***************************************************************
+
+                      END AWS PORTION
+
+*****************************************************************/
+
 
 // Delete art and correspondig artPlace
 router.post('/:id/delete', (req, res) => {
