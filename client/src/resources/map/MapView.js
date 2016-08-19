@@ -50,6 +50,7 @@ class MapView extends React.Component {
             googleMapElement={
               <GoogleMap
                 ref="map"
+                scrollWheel='false'
                 defaultZoom={12}
                 // TODO: Default to user location
                 defaultCenter={{ lat: 37.754862, lng: -122.431558 }}

@@ -14,16 +14,12 @@ export default class headerComponent extends React.Component {
   }
 
   render() {
-    console.log(this.props.isAuthorized)
     return (
       <div className="header">
-          {this.props.isAuthorized ? 
             <ButtonToolbar className='buttonToolbar'>
               <UploadButton text='Art Library' />
               <Logout />
-            </ButtonToolbar> : <ButtonToolbar className='buttonToolbar'>
-              <FacebookButton />
-            </ButtonToolbar>}
+            </ButtonToolbar>
         <h1>Welcome to <i>Emblem</i></h1>
       </div>
     );

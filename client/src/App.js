@@ -1,7 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import MapView from './resources/map/MapView.js';
-import LoginView from './resources/authentication/LoginView';
 import Header from './resources/headerComponent.js';
 import { Provider } from 'react-redux';
 import { store } from './Store.js';
@@ -10,6 +9,10 @@ import UploadView from './resources/upload/UploadView';
 import ArtSelectorComponent from './resources/art/ArtSelectorComponent.js';
 import InfoPage from './resources/stateless/InfoPage.js';
 import AlertContainer from 'react-alert';
+import LoginView from './resources/login/LoginView.js';
+import { Router, Route, Link, IndexRoute, browserHistory } from 'react-router';
+import 'whatwg-fetch';
+
 
 const alertOptions = {
   offset: 60,
@@ -39,4 +42,31 @@ class Dashboard extends React.Component {
   }
 }
 
-ReactDOM.render(<Provider store={store}><Dashboard/></Provider>, document.querySelector('#app'));
+// keep a leave hook on the login page route to ensure login succeeded
+// before allowing them to render the main page
+
+var requireAuth = function() {
+  fetch('/auth/isAuth', {
+    method: 'GET',
+    credentials: 'same-origin',
+    headers: {
+      'Accept': 'application/json',
+      'Content-Type': 'application/json',
+    }
+  }).then(response => {
+    if (response.ok) {
+      return true;
+    } else {
+      return false;
+    }
+  })
+}
+
+ReactDOM.render(<Provider store={store}>
+  <Router history={browserHistory}>
+    <Route onLeave={requireAuth}>
+      <Route path='/' component={LoginView} />
+    </Route>
+    <Route path='/home' component={Dashboard}/>
+  </Router>
+  </Provider>, document.querySelector('#app'));

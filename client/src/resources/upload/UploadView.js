@@ -10,7 +10,7 @@ const customStyles = {
   overlay: {
     position: 'fixed',
     height: 500 + 'px',
-    width: 900 + 'px',
+    width: 600 + 'px',
     top: 70,
     left: 150,
     right: 0,

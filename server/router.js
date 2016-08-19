@@ -9,7 +9,7 @@ const isAuthenticated = require('./auth/authService').isAuthenticated;
 
 module.exports = (app) => {
   app.use('/user', isAuthenticated(), userRouter);
-  app.use('/place', isAuthenticated(), placeRouter);
+  app.use('/place', placeRouter);
   app.use('/art', isAuthenticated(), artRouter);
   app.use('/artPlace', isAuthenticated(), artPlaceRouter);
   app.use('/auth', authRouter);

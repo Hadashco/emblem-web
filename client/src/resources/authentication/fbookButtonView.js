@@ -1,6 +1,7 @@
 import React from 'react';
 import { Button } from 'react-bootstrap';
 import { connection } from './../headerState.js';
+import {browserHistory} from "react-router";
 
 export default class FacebookButton extends React.Component {
   constructor(props) {
@@ -12,13 +13,6 @@ export default class FacebookButton extends React.Component {
     window.location = '/auth/facebook';
     this.props.changeAuth();
   }
-
-  // TODO: Format button with official Facebook styling
-      // className="fb-login-button"
-      // data-max-rows="1"
-      // data-size="medium"
-      // data-show-faces="false"
-      // data-auto-logout-link="false"
 
   render() {
     return (

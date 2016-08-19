@@ -116,7 +116,6 @@ actions.populateArtFiles = (previousState, data) => {
   let files = previousState.upload.files;
   let newFiles = files.slice();
   data.forEach(dataChunk => {
-    console.log(dataChunk);
     newFiles.push(dataChunk);
   });
   upload.files = newFiles;
@@ -132,6 +131,5 @@ actions.updateCurrentArt = (previousState, data) => {
   let newState = Object.assign({}, previousState, { upload });
   return newState;
 };
-
 
 export { actions };

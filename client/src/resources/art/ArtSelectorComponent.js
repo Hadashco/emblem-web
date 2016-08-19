@@ -60,7 +60,9 @@ class ArtSelector extends React.Component {
 
 
     render() {
-      this.art = this.props.files
+      this.art = this.props.files;
+      console.log(this.props.files);
+      console.log(this.props.currentArt);
       var context = this;
       return (
         <Modal

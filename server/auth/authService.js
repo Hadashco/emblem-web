@@ -3,7 +3,7 @@ const jwt = require('jsonwebtoken');
 const User = require('../db/db').User;
 const expressJwt = require('express-jwt');
 
-const EXPIRY = 60 * 60 * 5;
+const EXPIRY = 300;
 const SECRET = process.env.SESSION_SECRET;
 const validateJwt = expressJwt({ secret: process.env.SESSION_SECRET });
 
@@ -16,17 +16,20 @@ const getTokenHeader = (req, res, next) => {
   } else {
     return res.status(401).send('\'ello Poppet. No tokens \'ere love.');
   }
+  console.log('Authorization: ', req.headers.authorization);
   next();
 };
 
 // Convert req.user after validateJwt
 // Object with an id to User instance from database
 const populateReqUser = (req, res, next) => {
-  User.find({ where: { id: req.user.id } })
+  console.log(req.user, "req.user response");
+  User.findOne({ where: { id: req.user.id } })
     .then(user => {
       if (!user) {
         return res.status(401).end();
       }
+      console.log('USER: ', user);
       req.user = user;
       return next();
     })
@@ -41,10 +44,10 @@ const signToken = id => jwt.sign({ id }, SECRET, { expiresIn: EXPIRY });
 
 const setTokenCookie = (req, res) => {
   if (!req.user) {
-    return res.status(404).send('User not logged in, please try again.');
+    return res.status(401).send('User not logged in, please try again.');
   }
   res.cookie('token', signToken(req.user.id));
-  return res.redirect('/');
+  return res.redirect('/home');
 };
 
 module.exports = {
