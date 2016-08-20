@@ -12,9 +12,13 @@ router.get('/', (req, res) => {
 
 // Get highest ArtPlace for each place
 router.get('/max/rank', (req, res) => {
-  const qry = `SELECT DISTINCT ON ("ArtPlace"."PlaceId") "ArtPlace"."PlaceId", "Art"."UserId", "ArtPlace"."ArtId", ("ArtPlace".upvotes - "ArtPlace".downvotes) AS "netVotes", "Place".lat, "Place".long
-               FROM "Place" INNER JOIN ("ArtPlace"  INNER JOIN "Art" ON "ArtPlace"."ArtId" = "Art".id) ON "ArtPlace"."PlaceId" = "Place".id
-               ORDER BY "ArtPlace"."PlaceId", ("ArtPlace".upvotes - "ArtPlace".downvotes) DESC`;
+  const qry = `SELECT DISTINCT ON ("ArtPlace"."PlaceId") "ArtPlace"."PlaceId", 
+               "User"."markerColor", "Art"."UserId", "ArtPlace"."ArtId", 
+               ("ArtPlace".upvotes - "ArtPlace".downvotes) AS "netVotes", "Place".lat, 
+               "Place".long FROM "Place" INNER JOIN  ("ArtPlace"  INNER JOIN 
+               ("Art" INNER JOIN "User" ON "Art"."UserId" = "User".id) ON 
+               "ArtPlace"."ArtId" = "Art".id) ON "ArtPlace"."PlaceId" = "Place".id ORDER BY 
+               "ArtPlace"."PlaceId", ("ArtPlace".upvotes - "ArtPlace".downvotes) DESC`;
   db.query(qry, { type: Sequelize.QueryTypes.SELECT })
     .then(result => res.status(200).json(result))
     .catch(err => {
