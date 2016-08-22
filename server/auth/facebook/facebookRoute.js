@@ -1,6 +1,6 @@
 const passport = require('passport');
 const setTokenCookie = require('../authService').setTokenCookie;
-
+const signToken = require('../authService').signToken;
 const router = require('express').Router();
 
 // TODO: Change success / failure redirects
@@ -12,7 +12,13 @@ router.get('/', passport.authenticate('facebook', {
 }));
 
 router.get('/token', passport.authenticate('facebook-token'),
-  (req, res) => res.sendStatus(req.user? 200 : 401))
+  (req, res) => {
+    if(req.user) {
+      res.status(200).send(signToken(req.user.id));
+    } else {
+      res.sendStatus(401);
+    }
+});
 
 router.get('/callback', passport.authenticate('facebook', {
   failureRedirect: '/login', // TODO: Change to Login or similar
