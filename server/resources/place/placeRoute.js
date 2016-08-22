@@ -43,6 +43,9 @@ router.get('/find/:lat/:long', (req, res) => {
       place.setUser(req.user);
       sockets.broadcast('place/createPlace', place);
       res.status(201).json(place);
+    })
+    .catch(err => {
+      console.log("Place Error: ", err);
     });
 });
 

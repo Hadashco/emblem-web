@@ -14,6 +14,7 @@ const getTokenHeader = (req, res, next) => {
   } else if (req.cookies['token']) {
     req.headers.authorization = `Bearer ${req.cookies['token']}`;
   } else {
+    console.log("No login token");
     return res.status(401).send('\'ello Poppet. No tokens \'ere love.');
   }
   console.log('Authorization: ', req.headers.authorization);
@@ -27,6 +28,7 @@ const populateReqUser = (req, res, next) => {
   User.findOne({ where: { id: req.user.id } })
     .then(user => {
       if (!user) {
+        console.log("User id not found");``
         return res.status(401).end();
       }
       console.log('USER: ', user);
