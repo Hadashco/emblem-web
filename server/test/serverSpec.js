@@ -11,6 +11,18 @@ const placeRecord = { lat: 0, long: 0 };
 const artRecord = { type: 'test' };
 const userRecord = { fbookId: '0' };
 
+const AWS = require('aws-sdk');
+
+// Set up region for requests
+AWS.config.update({
+  region: 'us-east-1',
+  accessKeyId: process.env.AWS_ID,
+  secretAccessKey: process.env.AWS_SECRET,
+});
+
+// Create reference to existing bucket
+const s3bucket = new AWS.S3({ params: { Bucket: 'hadashco-emblem' } });
+
 const xbeforeEach = () => {}; // Mimic xit and xdescribe
 
 describe('Build Models', () => {
@@ -61,7 +73,7 @@ describe('Build Models', () => {
   });
 });
 
-describe('Geotagging Routes', () => {
+describe('Geotagging Routes and Posting Art to AWS S3', () => {
   // for re-use throughout the tests
   let place, art;
 
@@ -103,6 +115,25 @@ describe('Geotagging Routes', () => {
     });
   });
 
+  it ('should retrieve objects posted to the s3 bucket', (done) => {
+    new Promise((resolve, reject) => {
+      request.post({
+        url: `http://localhost:3000/art/${art.id}/download`,
+        body: JSON.stringify({ data: 'definitely an image' }),
+        headers: {
+          'file-type': 'img/fakeimg',
+          'content-type': 'application/octet-stream',
+        },
+      }, (err, response, body) => {
+        err ? reject(err) : resolve(response.body);
+      });
+    }).then(body => {
+      art = JSON.parse(body);
+      art.id.should.not.be.null;
+      done();
+    });
+  });
+
   it ('should tie art to the place', (done) => {
     new Promise((resolve, reject) => {
       request.post({
@@ -122,3 +153,17 @@ describe('Geotagging Routes', () => {
     Art.findById(art.id).then(art => art.destroy());
   });
 });
+
+
+
+
+
+
+
+s3bucket.deleteObject(params, (err, data) => {
+          if (!err) {
+            res.send(data.Body);
+          } else {
+            res.status(500).send(err);
+          }
+        });

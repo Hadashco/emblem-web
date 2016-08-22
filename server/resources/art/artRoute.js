@@ -2,6 +2,8 @@
 const router = require('express').Router();
 const db = require('../../db/db');
 const { Art, Place, TRAILING_DEC_SECTOR } = db;
+const path = require('path');
+// const storagePath = path.join(__dirname.concat('/../../tempArtStore'));
 
 const AWS = require('aws-sdk');
 
@@ -44,7 +46,7 @@ router.post('/', (req, res) => {
           res.status(301).json(err);
         } else {
           console.log('Successfully uploaded data to myBucket/myKey');
-          res.status(400).json(art);
+          res.status(200).json(`https://s3.amazonaws.com/hadashco-emblem/${art.id}`);
         }
       });
     })
