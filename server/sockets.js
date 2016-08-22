@@ -1,6 +1,6 @@
 const io = require('socket.io');
 let sockets; // Provides same scope for sockets, below
-let listeners = {};
+const listeners = {};
 
 const listenToSocket = socket => {
   Object.keys(listeners).forEach(event => {
@@ -15,9 +15,10 @@ const listenToSocket = socket => {
 module.exports = {
   broadcast: (type, data) => {
     if (!sockets) {
-      throw 'No sockets have been attached to server.';
+      console.log('No sockets have been attached to server.');
+    } else {
+      sockets.emit(type, data);
     }
-    sockets.emit(type, data);
   },
   registerListener: (type, func) => {
     if (!listeners[type]) {

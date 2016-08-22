@@ -4,7 +4,7 @@ module.exports = function Vote(db, Sequelize) {
     voteable: Sequelize.STRING,
     voteable_id: Sequelize.INTEGER,
   },
-  {
-    tableName: 'Vote'
-  });
+    {
+      tableName: 'Vote',
+    });
 };

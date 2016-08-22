@@ -5,17 +5,18 @@ const { Place, TRAILING_DEC_SECTOR } = db;
 
 // Add a new places
 router.post('/', (req, res) => {
-  const sector = req.body.lat.toFixed(TRAILING_DEC_SECTOR) + req.body.long.toFixed(TRAILING_DEC_SECTOR);
+  const sector = req.body.lat.toFixed(TRAILING_DEC_SECTOR) +
+                 req.body.long.toFixed(TRAILING_DEC_SECTOR);
   Place.findOne({ where: { sector } })
-    .then(place => { 
+    .then(place => {
       if (place) {
         res.status(200).json(place); // Prevent duplicate entry of same place
       } else {
         Place.create({ long: req.body.long, lat: req.body.lat, sector })
-          .then(place => {
-            place.setUser(req.user); // add creator ID
-            sockets.broadcast('place/createPlace', place);
-            res.send(JSON.stringify(place));
+          .then(newPlace => {
+            newPlace.setUser(req.user); // add creator ID
+            sockets.broadcast('place/createPlace', newPlace);
+            res.send(JSON.stringify(newPlace));
           });
       }
     });
@@ -30,14 +31,14 @@ router.get('/', (req, res) => {
 
 // Find a place
 router.get('/find/:lat/:long', (req, res) => {
-  const sector = Number(req.params.lat).toFixed(TRAILING_DEC_SECTOR) + Number(req.params.long).toFixed(TRAILING_DEC_SECTOR);
+  const sector = Number(req.params.lat).toFixed(TRAILING_DEC_SECTOR) +
+                 Number(req.params.long).toFixed(TRAILING_DEC_SECTOR);
   Place.findOne({ where: { sector } })
     .then(place => {
       if (place) {
-        res.status(200).json(place);
-      } else {
-        return Place.create({ long: req.params.long, lat: req.params.lat, sector });
+        return res.status(200).json(place);
       }
+      return Place.create({ long: req.params.long, lat: req.params.lat, sector });
     })
     .then(place => {
       place.setUser(req.user);
@@ -51,7 +52,8 @@ router.get('/find/:lat/:long', (req, res) => {
 
 // Find art at a lat / long (place ID unknown)
 router.get('/find/art/:lat/:long', (req, res) => {
-  const sector = Number(req.params.lat).toFixed(TRAILING_DEC_SECTOR) + Number(req.params.long).toFixed(TRAILING_DEC_SECTOR);
+  const sector = Number(req.params.lat).toFixed(TRAILING_DEC_SECTOR) +
+                 Number(req.params.long).toFixed(TRAILING_DEC_SECTOR);
   Place.findOne({ where: { sector } })
     .then(place => {
       if (place) {
@@ -61,7 +63,7 @@ router.get('/find/art/:lat/:long', (req, res) => {
           })
           .catch(err => res.status(401).send(JSON.stringify(err)));
       } else {
-        res.status(200).send(`No PlaceId corresponds with lat (${req.params.lat}) - long (${req.params.long})`)
+        res.status(200).send(`No PlaceId corresponds with lat (${req.params.lat}) - long (${req.params.long})`);
       }
     })
     .catch(err => res.status(401).send(JSON.stringify(err)));
