@@ -44,7 +44,7 @@ router.post('/', (req, res) => {
           res.status(301).json(err);
         } else {
           console.log('Successfully uploaded data to myBucket/myKey');
-          res.status(400).json(`https://s3.amazonaws.com/hadashco-emblem/ ${art.id}`);
+          res.status(400).json(art);
         }
       });
     })
@@ -58,7 +58,8 @@ router.get('/:id/download', (req, res) => {
 
       s3bucket.getObject(params, (err, data) => {
         if (!err) {
-          // Reference additional Body properties: http://docs.aws.amazon.com/AWSJavaScriptSDK/latest/AWS/S3.html#getObject-property
+          // Reference additional Body properties:
+          // http://docs.aws.amazon.com/AWSJavaScriptSDK/latest/AWS/S3.html#getObject-property
           res.send(data.Body);
         } else {
           res.status(500).send(err);

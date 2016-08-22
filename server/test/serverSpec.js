@@ -48,7 +48,7 @@ describe('Build Models', () => {
   });
 
   describe('Art', () => {
-    it ('should build and save a new Art', (done) => {
+    it ('should create an art record Art', (done) => {
       Art.create(artRecord).then(art => {
         art.should.have.property('id');
         art.id.should.not.be.null;
@@ -69,10 +69,10 @@ describe('Geotagging Routes', () => {
     new Promise((resolve, reject) => {
       request.post({
         url: 'http://localhost:3000/place',
-        body: JSON.stringify({long: 22.44, lat:88.00}),
+        body: JSON.stringify({ long: 22.44, lat: 88.00 }),
         headers: {
-          'content-type': 'application/json'
-        }
+          'content-type': 'application/json',
+        },
       }, (err, response, body) => {
         err ? reject(err) : resolve(response.body);
       });
@@ -84,17 +84,15 @@ describe('Geotagging Routes', () => {
       });
   });
 
-
-
   it ('should post a new art to the server', (done) => {
     new Promise((resolve, reject) => {
       request.post({
         url: 'http://localhost:3000/art',
-        body: JSON.stringify({data: 'definitely an image'}),
+        body: JSON.stringify({ data: 'definitely an image' }),
         headers: {
           'file-type': 'img/fakeimg',
-          'content-type': 'application/octet-stream'
-        }
+          'content-type': 'application/octet-stream',
+        },
       }, (err, response, body) => {
         err ? reject(err) : resolve(response.body);
       });
@@ -105,13 +103,11 @@ describe('Geotagging Routes', () => {
     });
   });
 
-
-
   it ('should tie art to the place', (done) => {
     new Promise((resolve, reject) => {
       request.post({
         url: `http://localhost:3000/place/${place.id}`,
-        body: JSON.stringify({id: art.id})
+        body: JSON.stringify({ id: art.id }),
       }, (err, response, body) => {
         err ? reject(err) : resolve(response);
       });
