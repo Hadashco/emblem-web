@@ -2,6 +2,15 @@ import React from 'react';
 import Dropzone from 'react-dropzone';
 import { connection } from './uploadState.js';
 
+var dropZoneStyles = {
+  position: 'relative',
+  left: 5 + '%',
+  width: 90 + '%',
+  height: 50 + '%',
+  border: 'dashed 1px black',
+  marginBottom: 5 + 'px'
+}
+
 class DropzoneView extends React.Component {
   constructor(props) {
     super(props);
@@ -15,20 +24,11 @@ class DropzoneView extends React.Component {
 
   render() {
     return (
-      <div>
-        <Dropzone onDrop={this.dropFile}>
+      <span>
+        <Dropzone onDrop={this.dropFile} style={ dropZoneStyles }>
           <div>Drop files here to upload</div>
         </Dropzone>
-        {this.props.toUpload.length > 0 ? <div>
-        <h2>Uploading {this.props.toUpload.length} files...</h2>
-        <div className='preview'>
-          {this.props.toUpload.map((file) => {
-            return (
-              <img src={file[0].preview}/>
-              )
-          })}</div>
-          </div> : null}
-      </div>
+      </span>
     );
   }
 }

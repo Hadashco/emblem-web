@@ -27,35 +27,69 @@ body {
 
 ***********************************************************/
 
+.frontPage {
+  height: 100%;
+  width: 100%;
+}
+
 .login {
+  position: relative;
   margin-top: -20px;
   margin-right: -15px;
   width: 100%;
-  height: 100%;
+  height: 90%;
   background-image: url('http://www.marinainn.com/assets/themes/marinainn/img/san-francisco-skyline.jpg');
   background-repeat: no-repeat;
   background-size: cover;
 }
 
+.loginArtContainer {
+  position:  absolute;
+  width: 65%;
+  height: 100%;
+  top: 40px;
+  left: 250px;
+  z-index: 9;
+  background-repeat: no-repeat; 
+  background-position: center;
+  background-size: 80%;
+  background-attachment: fixed;
+}
+
 .loginContainer {
-  position: relative;
-  left: 30%;
+  position: fixed;
+  left: 20.5%;
   top: 30%;
-  width: 40%;
-  height: 40%;
-  border-radius: 200px;
-  text-align: center;
-  background-color: rgba(255,255,255,.7);
+  width: 700px;
+  height: 302px;
+  text-align: right;
+  color: red;
+  background-image: url('godzilla.png');
+  background-size: cover;
+  background-position: 101px -164px;
+  background-repeat: no-repeat;
+  z-index: 20;
 }
 
 .loginContainer h1 {
   position: relative;
   top: 25%;
+  left: -20.5%;
+}
+
+.loginContainer img {
+  position: fixed;
+  width: 640px;
+  left: -320px;
+  margin-left: 640px;
+  z-index: 90;
 }
 
 .loginButtonDiv {
   position: relative;
   top: 30%;
+  left: -19%;
+  z-index: 100;
 }
 
 /**********************************************************
@@ -65,17 +99,38 @@ body {
 ***********************************************************/
 
 .headerContainer {
-  width: 100%;
-  height: 10%;
+  position: fixed;
+  top:0px;
+  left: 30%;
+  width: 40%;
+  height: 7%;
+  border-radius: 30px;
   text-align: center;
   clear: bottom;
+  background-color: rgba(255,255,255,.6);
+  z-index: 10;
 }
 
 .header {
+  position: relative;
   width: 100%;
+  left: -30px;
   float: left;
   margin-left: 2%;
-  text-align: left;
+  text-align: center;
+}
+
+.header h1 {
+  position: relative;
+  top: -16px;
+  left: -50px;
+}
+
+.headerButtonToolbar {
+  position: relative;
+  top: -10px;
+  left: 40px;
+  z-index: 11;
 }
 
 /**********************************************************
@@ -98,93 +153,30 @@ body {
   padding-left: 0;
 }
 
-/* ------------------------------------------
-CSS3 FACEBOOK-STYLE BUTTONS (Nicolas Gallagher)
-MIT License
-http://github.com/necolas/css3-facebook-buttons
------------------------------------------- */
 
-
-.uibutton,
-.uibutton:visited {
-    position: relative;
-    z-index: 1;
-    overflow: visible;
-    display: inline-block;
-    padding: 0.3em 0.6em 0.375em;
-    border: 1px solid #999;
-    border-bottom-color: #888;
-    margin: 0;
-    text-decoration: none;
-    text-align: center;
-    font: bold 11px/normal 'lucida grande', tahoma, verdana, arial, sans-serif;
-    white-space: nowrap;
-    cursor: pointer;
-    /* outline: none; */
-    color: #333;
-    background-color: #eee;
-    background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#f5f6f6), to(#e4e4e3));
-    background-image: -moz-linear-gradient(#f5f6f6, #e4e4e3);
-    background-image: -o-linear-gradient(#f5f6f6, #e4e4e3);
-    background-image: linear-gradient(#f5f6f6, #e4e4e3);
-    filter: progid:DXImageTransform.Microsoft.gradient(startColorStr='#f5f6f6', EndColorStr='#e4e4e3'); /* for IE 6 - 9 */
-    -webkit-box-shadow: 0 1px 0 rgba(0, 0, 0, 0.1), inset 0 1px 0 #fff;
-    -moz-box-shadow: 0 1px 0 rgba(0, 0, 0, 0.1), inset 0 1px 0 #fff;
-    box-shadow: 0 1px 0 rgba(0, 0, 0, 0.1), inset 0 1px 0 #fff;
-    /* IE hacks */
-    zoom: 1;
-    *display: inline;
-}
-
-.uibutton:hover,
-.uibutton:focus,
-.uibutton:active {
-    border-color: #777 #777 #666;
-}
-
-.uibutton:active {
-    border-color: #aaa;
-    background: #ddd;
-    filter: none;
-    -webkit-box-shadow: none;
-    -moz-box-shadow: none;
-    box-shadow: none;
-}
-
-/* overrides extra padding on button elements in Firefox */
-.uibutton::-moz-focus-inner {
-    padding: 0;
-    border: 0;
-}
-
-/* blue style buttons */
-.uibutton.confirm {
-    border-color: #29447e #29447e #1a356e;
-    color: #fff;
-    background-color: #5B74A8;
-    background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#637bad), to(#5872a7));
-    background-image: -moz-linear-gradient(#637bad, #5872a7);
-    background-image: -o-linear-gradient(#637bad, #5872a7);
-    background-image: linear-gradient(#637bad, #5872a7);
-    filter: progid:DXImageTransform.Microsoft.gradient(startColorStr='#637bad', EndColorStr='#5872a7'); /* for IE 6 - 9 */
-    -webkit-box-shadow: 0 1px 0 rgba(0, 0, 0, 0.1), inset 0 1px 0 #8a9cc2;
-    -moz-box-shadow: 0 1px 0 rgba(0, 0, 0, 0.1), inset 0 1px 0 #8a9cc2;
-    box-shadow: 0 1px 0 rgba(0, 0, 0, 0.1), inset 0 1px 0 #8a9cc2;
-}
-
-.uibutton.confirm:active {
-    border-color: #29447E;
-    background: #4F6AA3;
-    filter: none;
-    -webkit-box-shadow: none;
-    -moz-box-shadow: none;
-    box-shadow: none;
-}
 
 
 /**********************************************************
 
-                        Art Styles
+                              Button Styles
+
+***********************************************************/
+
+#Button { 
+   border-radius: 30px;
+}
+
+#Button:hover {
+  background-color: rgb(17,153,158);
+}
+
+.button {
+  display: inline-block;
+}
+
+/**********************************************************
+
+                                  Art Styles
 
 ***********************************************************/
 
@@ -195,8 +187,34 @@ http://github.com/necolas/css3-facebook-buttons
   width: 100%;
 }
 
-.ArtModalButton {
+.ArtModalCloseButton .ArtModalUploadButton{
   float: right;
+}
+
+.ArtModalUploadButton{
+  width: 19%;
+  height: 40px;
+  border-radius: 0px;
+  margin-top: 5px;
+  margin-left: -5px;
+  background-image: url('./iconSet/png/upload-to-cloud.png');
+  background-size: contain;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+.ArtModalCloseButton{
+  position: absolute;
+  top: 0px;
+  left: 96.5%;
+  width: 10px;
+  height: 10px;
+  border-radius: 0px;
+  margin-top: 5px;
+  background-image: url('./iconSet/png/letter-x.png');
+  background-size: contain;
+  background-position: center;
+  background-repeat: no-repeat;
 }
 
 .artPiece {
@@ -227,7 +245,7 @@ http://github.com/necolas/css3-facebook-buttons
 
 .mapContainer {
   display: inline-block;
-  height: 60%;
+  height: 100%;
   width: 100%;
 }
 
@@ -247,6 +265,19 @@ http://github.com/necolas/css3-facebook-buttons
   height: 100px;
   margin-right: 3px;
   margin-bottom: 10px;
+}
+
+.uploadButtonToolbar {
+  position: relative;
+  width: 20%;
+  left: 43%;
+}
+
+.uploadHeader {
+  position: relative;
+  float: center;
+  width: 20%;
+  left: 42.5%;
 }
 
 /**********************************************************

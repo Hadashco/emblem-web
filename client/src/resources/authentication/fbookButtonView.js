@@ -3,6 +3,10 @@ import { Button } from 'react-bootstrap';
 import { connection } from './../headerState.js';
 import {browserHistory} from "react-router";
 
+const fbButtonStyles = {
+  borderRadius: 30 + 'px'
+}
+
 export default class FacebookButton extends React.Component {
   constructor(props) {
     super(props);
@@ -16,8 +20,7 @@ export default class FacebookButton extends React.Component {
 
   render() {
     return (
-      <Button className='uibutton confirm' onClick={this.handleClick}>Login with Facebook</Button>
-    );
+<Button className='button' bsStyle="primary" style={ fbButtonStyles } onClick={this.handleClick}>Login with Facebook</Button>    );
   }
 }
 

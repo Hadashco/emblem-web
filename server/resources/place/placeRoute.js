@@ -19,6 +19,7 @@ router.get('/find/maxArtPlace/:placeId', getMaxArtPlaceAtPlaceId);
 // RETURN: id | long | lat | sector | updatedAt | createdAt
 router.get('/find/:lat/:long', findByLatLong);
 
+
 // -- GET (Find) all art at a lat / long (place ID unknown) --
 // RETURN: PlaceId | markerColor | UserId | ArtId | lat | netVotes | long | ArtPlaceId | upvote | downvote
 router.get('/find/artPlace/:lat/:long', getAllArtPlaceAtLatLong);
@@ -29,7 +30,7 @@ router.get('/:id', getById);
 
 // -- GET all art at a specific place --
 // RETURN: id | type | upvotes | downvotes | createdAt | updatedAt | UserId |
-//            ArtPlace {_id | active | upvotes | downvotes | createdAt | updatedAt | PlaceId | ArtId}
+// ArtPlace {_id | active | upvotes | downvotes | createdAt | updatedAt | PlaceId | ArtId}
 router.get('/:id/art', getArtAtId);
 
 module.exports = router;
