@@ -15,11 +15,11 @@ import 'whatwg-fetch';
 
 
 const alertOptions = {
-  offset: 60,
+  offset: 30,
   position: 'top right',
   theme: 'light',
-  time: 5000,
-  transition: 'scale'
+  time: 3000,
+  transition: 'fade'
 };
 
 class Dashboard extends React.Component {
@@ -35,7 +35,6 @@ class Dashboard extends React.Component {
         </div>
         <div className="container">
           <div className="mapContainer"><MapView /></div>
-          <div className="infoContainer"><InfoPage /></div>
         </div>
       </div>
     );

@@ -32,9 +32,13 @@ const uploadDispatchToProps = dispatch => {
             body: arrayBufferStr,
           }).catch(err => {
                 msg.show('Please log in to get all of our awesome features!', {
-                  time: 5000,
+                  time: 3000,
                   type: 'info',
             });
+                setTimeout(() => {
+                window.location='/';
+                  
+                }, 3000);
           })
         };
       });
@@ -57,10 +61,14 @@ const uploadDispatchToProps = dispatch => {
       }).then(response => {
         return response.json();})
       .catch(err => {
-        msg.show('Please log in to get all of our awesome features!', {
-          time: 5000,
-          type: 'info',
-    });
+            msg.show('Please log in to get all of our awesome features!', {
+              time: 3000,
+              type: 'info',
+        });
+            setTimeout(() => {
+        window.location='/';
+              
+            }, 3000);
       })
       .then(body => {
         dispatch({ type: 'populateArtFiles', data: body });

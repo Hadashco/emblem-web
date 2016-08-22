@@ -13,7 +13,7 @@ const customStyles = {
     right: 0,
     bottom: 0,
     backgroundColor: 'rgba(239, 249, 245, 0.74902)',
-    zIndex: 1,
+    zIndex: 15,
     overflow: 'auto'
   },
   content: {
@@ -72,12 +72,10 @@ class ArtSelector extends React.Component {
           <div className='artContainer col-xs-2'>
             {context.art.map(num => <div><ArtComponent photoClick={this.props.updateCurrentArt} art={num.id} /><br/></div>)}
           </div>
+              <UploadButton  class='ArtModalCloseButton' text=''  btn-mad clearfix form-control/>
           <ArtViewer art={this.props.currentArt} />
           <div className='col-xs-12' style={{paddingRight: 0}}>
-            <ButtonToolbar className='col-xs-4 col-xs-offset-8' style={{ float: 'right' }}>
-              <UploadButton  class='ArtModalButton' text='Upload Photos' clickFunc={ this.props.switchUploadModalState }  btn-mad clearfix form-control/>
-              <UploadButton  class='ArtModalButton' text='Close'  btn-mad clearfix form-control/>
-            </ButtonToolbar>
+              <UploadButton  class='ArtModalUploadButton' text='' clickFunc={ this.props.switchUploadModalState }  btn-mad clearfix form-control/>
           </div>
         </Modal>
       );

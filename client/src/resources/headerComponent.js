@@ -16,11 +16,11 @@ export default class headerComponent extends React.Component {
   render() {
     return (
       <div className="header">
-            <ButtonToolbar className='buttonToolbar'>
+            <ButtonToolbar className='headerButtonToolbar buttonToolbar'>
               <UploadButton text='Art Library' />
               <Logout />
             </ButtonToolbar>
-        <h1>Welcome to <i>Emblem</i></h1>
+        <h1><i>Emblem</i></h1>
       </div>
     );
   }
