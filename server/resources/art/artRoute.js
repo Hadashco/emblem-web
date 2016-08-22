@@ -6,45 +6,94 @@ const db = require('../../db/db');
 const { Art, Place, ArtPlace, TRAILING_DEC_SECTOR } = db;
 const storagePath = path.join(__dirname.concat('/../../storage/art'));
 
+var AWS = require('aws-sdk'); 
+
+// Set up region for requests
+AWS.config.update({
+  region: 'us-east-1',
+  accessKeyId: process.env.AWS_ID,
+  secretAccessKey: process.env.AWS_SECRET
+});
+
+// Create reference to existing bucket
+const s3bucket = new AWS.S3({params: { Bucket: 'hadashco-emblem' } });
+
+
+/* ***************************************************************
+
+                      BEGIN AWS PORTION
+
+*****************************************************************/
+// Art can be accessed at the following link:
+//  'https://s3.amazonaws.com/hadashco-emblem/' + art.id
+
 // Post and store new art
 router.post('/', (req, res) => {
   let fileType = req.headers['file-type'];
   Art.create({ type: fileType })
     .then(art => {
       art.setUser(req.user); // add creator ID
-      let dir = `${storagePath}/${art.id}`;
-      fs.mkdirs(dir, (err) => {
-        if (err) console.error(err);
-        let wstream = fs.createWriteStream(`${dir}/${art.id}_FULL`);
-        wstream.write(req.body);
-        wstream.on('finish', () => {
-          res.end(JSON.stringify({ id: art.id }));
-        });
-        wstream.on('error', (error) => {
-          console.log(error, 'error!');
-        });
-        wstream.end();
+      const params = {
+        ACL: 'public-read', 
+        Key: art.id.toString(), 
+        Body: req.body,
+        ContentEncoding: 'base64', // binary
+        ContentType: fileType,
+      };
+      
+      s3bucket.upload(params, err, data => {
+        if (err) {
+          console.log('Error uploading data:', err);
+          res.status(301).json(err);
+        } else {
+          console.log("Successfully uploaded data to myBucket/myKey");
+          res.status(400).json('https://s3.amazonaws.com/hadashco-emblem/' + art.id);
+        }
       });
     })
     .catch(err => res.status(401).send(JSON.stringify(err)));
 });
 
-// Delete art and correspondig artPlace
-router.post('/:id/delete', (req, res) => {
+router.get('/:id/download', (req, res) => {
   Art.findById(req.params.id)
     .then(art => {
-      let dir = `${storagePath}/${art.id}`;
-      fs.remove(dir, err => {
-        art.destroy()
-          .then(() => {
-            ArtPlace.destroy({ where: { ArtId: req.params.id } })
-              .then(() => res.status(200).send(`ArtId ${req.params.id} and associated ArtPlaces deleted.`))
-              .catch(err => res.status(401).send(JSON.stringify(err)));
-          });
+      const params = { Key: art.id.toString() };
+
+      s3bucket.getObject(params, function(err, data) {
+        if (!err) {
+          // Reference additional Body properties: http://docs.aws.amazon.com/AWSJavaScriptSDK/latest/AWS/S3.html#getObject-property
+          res.send(data.Body);
+        } else {
+          res.status(500).send(err);
+        }
       });
     })
     .catch(err => res.status(401).send(JSON.stringify(err)));
+})
+
+// Delete art and correspondig artPlace
+router.post('/:id/delete', (req, res) => {
+  Art.destroy({ where: { id: req.params.id } })
+      .then(() => {
+        const params = { Key: req.params.id.toString() };
+
+        s3bucket.deleteObject(params, function(err, data) {
+          if (!err) {
+            res.send(data.Body);
+          } else {
+            res.status(500).send(err);
+          }
+        });
+        res.status(200).send(`ArtId ${req.params.id} and associated ArtPlaces deleted.`);  
+      })
+      .catch(err => res.status(401).send(JSON.stringify(err)));
 });
+
+/* ***************************************************************
+
+                      END AWS PORTION
+
+*****************************************************************/
 
 // Get specific art
 router.get('/:id', (req, res) => {
@@ -59,8 +108,7 @@ router.get('/:id', (req, res) => {
 router.get('/', (req, res) => {
   Art.findAll()
     .then(arts => {
-      console.log(arts, 'this is what is being sent back');
-      res.status(200).send(arts);
+      res.status(200).send(JSON.stringify(arts));
     })
     .catch(err => {
       console.log('Get art error ', err);

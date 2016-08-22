@@ -12,8 +12,12 @@ router.get('/', (req, res) => {
 
 // Get highest ArtPlace for each place
 router.get('/max/rank', (req, res) => {
-  const qry = `SELECT DISTINCT ON ("ArtPlace"."PlaceId") "ArtPlace"."PlaceId", "Art"."UserId", "ArtPlace"."ArtId", ("ArtPlace".upvotes - "ArtPlace".downvotes) AS "netVotes", "Place".lat, "Place".long
-               FROM "Place" INNER JOIN ("ArtPlace"  INNER JOIN "Art" ON "ArtPlace"."ArtId" = "Art".id) ON "ArtPlace"."PlaceId" = "Place".id
+  const qry = `SELECT DISTINCT ON ("ArtPlace"."PlaceId") "ArtPlace"."PlaceId", "User"."markerColor", 
+                      "Art"."UserId", "ArtPlace"."ArtId", 
+                      ("ArtPlace".upvotes - "ArtPlace".downvotes) AS "netVotes", "Place".lat, "Place".long 
+               FROM "Place" INNER JOIN  ("ArtPlace"  INNER JOIN 
+                      ("Art" INNER JOIN "User" ON "Art"."UserId" = "User".id) ON 
+                      "ArtPlace"."ArtId" = "Art".id) ON "ArtPlace"."PlaceId" = "Place".id 
                ORDER BY "ArtPlace"."PlaceId", ("ArtPlace".upvotes - "ArtPlace".downvotes) DESC`;
   db.query(qry, { type: Sequelize.QueryTypes.SELECT })
     .then(result => res.status(200).json(result))
@@ -22,6 +26,45 @@ router.get('/max/rank', (req, res) => {
       res.status(401).send(JSON.stringify(err));
     });
 });
+
+
+// Get highest ArtPlace for each place between two bounds
+router.get('/max/between/:latMin/:latMax/:longMin/:longMax', (req, res) => {
+  const qry = `SELECT DISTINCT ON ("ArtPlace"."PlaceId") "ArtPlace"."PlaceId", 
+                      "User"."markerColor", "Art"."UserId", "ArtPlace"."ArtId", "Place".lat,
+                      ("ArtPlace".upvotes - "ArtPlace".downvotes) AS "netVotes", "Place".long 
+               FROM "Place" INNER JOIN  ("ArtPlace"  INNER JOIN 
+                      ("Art" INNER JOIN "User" ON "Art"."UserId" = "User".id) ON 
+                      "ArtPlace"."ArtId" = "Art".id) ON "ArtPlace"."PlaceId" = "Place".id 
+               WHERE "Place"."lat" BETWEEN ${latMin} AND ${latMax} 
+                      AND "Place"."long" BETWEEN ${longMin} AND ${longMax}
+               ORDER BY "ArtPlace"."PlaceId", ("ArtPlace".upvotes - "ArtPlace".downvotes) DESC`;
+  db.query(qry, { type: Sequelize.QueryTypes.SELECT })
+    .then(result => res.status(200).json(result))
+    .catch(err => {
+      console.log('artPlace/max/rank error:', err);
+      res.status(401).send(JSON.stringify(err));
+    });
+});
+
+// Get all ArtPlaces between two bounds
+router.get('/between/:latMin/:latMax/:longMin/:longMax', (req, res) => {
+  const qry = `SELECT "ArtPlace"."PlaceId", "User"."markerColor", "Art"."UserId", "ArtPlace"."ArtId", 
+                      ("ArtPlace".upvotes - "ArtPlace".downvotes) AS "netVotes", "Place".lat, "Place".long 
+               FROM "Place" INNER JOIN  ("ArtPlace"  INNER JOIN 
+                      ("Art" INNER JOIN "User" ON "Art"."UserId" = "User".id) ON 
+                      "ArtPlace"."ArtId" = "Art".id) ON "ArtPlace"."PlaceId" = "Place".id 
+               WHERE "Place"."lat" BETWEEN ${latMin} AND ${latMax} 
+                      AND "Place"."long" BETWEEN ${longMin} AND ${longMax}
+               ORDER BY ("ArtPlace".upvotes - "ArtPlace".downvotes) DESC`;
+  db.query(qry, { type: Sequelize.QueryTypes.SELECT })
+    .then(result => res.status(200).json(result))
+    .catch(err => {
+      console.log('artPlace/max/rank error:', err);
+      res.status(401).send(JSON.stringify(err));
+    });
+});
+
 
 // Get specific ArtPlace
 router.get('/:id', (req, res) => {
