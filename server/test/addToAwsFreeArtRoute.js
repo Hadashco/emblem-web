@@ -1,10 +1,12 @@
 /*
  * TODO: 
- *  1. Add storage folder for artwork, update storagePath accordingly
- *  2. Replace existing AWS routes in server/resources/art/artRoute.js
- *  3. Delete router.get('/:id/download')
+ *  1. From terminal, navigate to 'server' folder and run:
+       npm install --save fs-extra 
+ *  2. Add storage folder for artwork, update storagePath accordingly
+ *  3. Replace existing AWS routes in 'server/resources/art/artRoute.js'
+ *  4. Delete router.get('/:id/download')
  *     Revise all client GET requests to '/:id/download' to point to storagePath
- 
+
 const fs = require('fs-extra');
 const path = require('path');
 const storagePath = path.join(__dirname.concat('/../../storage'));
