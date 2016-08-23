@@ -1,9 +1,6 @@
-// const fs = require('fs-extra');
 const router = require('express').Router();
 const db = require('../../db/db');
 const { Art, Place, TRAILING_DEC_SECTOR } = db;
-const path = require('path');
-// const storagePath = path.join(__dirname.concat('/../../tempArtStore'));
 
 const AWS = require('aws-sdk');
 
