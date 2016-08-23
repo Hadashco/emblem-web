@@ -64,7 +64,8 @@ router.get('/find/maxArtPlace/:lat/:long', (req, res) => {
 
   const qry = `SELECT DISTINCT ON ("ArtPlace"."PlaceId") "ArtPlace"."PlaceId", 
                       "User"."markerColor", "Art"."UserId", "ArtPlace"."ArtId", "Place".lat,
-                      ("ArtPlace".upvotes - "ArtPlace".downvotes) AS "netVotes", "Place".long 
+                      ("ArtPlace".upvotes - "ArtPlace".downvotes) AS "netVotes", "Place".long,
+                      "ArtPlace"."_id" AS "ArtPlaceId" 
                FROM "Place" INNER JOIN  ("ArtPlace"  INNER JOIN 
                       ("Art" INNER JOIN "User" ON "Art"."UserId" = "User".id) ON 
                       "ArtPlace"."ArtId" = "Art".id) ON "ArtPlace"."PlaceId" = "Place".id 
@@ -86,7 +87,7 @@ router.get('/find/artPlace/:lat/:long', (req, res) => {
 
   const qry = `SELECT "ArtPlace"."PlaceId", "User"."markerColor", "Art"."UserId", 
                       "ArtPlace"."ArtId", ("ArtPlace".upvotes - "ArtPlace".downvotes)
-                      AS "netVotes", "Place".lat, "Place".long 
+                      AS "netVotes", "Place".lat, "Place".long, "ArtPlace"."_id" AS "ArtPlaceId"  
                FROM "Place" INNER JOIN  ("ArtPlace"  INNER JOIN 
                       ("Art" INNER JOIN "User" ON "Art"."UserId" = "User".id) ON 
                       "ArtPlace"."ArtId" = "Art".id) ON "ArtPlace"."PlaceId" = "Place".id 
