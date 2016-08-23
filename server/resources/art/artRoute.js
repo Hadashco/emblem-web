@@ -68,6 +68,8 @@ router.get('/:id/download', (req, res) => {
     .catch(err => res.status(401).send(JSON.stringify(err)));
 });
 
+
+// TODO: Revisit =============== //
 // Delete art and correspondig artPlace
 router.post('/:id/delete', (req, res) => {
   Art.findById(req.params.id)
@@ -83,8 +85,10 @@ router.post('/:id/delete', (req, res) => {
               } else {
                 res.status(500).send(err);
               }
+            })
+            .then(() => {
+              res.status(200).send(`ArtId ${req.params.id} and associated ArtPlaces deleted.`);
             });
-            res.status(200).send(`ArtId ${req.params.id} and associated ArtPlaces deleted.`);
           })
           .catch(err => res.status(401).send(JSON.stringify(err)));
       } else {
