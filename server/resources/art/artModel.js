@@ -15,8 +15,8 @@ module.exports = function Art(db, Sequelize) {
       defaultValue: 0,
       allowNull: false,
     },
-  }, 
-  {
-   tableName: 'Art'
-  });
+  },
+    {
+      tableName: 'Art',
+    });
 };

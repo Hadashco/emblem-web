@@ -7,9 +7,9 @@ Hold up a looking glass to the world, and transform the view! Emblem presents an
 Table of Contents
 --------------------------
 - [Getting Started](#getting-started)
-..* [Prerequisites](#prerequisites)
-..* [Installation](#installation)
-..* [Starting the Server](#starting-the-server)
+ - [Prerequisites](#prerequisites)
+ - [Installation](#installation)
+ - [Starting the Server](#starting-the-server)
 - [Usage](#usage)
 - [Built With](#built-with)
 - [Obtaining API Keys](#obtaining-api-keys)
@@ -32,7 +32,7 @@ Web client is available for use at [TODO](https://www.heroku.com/).
 - Developer Account / API Key
  - Facebook Developer account for OAuth 2.0.
  - Amazon Web Services (AWS) account for storage.
-  - To skip avoid this prereq, see **Run Without AWS** below.
+  - To skip avoid this prereq, see [Run Without AWS](#run-without-aws) below.
 
 ### Installation
 1. Clone the source code `git clone https://github.com/Hadashco/emblem`
@@ -71,7 +71,7 @@ Navigate to `server/test/addToAwsFreeArtRoute.js` and follow the enclosed instru
 
 Contributions
 --------------------------
-If you have any problems or major improvements, please consult the known issue. If you do not see your problem captured, please file a new issue. Pull requests adhering to the 
+If you have any problems or major improvements, please consult the known issues. If you do not see your problem captured, please file a new issue. Pull requests adhering to the 
 [Airbnb JavaScript Style Guide](https://github.com/airbnb/javascript) are always welcome.
 
 Authors
@@ -84,8 +84,6 @@ Authors
 License
 --------------------------
 The MIT License (MIT)
-
-Copyright (c) 2014-2016 Sahat Yalkabov
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
 

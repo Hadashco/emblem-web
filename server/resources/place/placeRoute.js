@@ -1,7 +1,8 @@
 const router = require('express').Router();
 const sockets = require('../../sockets');
-const db = require('../../db/db');
-const { Place, TRAILING_DEC_SECTOR } = db;
+const dbFile = require('../../db/db');
+const { Place, db, TRAILING_DEC_SECTOR } = dbFile;
+const Sequelize = require('sequelize');
 
 // Add a new places
 router.post('/', (req, res) => {
@@ -19,6 +20,10 @@ router.post('/', (req, res) => {
             res.send(JSON.stringify(newPlace));
           });
       }
+    })
+    .catch(err => {
+      console.log(`POST to place/ ERROR: ${err}`);
+      res.status(401).send(JSON.stringify(err));
     });
 });
 
@@ -46,29 +51,54 @@ router.get('/find/:lat/:long', (req, res) => {
       res.status(201).json(place);
     })
     .catch(err => {
-      console.log("Place Error: ", err);
+      console.log(`GET from place/find/:lat/:long ERROR: ${err}`);
+      res.status(401).send(JSON.stringify(err));
     });
 });
 
-// Find art at a lat / long (place ID unknown)
-router.get('/find/art/:lat/:long', (req, res) => {
+
+// Get highest single ranked ArtPlace at a lat/long
+router.get('/find/maxArtPlace/:lat/:long', (req, res) => {
   const sector = Number(req.params.lat).toFixed(TRAILING_DEC_SECTOR) +
                  Number(req.params.long).toFixed(TRAILING_DEC_SECTOR);
-  Place.findOne({ where: { sector } })
-    .then(place => {
-      if (place) {
-        place.getArts()
-          .then(arts => {
-            res.status(200).json(arts);
-          })
-          .catch(err => res.status(401).send(JSON.stringify(err)));
-      } else {
-        res.status(200).send(`No PlaceId corresponds with lat (${req.params.lat}) - long (${req.params.long})`);
-      }
-    })
-    .catch(err => res.status(401).send(JSON.stringify(err)));
+
+  const qry = `SELECT DISTINCT ON ("ArtPlace"."PlaceId") "ArtPlace"."PlaceId", 
+                      "User"."markerColor", "Art"."UserId", "ArtPlace"."ArtId", "Place".lat,
+                      ("ArtPlace".upvotes - "ArtPlace".downvotes) AS "netVotes", "Place".long 
+               FROM "Place" INNER JOIN  ("ArtPlace"  INNER JOIN 
+                      ("Art" INNER JOIN "User" ON "Art"."UserId" = "User".id) ON 
+                      "ArtPlace"."ArtId" = "Art".id) ON "ArtPlace"."PlaceId" = "Place".id 
+               WHERE "Place"."sector"='${sector}'
+               ORDER BY "ArtPlace"."PlaceId", ("ArtPlace".upvotes - "ArtPlace".downvotes) DESC`;
+  db.query(qry, { type: Sequelize.QueryTypes.SELECT })
+    .then(result => res.status(200).json(result))
+    .catch(err => {
+      console.log('GET from place/find/maxArtPlace/:lat/:long ERROR:', err);
+      res.status(401).send(JSON.stringify(err));
+    });
 });
 
+
+// Find all art at a lat / long (place ID unknown)
+router.get('/find/artPlace/:lat/:long', (req, res) => {
+  const sector = Number(req.params.lat).toFixed(TRAILING_DEC_SECTOR) +
+                 Number(req.params.long).toFixed(TRAILING_DEC_SECTOR);
+
+  const qry = `SELECT "ArtPlace"."PlaceId", "User"."markerColor", "Art"."UserId", 
+                      "ArtPlace"."ArtId", ("ArtPlace".upvotes - "ArtPlace".downvotes)
+                      AS "netVotes", "Place".lat, "Place".long 
+               FROM "Place" INNER JOIN  ("ArtPlace"  INNER JOIN 
+                      ("Art" INNER JOIN "User" ON "Art"."UserId" = "User".id) ON 
+                      "ArtPlace"."ArtId" = "Art".id) ON "ArtPlace"."PlaceId" = "Place".id 
+               WHERE "Place"."sector"='${sector}'
+               ORDER BY "ArtPlace"."PlaceId", ("ArtPlace".upvotes - "ArtPlace".downvotes) DESC`;
+  db.query(qry, { type: Sequelize.QueryTypes.SELECT })
+    .then(result => res.status(200).json(result))
+    .catch(err => {
+      console.log('GET from place/find/artPlace/:lat/:long ERROR:', err);
+      res.status(401).send(JSON.stringify(err));
+    });
+});
 
 // Get a specific place
 router.get('/:id', (req, res) => {

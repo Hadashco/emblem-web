@@ -36,8 +36,8 @@ router.get('/max/between/:latMin/:latMax/:longMin/:longMax', (req, res) => {
                FROM "Place" INNER JOIN  ("ArtPlace"  INNER JOIN 
                       ("Art" INNER JOIN "User" ON "Art"."UserId" = "User".id) ON 
                       "ArtPlace"."ArtId" = "Art".id) ON "ArtPlace"."PlaceId" = "Place".id 
-               WHERE "Place"."lat" BETWEEN ${latMin} AND ${latMax} 
-                      AND "Place"."long" BETWEEN ${longMin} AND ${longMax}
+               WHERE "Place"."lat" BETWEEN ${req.params.latMin} AND ${req.params.latMax} 
+                      AND "Place"."long" BETWEEN ${req.params.longMin} AND ${req.params.longMax}
                ORDER BY "ArtPlace"."PlaceId", ("ArtPlace".upvotes - "ArtPlace".downvotes) DESC`;
   db.query(qry, { type: Sequelize.QueryTypes.SELECT })
     .then(result => res.status(200).json(result))
@@ -54,8 +54,8 @@ router.get('/between/:latMin/:latMax/:longMin/:longMax', (req, res) => {
                FROM "Place" INNER JOIN  ("ArtPlace"  INNER JOIN 
                       ("Art" INNER JOIN "User" ON "Art"."UserId" = "User".id) ON 
                       "ArtPlace"."ArtId" = "Art".id) ON "ArtPlace"."PlaceId" = "Place".id 
-               WHERE "Place"."lat" BETWEEN ${latMin} AND ${latMax} 
-                      AND "Place"."long" BETWEEN ${longMin} AND ${longMax}
+               WHERE "Place"."lat" BETWEEN ${req.params.latMin} AND ${req.params.latMax} 
+                      AND "Place"."long" BETWEEN ${req.params.longMin} AND ${req.params.longMax}
                ORDER BY ("ArtPlace".upvotes - "ArtPlace".downvotes) DESC`;
   db.query(qry, { type: Sequelize.QueryTypes.SELECT })
     .then(result => res.status(200).json(result))
