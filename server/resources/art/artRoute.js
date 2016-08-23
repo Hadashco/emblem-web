@@ -69,7 +69,6 @@ router.get('/:id/download', (req, res) => {
 });
 
 
-// TODO: Revisit =============== //
 // Delete art and corresponding artPlace
 router.post('/:id/delete', (req, res) => {
   Art.findById(req.params.id)

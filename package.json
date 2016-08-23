@@ -22,7 +22,8 @@
     "test:serv": "cd server && npm run test && cd ..",
     "lint": "postcss-color-functionurrently -r 'npm run lint:client' 'npm run lint:server'",
     "lint:client": "eslint client; exit 0",
-    "lint:server": "eslint server; exit 0"
+    "lint:server": "eslint server; exit 0",
+    "test:docker": "docker exec emblemweb_emblem-web-server_1 bash -c 'cd server && npm run test'"
   },
   "repository": {
     "type": "git",

@@ -4,7 +4,7 @@ const request = require('request');
 const connection = require('../db/db');
 const { db, Art, Place, User, ArtPlace, TRAILING_DEC_SECTOR } = connection;
 
-const placeRecord = { lat: 0, long: 0 };
+const placeRecord = { lat: 0, long: 0, sector: '00000' };
 const artRecord = { type: 'test' };
 const userRecord = { fbookId: '0' };
 
@@ -95,7 +95,7 @@ describe('Art and ArtPlaces (Geotags, AWS, Votes, Comments)', () => {
     });
   });
 
-  it ('should post a new art to the server', (done) => {
+  it ('should post a new Art to the server', (done) => {
     new Promise((resolve, reject) => {
       request.post({
         url: 'http://localhost:3000/art',
