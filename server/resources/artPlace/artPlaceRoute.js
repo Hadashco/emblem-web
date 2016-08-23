@@ -13,7 +13,7 @@ router.get('/', (req, res) => {
 // Get highest ArtPlace for each place
 router.get('/max/rank', (req, res) => {
   const qry = `SELECT DISTINCT ON ("ArtPlace"."PlaceId") "ArtPlace"."PlaceId", "User"."markerColor", 
-                      "Art"."UserId", "ArtPlace"."ArtId", 
+                      "Art"."UserId", "ArtPlace"."ArtId", "ArtPlace"."_id" AS "ArtPlaceId",
                       ("ArtPlace".upvotes - "ArtPlace".downvotes) AS "netVotes", "Place".lat, "Place".long 
                FROM "Place" INNER JOIN  ("ArtPlace"  INNER JOIN 
                       ("Art" INNER JOIN "User" ON "Art"."UserId" = "User".id) ON 
@@ -32,7 +32,8 @@ router.get('/max/rank', (req, res) => {
 router.get('/max/between/:latMin/:latMax/:longMin/:longMax', (req, res) => {
   const qry = `SELECT DISTINCT ON ("ArtPlace"."PlaceId") "ArtPlace"."PlaceId", 
                       "User"."markerColor", "Art"."UserId", "ArtPlace"."ArtId", "Place".lat,
-                      ("ArtPlace".upvotes - "ArtPlace".downvotes) AS "netVotes", "Place".long 
+                      ("ArtPlace".upvotes - "ArtPlace".downvotes) AS "netVotes", "Place".long,
+                      "ArtPlace"."_id" AS "ArtPlaceId" 
                FROM "Place" INNER JOIN  ("ArtPlace"  INNER JOIN 
                       ("Art" INNER JOIN "User" ON "Art"."UserId" = "User".id) ON 
                       "ArtPlace"."ArtId" = "Art".id) ON "ArtPlace"."PlaceId" = "Place".id 
@@ -50,7 +51,8 @@ router.get('/max/between/:latMin/:latMax/:longMin/:longMax', (req, res) => {
 // Get all ArtPlaces between two bounds
 router.get('/between/:latMin/:latMax/:longMin/:longMax', (req, res) => {
   const qry = `SELECT "ArtPlace"."PlaceId", "User"."markerColor", "Art"."UserId", "ArtPlace"."ArtId", 
-                      ("ArtPlace".upvotes - "ArtPlace".downvotes) AS "netVotes", "Place".lat, "Place".long 
+                      ("ArtPlace".upvotes - "ArtPlace".downvotes) AS "netVotes", 
+                      "Place".lat, "Place".long, "ArtPlace"."_id" AS "ArtPlaceId" 
                FROM "Place" INNER JOIN  ("ArtPlace"  INNER JOIN 
                       ("Art" INNER JOIN "User" ON "Art"."UserId" = "User".id) ON 
                       "ArtPlace"."ArtId" = "Art".id) ON "ArtPlace"."PlaceId" = "Place".id 
