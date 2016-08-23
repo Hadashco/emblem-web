@@ -8,14 +8,12 @@ module.exports = function Place(db, Sequelize) {
       type: Sequelize.DOUBLE,
       allowNull: false,
     },
-    // Trim lat and long to five decimal places (e.g. 37.45635)
-    // Concat two numbers together as strings
     sector: {
       type: Sequelize.STRING,
       allowNull: false,
-    }, 
+    },
   },
-  {
-    tableName: 'Place'
-  });
+    {
+      tableName: 'Place',
+    });
 };

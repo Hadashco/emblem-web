@@ -5,7 +5,6 @@ const artPlaceRouter = require('./resources/artPlace/artPlaceRoute');
 const authRouter = require('./auth/authRoute');
 const testRouter = require('./test/testRoute');
 const isAuthenticated = require('./auth/authService').isAuthenticated;
-// TODO: Add login / logout path
 
 module.exports = (app) => {
   app.use('/user', isAuthenticated(), userRouter);

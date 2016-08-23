@@ -15,10 +15,10 @@ module.exports = function User(db, Sequelize) {
     facebook: Sequelize.JSON,
     markerColor: {
       type: Sequelize.STRING,
-      defaultValue: '#FE7569', 
+      defaultValue: '#FE7569',
     },
   },
-  {
-    tableName: 'User'
-  });
+    {
+      tableName: 'User',
+    });
 };

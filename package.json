@@ -20,7 +20,7 @@
     "build:serv": "cd server && npm run build && cd ..",
     "test:client": "cd client && npm run test && cd ..",
     "test:serv": "cd server && npm run test && cd ..",
-    "lint": "concurrently -r 'npm run lint:client' 'npm run lint:server'",
+    "lint": "postcss-color-functionurrently -r 'npm run lint:client' 'npm run lint:server'",
     "lint:client": "eslint client; exit 0",
     "lint:server": "eslint server; exit 0"
   },
@@ -36,10 +36,17 @@
   },
   "homepage": "https://github.com/Hadashco/emblem-web#readme",
   "dependencies": {
+    "eslint": "^2.13.1",
+    "eslint-config-airbnb": "^9.0.1",
+    "eslint-config-airbnb-base": "^5.0.3",
+    "eslint-config-airbnb-es5": "^1.0.9",
+    "eslint-plugin-jsx-a11y": "^1.5.5",
+    "eslint-plugin-react": "^5.2.2",
     "passport-facebook-token": "^3.3.0"
   },
   "devDependencies": {
     "autoprefixer": "^6.3.7",
+    "babel-eslint": "^6.1.2",
     "concurrently": "^2.2.0",
     "css-loader": "^0.23.1",
     "eslint": "^2.9.0",

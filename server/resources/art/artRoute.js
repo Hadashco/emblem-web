@@ -1,22 +1,18 @@
-const fs = require('fs-extra');
-const path = require('path');
-// const mkdirp = require('mkdirp');
 const router = require('express').Router();
 const db = require('../../db/db');
-const { Art, Place, ArtPlace, TRAILING_DEC_SECTOR } = db;
-const storagePath = path.join(__dirname.concat('/../../storage/art'));
+const { Art, Place, TRAILING_DEC_SECTOR } = db;
 
-var AWS = require('aws-sdk'); 
+const AWS = require('aws-sdk');
 
 // Set up region for requests
 AWS.config.update({
   region: 'us-east-1',
   accessKeyId: process.env.AWS_ID,
-  secretAccessKey: process.env.AWS_SECRET
+  secretAccessKey: process.env.AWS_SECRET,
 });
 
 // Create reference to existing bucket
-const s3bucket = new AWS.S3({params: { Bucket: 'hadashco-emblem' } });
+const s3bucket = new AWS.S3({ params: { Bucket: 'hadashco-emblem' } });
 
 
 /* ***************************************************************
@@ -29,25 +25,25 @@ const s3bucket = new AWS.S3({params: { Bucket: 'hadashco-emblem' } });
 
 // Post and store new art
 router.post('/', (req, res) => {
-  let fileType = req.headers['file-type'];
+  const fileType = req.headers['file-type'];
   Art.create({ type: fileType })
     .then(art => {
       art.setUser(req.user); // add creator ID
       const params = {
-        ACL: 'public-read', 
-        Key: art.id.toString(), 
+        ACL: 'public-read',
+        Key: art.id.toString(),
         Body: req.body,
         ContentEncoding: 'base64', // binary
         ContentType: fileType,
       };
-      
-      s3bucket.upload(params, err, data => {
+
+      s3bucket.upload(params, (err, data) => {
         if (err) {
           console.log('Error uploading data:', err);
           res.status(301).json(err);
         } else {
-          console.log("Successfully uploaded data to myBucket/myKey");
-          res.status(400).json('https://s3.amazonaws.com/hadashco-emblem/' + art.id);
+          console.log('Successfully uploaded data to myBucket/myKey');
+          res.status(200).json(`https://s3.amazonaws.com/hadashco-emblem/${art.id}`);
         }
       });
     })
@@ -59,9 +55,10 @@ router.get('/:id/download', (req, res) => {
     .then(art => {
       const params = { Key: art.id.toString() };
 
-      s3bucket.getObject(params, function(err, data) {
+      s3bucket.getObject(params, (err, data) => {
         if (!err) {
-          // Reference additional Body properties: http://docs.aws.amazon.com/AWSJavaScriptSDK/latest/AWS/S3.html#getObject-property
+          // Reference additional Body properties:
+          // http://docs.aws.amazon.com/AWSJavaScriptSDK/latest/AWS/S3.html#getObject-property
           res.send(data.Body);
         } else {
           res.status(500).send(err);
@@ -69,7 +66,7 @@ router.get('/:id/download', (req, res) => {
       });
     })
     .catch(err => res.status(401).send(JSON.stringify(err)));
-})
+});
 
 // Delete art and correspondig artPlace
 router.post('/:id/delete', (req, res) => {
@@ -77,14 +74,14 @@ router.post('/:id/delete', (req, res) => {
       .then(() => {
         const params = { Key: req.params.id.toString() };
 
-        s3bucket.deleteObject(params, function(err, data) {
+        s3bucket.deleteObject(params, (err, data) => {
           if (!err) {
             res.send(data.Body);
           } else {
             res.status(500).send(err);
           }
         });
-        res.status(200).send(`ArtId ${req.params.id} and associated ArtPlaces deleted.`);  
+        res.status(200).send(`ArtId ${req.params.id} and associated ArtPlaces deleted.`);
       })
       .catch(err => res.status(401).send(JSON.stringify(err)));
 });
@@ -122,7 +119,8 @@ router.post('/:id/place', (req, res) => {
   Art.findById(req.params.id)
     .then(art => {
       globalArt = art;
-      const sector = req.body.lat.toFixed(TRAILING_DEC_SECTOR) + req.body.long.toFixed(TRAILING_DEC_SECTOR);
+      const sector = req.body.lat.toFixed(TRAILING_DEC_SECTOR) +
+                     req.body.long.toFixed(TRAILING_DEC_SECTOR);
       Place.findAll({ where: { sector } })
         .then(place => {
           if (place.length > 0) {

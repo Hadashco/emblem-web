@@ -4,7 +4,7 @@ module.exports = function Comment(db, Sequelize) {
     commentable: Sequelize.STRING,
     commentable_id: Sequelize.INTEGER,
   },
-  {
-    tableName: 'Comment'
-  });
+    {
+      tableName: 'Comment',
+    });
 };
