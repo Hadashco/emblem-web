@@ -6,13 +6,21 @@ import { browserHistory } from 'react-router';
 export default class LoginView extends React.Component {
   constructor(props) {
     super(props);
+    this.state = {
+      backgroundPos: -164
+    }
+
+    this.style = {
+      backgroundPosition: 101 + 'px ' + this.state.backgroundPos + 'px'
+    }
+
     this.onScroll = this.onScroll.bind(this);
   }
  
 
   componentDidMount() {
     console.log('componentDidMount');
-    window.addEventListener('scroll', this.onScroll, false);
+    window.addEventListener('scroll', this.onScroll);
   }
 
   componentWillUnmount() {
@@ -22,6 +30,7 @@ export default class LoginView extends React.Component {
   onScroll(e) {
     console.log(e, 'hi');
     console.log(this.refs.loginArt.style.backgroundPosition);
+    this.setState({backgroundPos: this.state.backgroundPos+1});
     }
 
 
@@ -29,9 +38,7 @@ export default class LoginView extends React.Component {
     return (
     <div className='frontPage'>
       <div className='login'>
-          <div className='loginArtContainer'>
-          </div>
-        <div className='loginContainer' ref='loginArt'>
+        <div className='loginContainer' ref='loginArt' style={this.style}>
           <img src="./assets/iphone.png" />
             <h1><b><i>Emblem</i></b></h1>
             <div className='loginButtonDiv'>

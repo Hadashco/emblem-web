@@ -43,19 +43,6 @@ body {
   background-size: cover;
 }
 
-.loginArtContainer {
-  position:  absolute;
-  width: 65%;
-  height: 100%;
-  top: 40px;
-  left: 250px;
-  z-index: 9;
-  background-repeat: no-repeat; 
-  background-position: center;
-  background-size: 80%;
-  background-attachment: fixed;
-}
-
 .loginContainer {
   position: fixed;
   left: 20.5%;
