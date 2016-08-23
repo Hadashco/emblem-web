@@ -1,47 +1,59 @@
 import React from 'react';
-import UploadButton from './../upload/UploadButton.js';
+import Modal from 'react-modal';
+import ColorPickerButton from './ColorPickerButton.js';
+import ColorSettingButton from './ColorSettingButton.js';
 import { SketchPicker } from 'react-color';
+import { connection } from './../headerState.js';
 
-class colorPicker extends React.Component {
+const customStyles = {
+  overlay: {
+    position: 'fixed',
+    height: 360 + 'px',
+    width: 320 + 'px',
+    top: 15 + '%',
+    left: 35 + '%',
+    right: 0,
+    bottom: 0,
+    backgroundColor: 'rgba(239, 249, 245, 0.74902)',
+    zIndex: 150,
+    overflow: 'auto'
+  }
+}
+
+
+class ColorPicker extends React.Component {
   constructor(props) {
     super(props);
-    
-    this.state = {
-      displayColorPicker: false,
-      color: {
-        r: '241',
-        g: '112',
-        b: '19',
-        a: '1',
-      },
-    };
+    this.handleChange = this.handleChange.bind(this);
   }
 
-
-  handleClick() {
-    this.setState({ displayColorPicker: !this.state.displayColorPicker })
+  handleChange(color) {
+    console.log(this.props)
+    console.log(color.hex)
+    this.props.updateCurrentColor(color.hex);
   };
 
   handleClose() {
-    this.setState({ displayColorPicker: false })
-  };
-
-  handleChange(color) {
-    this.setState({ color: color.rgb })
+    this.props.handleColorPickerDisplay();
   };
 
   render() {
     return (
-      <div>
-        <UploadButton clickFunc={ this.handleClick } text='Pick Your Color'/>
-        { this.state.displayColorPicker ? <div is="popover">
+      <Modal
+          className='ColorModal'
+          isOpen={this.props.displayColorPicker}
+          style={customStyles}>
+      { this.props.displayColorPicker ? 
+        <div id="popover">
+        {console.log("opened!")}
           <div onClick={ this.handleClose }/>
-          <SketchPicker color={ this.state.color } onChange={ this.handleChange } />
-        </div> : null }
-
-      </div>
+          <SketchPicker color={ this.props.currentColor } onChange={ this.handleChange } />
+          <ColorPickerButton class='colorCloser' text='Close'/>
+          <ColorSettingButton />
+          </div> : null }
+    </Modal>
     )
   }
 }
 
-export default colorPicker;
+export default connection(ColorPicker);

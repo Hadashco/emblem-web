@@ -90,7 +90,7 @@ body {
   top:0px;
   left: 30%;
   width: 40%;
-  height: 7%;
+  height: 50px;
   border-radius: 30px;
   text-align: center;
   clear: bottom;
@@ -110,7 +110,7 @@ body {
 .header h1 {
   position: relative;
   top: -16px;
-  left: -50px;
+  left: 1%;
 }
 
 .headerButtonToolbar {
@@ -140,21 +140,13 @@ body {
   padding-left: 0;
 }
 
-
-
-
-/**********************************************************
-
-                              Button Styles
-
-***********************************************************/
-
 #Button { 
-   border-radius: 30px;
+   border-radius: 20px;
 }
 
 #Button:hover {
   background-color: rgb(17,153,158);
+  color: white;
 }
 
 .button {
@@ -243,7 +235,24 @@ body {
 
 /**********************************************************
 
-                      Upload Styles
+                                Color Styles
+
+***********************************************************/
+
+#popover {
+  position: relative;
+  left: 16%;
+  padding-top: 10px;
+}
+
+.colorCloser {
+  position: relative;
+  padding-top: 30px;
+}
+
+/**********************************************************
+
+                              Upload Styles
 
 ***********************************************************/
 

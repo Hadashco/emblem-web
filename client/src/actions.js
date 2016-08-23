@@ -18,7 +18,31 @@ actions.changeAuth = (previousState) => {
 
 /****************************************************************
 
-                          MAP ACTIONS
+                                COLOR ACTIONS
+
+*****************************************************************/
+
+actions.handleColorPickerDisplay = (previousState) => {
+  let color = Object.assign({}, previousState.color);
+  let displayColorPicker = previousState.color.displayColorPicker;
+  let newDisplayColorPickerState = !displayColorPicker;
+  color.displayColorPicker = newDisplayColorPickerState;
+  let newState = Object.assign({}, previousState, { color });
+  return newState;
+}
+
+actions.updateCurrentColor = (previousState, data) => {
+  let color = previousState.color;
+  let currentColor = previousState.color.currentColor;
+  let newColor = data;
+  color.currentColor = newColor;
+  let newState = Object.assign({}, previousState, { color });
+  return newState;
+}
+
+/****************************************************************
+
+                                MAP ACTIONS
 
 *****************************************************************/
 
@@ -47,7 +71,6 @@ actions.populateMarkers = (previousState, data) => {
   let markers = previousState.map.markers;
   let newFiles = markers.slice();
   data.forEach(dataChunk => {
-    console.log(dataChunk);
     newFiles.push(dataChunk);
   });
   map.markers = newFiles;
@@ -57,7 +80,7 @@ actions.populateMarkers = (previousState, data) => {
 
 /****************************************************************
 
-                        UPLOAD ACTIONS
+                            UPLOAD ACTIONS
 
 *****************************************************************/
 

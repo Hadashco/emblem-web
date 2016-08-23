@@ -18,6 +18,10 @@ let defaultState = {
     toUpload: [],
     files: [],
   },
+  color: {
+    displayColorPicker: false,
+    currentColor: '#000000',
+  },
 };
 
 let actions = Object.assign({}, globalActions);

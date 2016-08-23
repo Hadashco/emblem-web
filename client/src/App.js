@@ -9,6 +9,7 @@ import UploadView from './resources/upload/UploadView';
 import ArtSelectorComponent from './resources/art/ArtSelectorComponent.js';
 import InfoPage from './resources/stateless/InfoPage.js';
 import AlertContainer from 'react-alert';
+import ColorPicker from './resources/colorPicker/colorPicker.js';
 import LoginView from './resources/login/LoginView.js';
 import { Router, Route, Link, IndexRoute, browserHistory } from 'react-router';
 import 'whatwg-fetch';
@@ -34,6 +35,7 @@ class Dashboard extends React.Component {
           <AlertContainer ref={(a) => global.msg = a} {...alertOptions}/>
         </div>
         <div className="container">
+          <ColorPicker />
           <div className="mapContainer"><MapView /></div>
         </div>
       </div>
