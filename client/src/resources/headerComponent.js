@@ -4,6 +4,7 @@ import AddMarkerButton from './map/AddMarkerButton.js';
 import FacebookButton from './authentication/fbookButtonView';
 import UploadButton from './upload/UploadButton.js';
 import Logout from './authentication/LogoutButton.js';
+import colorPicker from './colorPicker/colorPicker.js';
 import { connection } from './headerState.js';
 
 
@@ -17,6 +18,7 @@ export default class headerComponent extends React.Component {
     return (
       <div className="header">
             <ButtonToolbar className='headerButtonToolbar buttonToolbar'>
+              <colorPicker />
               <UploadButton text='Art Library' />
               <Logout />
             </ButtonToolbar>
