@@ -11,6 +11,18 @@ const placeRecord = { lat: 0, long: 0 };
 const artRecord = { type: 'test' };
 const userRecord = { fbookId: '0' };
 
+const AWS = require('aws-sdk');
+
+// Set up region for requests
+AWS.config.update({
+  region: 'us-east-1',
+  accessKeyId: process.env.AWS_ID,
+  secretAccessKey: process.env.AWS_SECRET,
+});
+
+// Create reference to existing bucket
+const s3bucket = new AWS.S3({ params: { Bucket: 'hadashco-emblem' } });
+
 const xbeforeEach = () => {}; // Mimic xit and xdescribe
 
 describe('Build Models', () => {
@@ -48,7 +60,7 @@ describe('Build Models', () => {
   });
 
   describe('Art', () => {
-    it ('should build and save a new Art', (done) => {
+    it ('should create an art record Art', (done) => {
       Art.create(artRecord).then(art => {
         art.should.have.property('id');
         art.id.should.not.be.null;
@@ -61,7 +73,7 @@ describe('Build Models', () => {
   });
 });
 
-describe('Geotagging Routes', () => {
+describe('Geotagging Routes and Posting Art to AWS (S3)', () => {
   // for re-use throughout the tests
   let place, art;
 
@@ -69,32 +81,30 @@ describe('Geotagging Routes', () => {
     new Promise((resolve, reject) => {
       request.post({
         url: 'http://localhost:3000/place',
-        body: JSON.stringify({long: 22.44, lat:88.00}),
+        body: JSON.stringify({ long: 22.44, lat: 88.00 }),
         headers: {
-          'content-type': 'application/json'
-        }
+          'content-type': 'application/json',
+        },
       }, (err, response, body) => {
         err ? reject(err) : resolve(response.body);
       });
     }).then(body => {
-        place = JSON.parse(body);
-        place.long.should.equal(22.44);
-        place.id.should.not.be.null;
-        done();
-      });
+      place = JSON.parse(body);
+      place.long.should.equal(22.44);
+      place.id.should.not.be.null;
+      done();
+    });
   });
-
-
 
   it ('should post a new art to the server', (done) => {
     new Promise((resolve, reject) => {
       request.post({
         url: 'http://localhost:3000/art',
-        body: JSON.stringify({data: 'definitely an image'}),
+        body: JSON.stringify({ data: 'definitely an image' }),
         headers: {
           'file-type': 'img/fakeimg',
-          'content-type': 'application/octet-stream'
-        }
+          'content-type': 'application/octet-stream',
+        },
       }, (err, response, body) => {
         err ? reject(err) : resolve(response.body);
       });
@@ -105,13 +115,24 @@ describe('Geotagging Routes', () => {
     });
   });
 
-
+  it ('should get objects from the s3 bucket', (done) => {
+    new Promise((resolve, reject) => {
+      request.get({
+        url: `http://localhost:3000/art/${art.id}/download`,
+      }, (err, response, body) => {
+        err ? reject(err) : resolve(response.body);
+      });
+    }).then(body => {
+      Buffer.isBuffer(body).should.be.true;
+      done();
+    });
+  });
 
   it ('should tie art to the place', (done) => {
     new Promise((resolve, reject) => {
       request.post({
         url: `http://localhost:3000/place/${place.id}`,
-        body: JSON.stringify({id: art.id})
+        body: JSON.stringify({ id: art.id }),
       }, (err, response, body) => {
         err ? reject(err) : resolve(response);
       });
@@ -119,6 +140,18 @@ describe('Geotagging Routes', () => {
       response.statusCode.should.equal(200);
       done();
     });
+  });
+
+  it ('should delete art from AWS', (done) => {
+    new Promise((resolve, reject) => {
+      request.post({
+        url: `http://localhost:3000/art/${art.id}/delete`,
+        body:
+      })
+    })
+ //   router.post('/:id/delete
+//
+
   });
 
   after(() => {

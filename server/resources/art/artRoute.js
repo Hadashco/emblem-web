@@ -40,7 +40,7 @@ router.post('/', (req, res) => {
       s3bucket.upload(params, (err, data) => {
         if (err) {
           console.log('Error uploading data:', err);
-          res.status(301).json(err);
+          res.status(401).json(err);
         } else {
           console.log('Successfully uploaded data to myBucket/myKey');
           res.status(200).json(`https://s3.amazonaws.com/hadashco-emblem/${art.id}`);
@@ -70,20 +70,27 @@ router.get('/:id/download', (req, res) => {
 
 // Delete art and correspondig artPlace
 router.post('/:id/delete', (req, res) => {
-  Art.destroy({ where: { id: req.params.id } })
-      .then(() => {
-        const params = { Key: req.params.id.toString() };
+  Art.findById(req.params.id)
+    .then(art => {
+      if (art) {
+        art.destroy()
+          .then(() => {
+            const params = { Key: req.params.id.toString() };
 
-        s3bucket.deleteObject(params, (err, data) => {
-          if (!err) {
-            res.send(data.Body);
-          } else {
-            res.status(500).send(err);
-          }
-        });
-        res.status(200).send(`ArtId ${req.params.id} and associated ArtPlaces deleted.`);
-      })
-      .catch(err => res.status(401).send(JSON.stringify(err)));
+            s3bucket.deleteObject(params, (err, data) => {
+              if (!err) {
+                res.send(data.Body);
+              } else {
+                res.status(500).send(err);
+              }
+            });
+            res.status(200).send(`ArtId ${req.params.id} and associated ArtPlaces deleted.`);
+          })
+          .catch(err => res.status(401).send(JSON.stringify(err)));
+      } else {
+        res.status(204).send(`No art found in database at ArtId ${req.params.id}.`);
+      }
+    });
 });
 
 /* ***************************************************************
