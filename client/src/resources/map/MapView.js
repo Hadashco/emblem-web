@@ -42,15 +42,39 @@ class MapView extends React.Component {
   }
 
   createSectorsForMap() {
-    for (var NScoord = 37.7; NScoord < 37.8; NScoord += .01) {
-      for (var EWcoord = -122.300; EWcoord > -122.500; EWcoord -= .01) {
-        this.sectors.push(
-          {north: NScoord, 
-            south: NScoord - .01,
-            east: EWcoord, 
-            west: EWcoord - .01})
-      }
+    fetch('/artPlace/', {
+    method: 'GET',
+    credentials: 'same-origin',
+    headers: {
+      'Accept': 'application/json',
+      'Content-Type': 'application/json',
     }
+  }).then(response => response.json()).then(body => {
+    //using the id i should get back from body, I'd make
+    //another call to max rank at the id the square is located at
+    //then using the user id i get back from that route, ill grab
+    //the user color to save in the sectorColor for each individual
+    //sector
+    console.log(body);
+    for (var place = 0; place < body.length; place++) {
+      this.sectors.push({
+        north: Math.floor(body[place].lat)+1,
+        south: Math.floor(body[place].lat),
+        east: Math.floor(body[place].long)+1,
+        west: Math.floor(body[place].long),
+        sectorColor: '#3d3d3d' //user color
+      })
+    }
+  })
+    // for (var NScoord = 37.7; NScoord < 37.8; NScoord += .01) {
+    //   for (var EWcoord = -122.300; EWcoord > -122.500; EWcoord -= .01) {
+    //     this.sectors.push(
+    //       {north: NScoord, 
+    //         south: NScoord - .01,
+    //         east: EWcoord, 
+    //         west: EWcoord - .01})
+    //   }
+    // }
   }
 
   onMarkerRightclick (index) {
@@ -94,11 +118,11 @@ class MapView extends React.Component {
                   return (
                     <Rectangle
                       key={index}
-                      bounds={sector}
+                      bounds={{north: sector.north, south: sector.south, east: sector.east, west: sector.west}}
                       onMouseover={() => this.onSectorMouseover(index, {lat: sector.north, lng: sector.east})}
                       options={{
                         strokeColor: '#FFFF00',
-                        fillColor: context.sectorColor,
+                        fillColor: sector.sectorColor,
                         strokeOpacity: 0,
                         strokeWeight: 0,
                         fillOpacity: 0.35
