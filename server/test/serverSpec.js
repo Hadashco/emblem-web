@@ -8,6 +8,14 @@ const placeRecord = { lat: 0, long: 0, sector: '00000' };
 const artRecord = { type: 'test' };
 const userRecord = { fbookId: '0' };
 
+const config = {
+  SESSION_SECRET: process.env.SESSION_SECRET,
+  FACEBOOK_ID: process.env.FACEBOOK_ID,
+  FACEBOOK_SECRET: process.env.FACEBOOK_SECRET,
+};
+
+const signToken = require('../auth/authService').signToken;
+
 const AWS = require('aws-sdk');
 
 // Set up region for requests
@@ -75,11 +83,39 @@ describe('Art and ArtPlaces (Geotags, AWS, Votes, Comments)', () => {
   let place, art, art2, artPlace2;
   const long = 22.44;
   const lat = 88.00;
+  let token;
+
+  // beforeEach(() => {
+  //    token = signToken(1010);
+  // });
+  before(() => {
+    // signToken(1010);
+    const accessTokenUrl = `https://graph.facebook.com/v2.7/oauth/access_token
+        ?client_id=${config.FACEBOOK_ID}
+        &client_secret=${config.FACEBOOK_ID}
+        &grant_type=client_credentials`;
+
+    const params = {
+      client_id: config.FACEBOOK_ID,
+      client_secret: config.FACEBOOK_SECRET,
+      callbackURL: 'http://localhost:3000/auth/facebook/callback',
+      redirect_uri: '/login',
+    };
+
+    request.get({
+      url: accessTokenUrl,
+      qs: params,
+      json: true,
+    }, (err, response, accessToken) => {
+      setTokenCookie
+    });
+  });
 
   it ('should post a new Place to the server', (done) => {
     new Promise((resolve, reject) => {
       request.post({
         url: 'http://localhost:3000/place',
+        query: { access_token: token },
         body: JSON.stringify({ long, lat }),
         headers: {
           'content-type': 'application/json',
@@ -98,7 +134,8 @@ describe('Art and ArtPlaces (Geotags, AWS, Votes, Comments)', () => {
   it ('should post a new Art to the server', (done) => {
     new Promise((resolve, reject) => {
       request.post({
-        url: 'http://localhost:3000/art',
+        url: `http://localhost:3000/art?access_token=${token}`,
+        query: { access_token: token },
         body: JSON.stringify({ data: 'definitely an image' }),
         headers: {
           'file-type': 'img/fakeimg',
@@ -117,7 +154,7 @@ describe('Art and ArtPlaces (Geotags, AWS, Votes, Comments)', () => {
   it ('should post a second art to the server', (done) => {
     new Promise((resolve, reject) => {
       request.post({
-        url: 'http://localhost:3000/art',
+        url: 'http://localhost:3000/art?access_token=${token}',
         body: JSON.stringify({ data: 'definitely an image' }),
         headers: {
           'file-type': 'img/fakeimg',
@@ -137,7 +174,7 @@ describe('Art and ArtPlaces (Geotags, AWS, Votes, Comments)', () => {
   it ('should get objects from the s3 bucket', (done) => {
     new Promise((resolve, reject) => {
       request.get({
-        url: `http://localhost:3000/art/${art.id}/download`,
+        url: `http://localhost:3000/art/${art.id}/download?access_token=${token}`,
       }, (err, response, body) => {
         err ? reject(err) : resolve(response.body);
       });
@@ -150,7 +187,7 @@ describe('Art and ArtPlaces (Geotags, AWS, Votes, Comments)', () => {
   it ('should tie art to the place', (done) => {
     new Promise((resolve, reject) => {
       request.post({
-        url: `http://localhost:3000/place/${place.id}`,
+        url: `http://localhost:3000/place/${place.id}?access_token=${token}`,
         body: JSON.stringify({ id: art.id }),
       }, (err, response, body) => {
         err ? reject(err) : resolve(response);
@@ -164,7 +201,7 @@ describe('Art and ArtPlaces (Geotags, AWS, Votes, Comments)', () => {
   it ('should tie art2 to the place', (done) => {
     new Promise((resolve, reject) => {
       request.post({
-        url: `http://localhost:3000/place/${place.id}`,
+        url: `http://localhost:3000/place/${place.id}?access_token=${token}`,
         body: JSON.stringify({ id: art2.id }),
       }, (err, response, body) => {
         err ? reject(err) : resolve(response);
@@ -178,7 +215,7 @@ describe('Art and ArtPlaces (Geotags, AWS, Votes, Comments)', () => {
   it ('should increase vote of art2 (route)', (done) => {
     new Promise((resolve, reject) => {
       request.post({
-        url: `http://localhost:3000/artPlace/${artPlace2.id}`,
+        url: `http://localhost:3000/artPlace/${artPlace2.id}?access_token=${token}`,
         body: JSON.stringify({ vote: 1 }),
       }, (err, response, body) => {
         err ? reject(err) : resolve(response);
@@ -201,7 +238,7 @@ describe('Art and ArtPlaces (Geotags, AWS, Votes, Comments)', () => {
     // router.get('/find/maxArtPlace/:lat/:long'
     new Promise((resolve, reject) => {
       request.get({
-        url: `http://localhost:3000/place/find/maxArtPlace/${lat}/${long}`,
+        url: `http://localhost:3000/place/find/maxArtPlace/${lat}/${long}?access_token=${token}`,
       }, (err, response) => {
         err ? reject(err) : resolve(response);
       });
@@ -216,7 +253,7 @@ describe('Art and ArtPlaces (Geotags, AWS, Votes, Comments)', () => {
     // router.post('/:id/comment
     new Promise((resolve, response) => {
       request.post({
-        url: `http://localhost:3000/artPlace/${artPlace2._id}/comment`,
+        url: `http://localhost:3000/artPlace/${artPlace2._id}/comment?access_token=${token}`,
         body: JSON.stringify({ title: 'what an amazing gem, a masterpiece!' }),
       }, (err, response) => {
         err ? reject(err) : resolve(response);
@@ -230,7 +267,7 @@ describe('Art and ArtPlaces (Geotags, AWS, Votes, Comments)', () => {
   it ('should delete art from AWS', (done) => {
     new Promise((resolve, reject) => {
       request.post({
-        url: `http://localhost:3000/art/${art.id}/delete`,
+        url: `http://localhost:3000/art/${art.id}/delete?access_token=${token}`,
       }, (err, response) => {
         err ? reject(err) : resolve(response);
       });

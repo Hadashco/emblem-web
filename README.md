@@ -30,16 +30,16 @@ Web client is available for use at [TODO](https://www.heroku.com/).
 - Command Line Tools
  - <img src="http://deluge-torrent.org/images/apple-logo.gif" height="17">&nbsp;**Mac OS X:** [Xcode](https://itunes.apple.com/us/app/xcode/id497799835?mt=12) (or **OS X 10.9+**: `xcode-select --install`)
 - Developer Account / API Key
- - Facebook Developer account for OAuth 2.0.
- - Amazon Web Services (AWS) account for storage.
-  - To skip avoid this prereq, see [Run Without AWS](#run-without-aws) below.
+ - <img src="https://www.facebookbrand.com/img/fb-art.jpg" height="17">&nbsp;**Facebook Developer** account for OAuth 2.0
+ - <img src="https://www.yuvid.com/wp-content/uploads/2015/02/amazon-s3-logo.png" height="17">&nbsp;**Amazon Web Services (AWS)** account for storage
+ - To avoid using Amazon, see [Run Without AWS](#run-without-aws) below
 
 ### Installation
 1. Clone the source code `git clone https://github.com/Hadashco/emblem`
 
 ### Starting the Server:
-1. Setup .config.sh according to .configEx.sh
-2. Run 'bash start.dev.sh'
+1. Setup `.config.sh` according to `.configEx.sh`
+2. Run `bash start.dev.sh`
 
 Usage
 --------------------------

@@ -12,6 +12,7 @@ module.exports = (User, config) => {
   };
 
   const handler = (accessToken, refreshToken, profile, done) => {
+    console.log('---- facebook profile is:', profile);
     User.findOne({ where: { fbookId: profile.id } })
       .then(user => {
         if (user) {
