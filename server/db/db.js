@@ -9,7 +9,7 @@ const Comment = require('../resources/comment/commentModel')(db, Sequelize);
 const Vote = require('../resources/vote/voteModel')(db, Sequelize);
 const ArtPlace = require('../resources/artPlace/artPlaceModel')(db, Sequelize);
 
-const TRAILING_DEC_SECTOR = 5; // Number of trailing decimals in sector
+const TRAILING_DEC_SECTOR = 4; // Number of trailing decimals in sector
 
 Place.belongsToMany(Art, { through: ArtPlace });
 Art.belongsToMany(Place, { through: ArtPlace });
