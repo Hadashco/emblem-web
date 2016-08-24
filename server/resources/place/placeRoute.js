@@ -4,26 +4,32 @@ const { postNewPlace, getAll, findByLatLong,
         getAllArtPlaceAtLatLong,
         getById, getArtAtId } = require('./placeController');
 
-// Add a new places
+// -- POST a new places --
 router.post('/', postNewPlace);
 
-// Get all places
+// -- GET all places --
+// RETURN: id | long | lat | sector | createdAt | updatedAt | UserId
 router.get('/', getAll);
 
-// Get highest single ranked ArtPlace at a place
+// -- GET highest single ranked ArtPlace at a place --
+// RETURN: PlaceId | markerColor | UserId | ArtId | lat | netVotes | long | ArtPlaceId
 router.get('/find/maxArtPlace/:placeId', getMaxArtPlaceAtPlaceId);
 
-// Find a place
+// -- GET (Find) a place --
+// RETURN: id | long | lat | sector | updatedAt | createdAt
 router.get('/find/:lat/:long', findByLatLong);
 
-// Find all art at a lat / long (place ID unknown)
+// -- GET (Find) all art at a lat / long (place ID unknown) --
+// RETURN: PlaceId | markerColor | UserId | ArtId | lat | netVotes | long | ArtPlaceId
 router.get('/find/artPlace/:lat/:long', getAllArtPlaceAtLatLong);
 
-// Get a specific place
+// -- GET a specific place --
+// RETURN: id | long | lat | sector | createdAt | updatedAt | UserId
 router.get('/:id', getById);
 
-// Get all art at a specific place
-// Assumes that input includes: 1) placeId in route
+// -- GET all art at a specific place --
+// RETURN: id | type | upvotes | downvotes | createdAt | updatedAt | UserId |
+//            ArtPlace {_id | active | upvotes | downvotes | createdAt | updatedAt | PlaceId | ArtId}
 router.get('/:id/art', getArtAtId);
 
 module.exports = router;
