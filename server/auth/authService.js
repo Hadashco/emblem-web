@@ -14,7 +14,6 @@ const getTokenHeader = (req, res, next) => {
   } else if (req.cookies['token']) {
     req.headers.authorization = `Bearer ${req.cookies['token']}`;
   } else {
-    console.log('Login token not found or expired');
     return res.status(401).send('\'ello Poppet. No tokens \'ere love.');
   }
   next();

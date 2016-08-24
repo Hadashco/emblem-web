@@ -4,6 +4,17 @@ Hold up a looking glass to the world, and transform the view! Emblem presents an
 
 [TODO: video of mobile app in action](https://github.com/rubensousa/ViewPagerCards)
 
+TODO: Update travis-ci build status links (below)
+
+#### Server and Web Client
+[![Build Status](https://api.travis-ci.org/hadashco/emblem-web.svg?branch=master)](https://api.travis-ci.org/hadashco/emblem-web.svg?branch=master)
+[![Stories in Ready](https://badge.waffle.io/Hadashco/emblem-web.png?label=ready&title=Ready)](https://waffle.io/Hadashco/emblem-web)
+
+#### [Mobile Client](https://github.com/Hadashco/emblem-mobile)
+[![Build Status](https://api.travis-ci.org/hadashco/emblem-mobile.svg?branch=master)](https://api.travis-ci.org/hadashco/emblem-mobile.svg?branch=master)
+[![Stories in Ready](https://badge.waffle.io/Hadashco/emblem-mobile.png?label=ready&title=Ready)](https://waffle.io/Hadashco/emblem-mobile)
+
+
 Table of Contents
 --------------------------
 - [Getting Started](#getting-started)
@@ -58,7 +69,27 @@ Obtaining API Keys
 --------------------------
 <img src="http://www.doit.ba/img/facebook.jpg" width="200">
 ### Facebook
-TODO
+1. Sign up to be a [Facebook developer](https://developers.facebook.com/)
+2. Click the "Create a New App" on your [apps page](https://developers.facebook.com/apps/)
+3. Choose a "Website" app and give it a name
+4. Add a contact email and a category when prompted
+5. Complete the captcha and wait for the app to be created
+6. Scroll down to the "Tell us about your website" portion of the next page, enter:  
+     `http://localhost:3000/`
+7. Click "Next" and scroll back to the top of the page. Click on the "Skip Quick Start" button
+8. Click the "+ Add Product" button on the left side of the dashboard
+9. Click the "Get Started" button next to "Facebook Login"
+10. For "Valid OAuth redirect URIs", enter:  
+     `http://localhost:3000/auth/facebook/callback`
+11. Click "Save Changes" on the bottom right
+12. Go back to the app dashboard by clicking the "Dashboard" menu item on the top left
+13. Make a copy of `./server/config/.env.sample.js` as `./server/config/.env.js`. Notice that the `.env.js` file is a JavaScript file. The value for each property of the exported object in this file should be a string. Make sure there are single quotes around the pasted in values
+14. Copy the "App ID" and replace `FACEBOOK_ID`'s value with the copied value
+15. Click the "Show" button for "App Secret". Enter your Facebook password to display the value. Copy the shown value and into the `.env.js` file as the `FACEBOOK_SECRET`
+
+With the dev server running, navigating to `http://localhost:3000/auth/facebook` redirects the browser to Facebook and ask for app authorization. Once authorized, the browser redirects to `http://localhost:3000/auth/facebook/callback` with a `code` query param (logged on the server). The browser then redirects to the application root.
+
+
 
 <img src="http://awsmedia.s3.amazonaws.com/AWS_Logo_PoweredBy_127px.png" alt="Powered by AWS Cloud Computing" width="200">
 ### Amazon

@@ -98,7 +98,6 @@ describe('Art and ArtPlaces (Geotags, AWS, Votes, Comments)', () => {
     const params = {
       client_id: config.FACEBOOK_ID,
       client_secret: config.FACEBOOK_SECRET,
-      callbackURL: 'http://localhost:3000/auth/facebook/callback',
       redirect_uri: '/login',
     };
 
@@ -107,7 +106,7 @@ describe('Art and ArtPlaces (Geotags, AWS, Votes, Comments)', () => {
       qs: params,
       json: true,
     }, (err, response, accessToken) => {
-      setTokenCookie
+      token = accessToken;
     });
   });
 
