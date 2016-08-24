@@ -1,8 +1,6 @@
 const router = require('express').Router();
-const Vote = require('../../db/db').Vote;
+const { getAll } = require('./voteController');
 
-router.get('/', (req, res) => {
-  Vote.findAll().then(result => {
-    res.send(result);
-  });
-});
+router.get('/', getAll);
+
+module.exports = router;

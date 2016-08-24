@@ -1,6 +1,5 @@
 const Art = require('../../db/db').Art;
 
-
 module.exports = {
   // Update color for user
   changeColor: (req, res) => {
