@@ -7,6 +7,9 @@ class MapView extends React.Component {
 
   constructor(props) {
     super(props);
+    this.state = {
+      sectors: []
+    }
     this.onMapClick = this.onMapClick.bind(this);
     this.onMarkerRightclick = this.onMarkerRightclick.bind(this);
     this.onSectorMouseover = this.onSectorMouseover.bind(this);
@@ -19,6 +22,7 @@ class MapView extends React.Component {
   componentDidMount() {
     this.props.populateMarkers();
     this.createSectorsForMap();
+    console.log(this.sectors, 'mounted sectors!!');
   }
 
   onMapClick(event) {
@@ -55,17 +59,20 @@ class MapView extends React.Component {
     //then using the user id i get back from that route, ill grab
     //the user color to save in the sectorColor for each individual
     //sector
-    var LAT_LONG_TRUNCATE = 4;
-    console.log(body);
+    var LAT_LONG_TRUNCATE = 3;
     for (var place = 0; place < body.length; place++) {
+      console.log(typeof body[place].lat)
       this.sectors.push({
-        north: body[place].lat.toFixed(LAT_LONG_TRUNCATE)+.0001,
-        south: body[place].lat.toFixed(LAT_LONG_TRUNCATE),
-        east: body[place].long.toFixed(LAT_LONG_TRUNCATE)+.0001,
-        west: body[place].long.toFixed(LAT_LONG_TRUNCATE),
-        sectorColor: body.markerColor //user color
+        // The subtracting .0005 is to account for the automatic rounding done
+        // by the Number.prototype.toFixed() function
+        north: Number((body[place].lat-.0005).toFixed(LAT_LONG_TRUNCATE))+.001,
+        south: Number((body[place].lat-.0005).toFixed(LAT_LONG_TRUNCATE)),
+        east: Number((body[place].long-.0005).toFixed(LAT_LONG_TRUNCATE))+.001,
+        west: Number((body[place].long-.0005).toFixed(LAT_LONG_TRUNCATE)),
+        sectorColor: body[place].markerColor //user color
       })
     }
+      this.setState({sectors: this.sectors});
   })
     // for (var NScoord = 37.7; NScoord < 37.8; NScoord += .01) {
     //   for (var EWcoord = -122.300; EWcoord > -122.500; EWcoord -= .01) {
@@ -108,6 +115,7 @@ class MapView extends React.Component {
                 options={{minZoom: 15}}
               >
                 {this.props.markers.map((marker, index) => {
+                  console.log(marker, 'sectors')
                   return (
                     <Marker
                       key={marker.id}
@@ -115,7 +123,8 @@ class MapView extends React.Component {
                       onRightclick={() => this.onMarkerRightclick(index)} />
                   );
                 })}
-                {this.sectors.map((sector, index) => {
+                {this.state.sectors.map((sector, index) => {
+                  console.log(sector, 'sector')
                   return (
                     <Rectangle
                       key={index}
@@ -127,7 +136,7 @@ class MapView extends React.Component {
                         strokeOpacity: 0,
                         strokeWeight: 0,
                         fillOpacity: 0.35
-                    }} />
+                      }}/>
                     )
                 })}
                 <InfoWindow 
