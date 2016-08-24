@@ -24,7 +24,7 @@ module.exports = {
       })
       .catch(err => {
         console.log(`POST to place/ ERROR: ${err}`);
-        res.status(401).send(JSON.stringify(err));
+        res.status(500).send(JSON.stringify(err));
       });
   },
 
@@ -32,7 +32,8 @@ module.exports = {
   getAll: (req, res) => {
     Place.findAll().then(result => {
       res.send(result);
-    });
+    })
+    .catch(err => res.status(500).json(err));
   },
 
   // Find a place
@@ -53,7 +54,7 @@ module.exports = {
       })
       .catch(err => {
         console.log(`GET from place/find/:lat/:long ERROR: ${err}`);
-        res.status(401).send(JSON.stringify(err));
+        res.status(500).send(JSON.stringify(err));
       });
   },
 
@@ -73,7 +74,7 @@ module.exports = {
       .then(result => res.status(200).json(result))
       .catch(err => {
         console.log('GET from place/find/maxArtPlace/:placeId ERROR:', err);
-        res.status(401).send(JSON.stringify(err));
+        res.status(500).send(JSON.stringify(err));
       });
   },
 
@@ -95,7 +96,7 @@ module.exports = {
       .then(result => res.status(200).json(result))
       .catch(err => {
         console.log('GET from place/find/artPlace/:lat/:long ERROR:', err);
-        res.status(401).send(JSON.stringify(err));
+        res.status(500).send(JSON.stringify(err));
       });
   },
 
@@ -109,7 +110,7 @@ module.exports = {
           res.status(200).send('Place not found');
         }
       })
-      .catch(err => res.status(401).send(JSON.stringify(err)));
+      .catch(err => res.status(500).send(JSON.stringify(err)));
   },
 
   // Get all art at a specific place
@@ -121,7 +122,7 @@ module.exports = {
           .then(arts => {
             res.status(200).json(arts);
           })
-          .catch(err => res.status(401).send(JSON.stringify(err)));
+          .catch(err => res.status(500).send(JSON.stringify(err)));
       });
   },
 };

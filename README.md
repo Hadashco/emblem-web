@@ -107,7 +107,7 @@ If you have any problems or major improvements, please consult the known issues.
 
 Authors
 --------------------------
-* Conor Casey
+* Conor Carey
 * Dane Jordan
 * Hannah Henderson
 * Shea Hawkins

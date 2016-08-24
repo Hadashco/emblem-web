@@ -48,7 +48,7 @@ module.exports = {
           }
         });
       })
-      .catch(err => res.status(401).send(JSON.stringify(err)));
+      .catch(err => res.status(500).send(JSON.stringify(err)));
   },
 
   downloadById: (req, res) => {
@@ -66,7 +66,7 @@ module.exports = {
           }
         });
       })
-      .catch(err => res.status(401).send(JSON.stringify(err)));
+      .catch(err => res.status(500).send(JSON.stringify(err)));
   },
 
 
@@ -90,12 +90,12 @@ module.exports = {
                 res.status(200).send(`ArtId ${req.params.id} and associated ArtPlaces deleted.`);
               });
             })
-            .catch(err => res.status(401).send(JSON.stringify(err)));
+            .catch(err => res.status(500).send(JSON.stringify(err)));
         } else {
           res.status(204).send(`No art found in database at ArtId ${req.params.id}.`);
         }
       })
-      .catch(err => res.status(401).send(JSON.stringify(err)));
+      .catch(err => res.status(500).send(JSON.stringify(err)));
   },
 
 /* ***************************************************************
@@ -110,7 +110,7 @@ module.exports = {
       .then(art => {
         res.status(200).json(art);
       })
-      .catch(err => res.status(401).send(JSON.stringify(err)));
+      .catch(err => res.status(500).send(JSON.stringify(err)));
   },
 
   // Get all art
@@ -121,7 +121,7 @@ module.exports = {
       })
       .catch(err => {
         console.log('Get art error ', err);
-        res.status(400).send(JSON.stringify(err));
+        res.status(500).send(JSON.stringify(err));
       });
   },
 
@@ -150,9 +150,9 @@ module.exports = {
               });
             }
           })
-          .catch(err => res.status(401).send(JSON.stringify(err)));
+          .catch(err => res.status(500).send(JSON.stringify(err)));
       })
-      .catch(err => res.status(401).send(JSON.stringify(err)));
+      .catch(err => res.status(500).send(JSON.stringify(err)));
   },
 
   // Add comment to art
@@ -167,12 +167,12 @@ module.exports = {
             comment.setUser(req.user); // add creator ID
             res.json(comment);
           })
-          .catch(err => res.status(401).send(JSON.stringify(err)));
+          .catch(err => res.status(500).send(JSON.stringify(err)));
         } else {
           res.status(200).send(JSON.stringify(`No artwork associated with id ${req.params.id}`));
         }
       })
-      .catch(err => res.status(401).send(JSON.stringify(err)));
+      .catch(err => res.status(500).send(JSON.stringify(err)));
   },
 
   // Get all comments for art
@@ -184,12 +184,12 @@ module.exports = {
             .then(comments => {
               res.status(200).json(comments);
             })
-            .catch(err => res.status(401).send(JSON.stringify(err)));
+            .catch(err => res.status(500).send(JSON.stringify(err)));
         } else {
           res.status(200).send(JSON.stringify(`No artwork associated with id ${req.params.id}`));
         }
       })
-      .catch(err => res.status(401).send(JSON.stringify(err)));
+      .catch(err => res.status(500).send(JSON.stringify(err)));
   },
 
   // Add vote to vote model, increment art upvote / downvote
@@ -209,12 +209,12 @@ module.exports = {
             if (req.body.vote < 0) globalArt.increment('downvotes');
             res.status(200).json(vote);
           })
-          .catch(err => res.status(401).send(JSON.stringify(err)));
+          .catch(err => res.status(500).send(JSON.stringify(err)));
         } else {
           res.status(200).send(JSON.stringify(`No artwork associated with id ${req.params.id}`));
         }
       })
-      .catch(err => res.status(401).send(JSON.stringify(err)));
+      .catch(err => res.status(500).send(JSON.stringify(err)));
   },
 
   // Get votes for a specific Art ID
@@ -226,11 +226,11 @@ module.exports = {
             .then(votes => {
               res.status(200).json(votes);
             })
-            .catch(err => res.status(401).send(JSON.stringify(err)));
+            .catch(err => res.status(500).send(JSON.stringify(err)));
         } else {
           res.status(200).send(JSON.stringify(`No artwork associated with id ${req.params.id}`));
         }
       })
-      .catch(err => res.status(401).send(JSON.stringify(err)));
+      .catch(err => res.status(500).send(JSON.stringify(err)));
   },
 };

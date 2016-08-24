@@ -5,7 +5,7 @@ module.exports = {
   changeColor: (req, res) => {
     req.user.updateAttributes({ markerColor: req.body.color })
       .then(() => res.status(200).send(`Color updated to ${req.body.color}`))
-      .catch(err => res.status(401).json(err));
+      .catch(err => res.status(500).json(err));
   },
 
   // Get all art associated with a given user
@@ -13,6 +13,7 @@ module.exports = {
     Art.findAll({ where: { UserId: req.user.dataValues.id } })
       .then(arts => {
         res.status(200).send(JSON.stringify(arts));
-      });
+      })
+      .catch(err => res.status(500).json(err));
   },
 };

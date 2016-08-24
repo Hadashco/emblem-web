@@ -23,7 +23,7 @@ module.exports = {
       .then(result => res.status(200).json(result))
       .catch(err => {
         console.log('artPlace/max/rank error:', err);
-        res.status(401).send(JSON.stringify(err));
+        res.status(500).send(JSON.stringify(err));
       });
   },
 
@@ -43,7 +43,7 @@ module.exports = {
       .then(result => res.status(200).json(result))
       .catch(err => {
         console.log('artPlace/max/rank error:', err);
-        res.status(401).send(JSON.stringify(err));
+        res.status(500).send(JSON.stringify(err));
       });
   },
 
@@ -62,7 +62,7 @@ module.exports = {
       .then(result => res.status(200).json(result))
       .catch(err => {
         console.log('artPlace/max/rank error:', err);
-        res.status(401).send(JSON.stringify(err));
+        res.status(500).send(JSON.stringify(err));
       });
   },
 
@@ -86,7 +86,7 @@ module.exports = {
             comment.setUser(req.user); // add creator ID
             res.json(comment);
           })
-          .catch(err => res.status(401).send(JSON.stringify(err)));
+          .catch(err => res.status(500).send(JSON.stringify(err)));
         } else {
           res.status(200).send(JSON.stringify(`No ArtPlace associated with id ${req.params.id}`));
         }
@@ -102,7 +102,7 @@ module.exports = {
             .then(comments => {
               res.status(200).json(comments);
             })
-            .catch(err => res.status(401).send(JSON.stringify(err)));
+            .catch(err => res.status(500).send(JSON.stringify(err)));
         } else {
           res.status(200).send(JSON.stringify(`No ArtPlace associated with id ${req.params.id}`));
         }
@@ -126,7 +126,7 @@ module.exports = {
             if (req.body.vote < 0) globalArtPlace.increment('downvotes');
             res.status(200).json(vote);
           })
-          .catch(err => res.status(401).send(JSON.stringify(err)));
+          .catch(err => res.status(500).send(JSON.stringify(err)));
         } else {
           res.status(200).send(JSON.stringify(`No ArtPlace associated with id ${req.params.id}`));
         }
@@ -142,7 +142,7 @@ module.exports = {
             .then(votes => {
               res.status(200).json(votes);
             })
-            .catch(err => res.status(401).send(JSON.stringify(err)));
+            .catch(err => res.status(500).send(JSON.stringify(err)));
         } else {
           res.status(200).send(JSON.stringify(`No ArtPlace associated with id ${req.params.id}`));
         }
@@ -152,6 +152,6 @@ module.exports = {
   deleteById: (req, res) => {
     ArtPlace.destroy({ where: { _id: req.params.id } })
       .then(() => res.status(200).send(`Successfully deleted ArtPlaceId ${req.params.id}`))
-      .catch(err => res.status(401).send(JSON.stringify(err)));
+      .catch(err => res.status(500).send(JSON.stringify(err)));
   },
 };
