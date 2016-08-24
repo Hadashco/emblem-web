@@ -59,10 +59,7 @@ module.exports = {
 
 
   // Get highest single ranked ArtPlace at a lat/long
-  getMaxRankArtPlaceAtLatLong: (req, res) => {
-    const sector = Number(req.params.lat).toFixed(TRAILING_DEC_SECTOR) +
-                   Number(req.params.long).toFixed(TRAILING_DEC_SECTOR);
-
+  getMaxArtPlaceAtPlaceId: (req, res) => {
     const qry = `SELECT DISTINCT ON ("ArtPlace"."PlaceId") "ArtPlace"."PlaceId", 
                         "User"."markerColor", "Art"."UserId", "ArtPlace"."ArtId", "Place".lat,
                         ("ArtPlace".upvotes - "ArtPlace".downvotes) AS "netVotes", "Place".long,
@@ -70,12 +67,12 @@ module.exports = {
                  FROM "Place" INNER JOIN  ("ArtPlace"  INNER JOIN 
                         ("Art" INNER JOIN "User" ON "Art"."UserId" = "User".id) ON 
                         "ArtPlace"."ArtId" = "Art".id) ON "ArtPlace"."PlaceId" = "Place".id 
-                 WHERE "Place"."sector"='${sector}'
+                 WHERE "Place".id='${req.params.placeId}'
                  ORDER BY "ArtPlace"."PlaceId", ("ArtPlace".upvotes - "ArtPlace".downvotes) DESC`;
     db.query(qry, { type: Sequelize.QueryTypes.SELECT })
       .then(result => res.status(200).json(result))
       .catch(err => {
-        console.log('GET from place/find/maxArtPlace/:lat/:long ERROR:', err);
+        console.log('GET from place/find/maxArtPlace/:placeId ERROR:', err);
         res.status(401).send(JSON.stringify(err));
       });
   },
