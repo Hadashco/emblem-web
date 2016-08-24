@@ -26,7 +26,6 @@ router.get('/', getAllFromDb);
 
 // Post art to a specific place
 router.post('/:id/place', postToPlaceById);
-
 // Add comment to art
 router.post('/:id/comment', addCommentById);
 

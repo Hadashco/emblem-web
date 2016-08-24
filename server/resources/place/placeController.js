@@ -1,14 +1,13 @@
 const sockets = require('../../sockets');
 const dbFile = require('../../db/db');
-const { Place, db, TRAILING_DEC_SECTOR } = dbFile;
+const { Place, db, TRAILING_DEC_SECTOR, getSector } = dbFile;
 const Sequelize = require('sequelize');
 
 
 module.exports = {
   // Add a new places
   postNewPlace: (req, res) => {
-    const sector = req.body.lat.toFixed(TRAILING_DEC_SECTOR) +
-                   req.body.long.toFixed(TRAILING_DEC_SECTOR);
+    const sector = getSector(Number(req.params.lat), Number(req.params.long));
     Place.findOne({ where: { sector } })
       .then(place => {
         if (place) {
@@ -38,8 +37,7 @@ module.exports = {
 
   // Find a place
   findByLatLong: (req, res) => {
-    const sector = Number(req.params.lat).toFixed(TRAILING_DEC_SECTOR) +
-                   Number(req.params.long).toFixed(TRAILING_DEC_SECTOR);
+    const sector = getSector(Number(req.params.lat), Number(req.params.long));
     Place.findOne({ where: { sector } })
       .then(place => {
         if (place) {
@@ -81,9 +79,7 @@ module.exports = {
 
   // Find all art at a lat / long (place ID unknown)
   getAllArtPlaceAtLatLong: (req, res) => {
-    const sector = Number(req.params.lat).toFixed(TRAILING_DEC_SECTOR) +
-                   Number(req.params.long).toFixed(TRAILING_DEC_SECTOR);
-
+    const sector = getSector(Number(req.params.lat), Number(req.params.long));
     const qry = `SELECT "ArtPlace"."PlaceId", "User"."markerColor", "Art"."UserId", 
                         "ArtPlace"."ArtId", ("ArtPlace".upvotes - "ArtPlace".downvotes)
                         AS "netVotes", "Place".lat, "Place".long, "ArtPlace"."_id" AS "ArtPlaceId"  

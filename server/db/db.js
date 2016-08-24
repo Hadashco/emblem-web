@@ -9,7 +9,13 @@ const Comment = require('../resources/comment/commentModel')(db, Sequelize);
 const Vote = require('../resources/vote/voteModel')(db, Sequelize);
 const ArtPlace = require('../resources/artPlace/artPlaceModel')(db, Sequelize);
 
-const TRAILING_DEC_SECTOR = 4; // Number of trailing decimals in sector
+const TRAILING_DEC_SECTOR = 5; // Number of trailing decimals in sector
+
+const getSector = (lat, long) => {
+  const newLat = Math.round(lat * 4 * 1000) / (4 * 1000);
+  const newLong = Math.round(long * 4 * 1000) / (4 * 1000);
+  return `${newLat.toFixed(TRAILING_DEC_SECTOR)}${newLong.toFixed(TRAILING_DEC_SECTOR)}`;
+};
 
 Place.belongsToMany(Art, { through: ArtPlace });
 Art.belongsToMany(Place, { through: ArtPlace });
@@ -104,4 +110,5 @@ module.exports = {
   Vote,
   ArtPlace,
   TRAILING_DEC_SECTOR,
+  getSector,
 };
