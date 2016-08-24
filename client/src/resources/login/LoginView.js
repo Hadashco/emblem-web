@@ -7,11 +7,12 @@ export default class LoginView extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      backgroundPos: -164
-    }
+      startingBackgroundPos: -64,
+      windowPosition: window.pageYOffset,
+    };
 
     this.style = {
-      backgroundPosition: 101 + 'px ' + this.state.backgroundPos + 'px'
+      backgroundPosition: 101 + 'px ' + this.state.startingBackgroundPos + 'px'
     }
 
     this.onScroll = this.onScroll.bind(this);
@@ -20,17 +21,20 @@ export default class LoginView extends React.Component {
 
   componentDidMount() {
     console.log('componentDidMount');
-    window.addEventListener('scroll', this.onScroll);
+    window.addEventListener('scroll', this.onScroll, true);
   }
 
   componentWillUnmount() {
-    window.removeEventListener('scroll', this.onScroll)
+    window.removeEventListener('scroll', this.onScroll, false)
   }
 
   onScroll(e) {
     console.log(e, 'hi');
-    console.log(this.refs.loginArt.style.backgroundPosition);
-    this.setState({backgroundPos: this.state.backgroundPos+1});
+    this.setState({startingBackgroundPos: this.state.startingBackgroundPos-4});
+    this.setState({windowPosition: this.pageYOffset});
+    console.log(this, 'windowOffset')
+    this.style = {backgroundPosition: 101 + 'px ' + this.state.startingBackgroundPos + 'px'}
+
     }
 
 

@@ -45,9 +45,9 @@ body {
 
 .loginContainer {
   position: fixed;
-  left: 20.5%;
+  left: 24.5%;
   top: 30%;
-  width: 700px;
+  width: 650px;
   height: 302px;
   text-align: right;
   color: red;
@@ -60,6 +60,8 @@ body {
 
 .loginContainer h1 {
   position: relative;
+  float: right;
+  width: 300px;
   top: 25%;
   left: -20.5%;
 }
@@ -74,8 +76,9 @@ body {
 
 .loginButtonDiv {
   position: relative;
-  top: 30%;
-  left: -19%;
+  float: right;
+  top: 50%;
+  left: 27.5%;
   z-index: 100;
 }
 
@@ -248,6 +251,10 @@ body {
 .colorCloser {
   position: relative;
   padding-top: 30px;
+}
+
+.colorSettingButton {
+  margin-right: 200px;
 }
 
 /**********************************************************
