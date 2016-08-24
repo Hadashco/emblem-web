@@ -48,8 +48,8 @@ class ColorPicker extends React.Component {
         {console.log("opened!")}
           <div onClick={ this.handleClose }/>
           <SketchPicker color={ this.props.currentColor } onChange={ this.handleChange } />
-          <ColorPickerButton class='colorCloser' text='Close'/>
           <ColorSettingButton />
+          <ColorPickerButton class='colorCloser' text='Close'/>
           </div> : null }
     </Modal>
     )

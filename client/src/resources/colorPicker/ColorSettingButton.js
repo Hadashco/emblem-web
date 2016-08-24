@@ -19,7 +19,10 @@ class ColorSettingButton extends React.Component {
         },
         body: JSON.stringify({ color: this.props.currentColor }),
       }).catch(err => {
-        console.log(err)
+        msg.show('Unauthorized access, please log in', {
+          time: 5000,
+          type: 'error',
+        });
       });
   }
 
