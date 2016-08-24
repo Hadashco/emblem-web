@@ -1,6 +1,6 @@
 const router = require('express').Router();
 const db = require('../../db/db');
-const { Art, Place, TRAILING_DEC_SECTOR } = db;
+const { Art, Place, TRAILING_DEC_SECTOR, getSector } = db;
 
 const AWS = require('aws-sdk');
 
@@ -131,8 +131,7 @@ module.exports = {
     Art.findById(req.params.id)
       .then(art => {
         globalArt = art;
-        const sector = req.body.lat.toFixed(TRAILING_DEC_SECTOR) +
-                       req.body.long.toFixed(TRAILING_DEC_SECTOR);
+        const sector = getSector(Number(req.params.lat), Number(req.params.long));
         Place.findAll({ where: { sector } })
           .then(place => {
             if (place.length > 0) {
