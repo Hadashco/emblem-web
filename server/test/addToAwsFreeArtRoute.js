@@ -6,6 +6,7 @@
  *  3. Replace existing AWS routes in 'server/resources/art/artRoute.js'
  *  4. Delete router.get('/:id/download')
  *     Revise all client GET requests to '/:id/download' to point to storagePath
+ *     Annonymous functions can be broken out into artControllers 
 
 const fs = require('fs-extra');
 const path = require('path');
