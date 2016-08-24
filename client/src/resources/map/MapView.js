@@ -42,7 +42,7 @@ class MapView extends React.Component {
   }
 
   createSectorsForMap() {
-    fetch('/artPlace/', {
+    fetch('/artPlace/max/rank', {
     method: 'GET',
     credentials: 'same-origin',
     headers: {
@@ -55,14 +55,15 @@ class MapView extends React.Component {
     //then using the user id i get back from that route, ill grab
     //the user color to save in the sectorColor for each individual
     //sector
+    var LAT_LONG_TRUNCATE = 4;
     console.log(body);
     for (var place = 0; place < body.length; place++) {
       this.sectors.push({
-        north: Math.floor(body[place].lat)+1,
-        south: Math.floor(body[place].lat),
-        east: Math.floor(body[place].long)+1,
-        west: Math.floor(body[place].long),
-        sectorColor: '#3d3d3d' //user color
+        north: body[place].lat.toFixed(LAT_LONG_TRUNCATE)+.0001,
+        south: body[place].lat.toFixed(LAT_LONG_TRUNCATE),
+        east: body[place].long.toFixed(LAT_LONG_TRUNCATE)+.0001,
+        west: body[place].long.toFixed(LAT_LONG_TRUNCATE),
+        sectorColor: body.markerColor //user color
       })
     }
   })

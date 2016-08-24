@@ -9,7 +9,6 @@ class ColorSettingButton extends React.Component {
   }
 
   setUserColorOnClick() {
-    console.log(this.props.currentColor);
     fetch('/user/color', {
         method: 'POST',
         credentials: 'same-origin',
