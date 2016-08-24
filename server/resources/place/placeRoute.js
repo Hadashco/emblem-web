@@ -34,34 +34,9 @@ router.get('/', (req, res) => {
   });
 });
 
-// Find a place
-router.get('/find/:lat/:long', (req, res) => {
-  const sector = Number(req.params.lat).toFixed(TRAILING_DEC_SECTOR) +
-                 Number(req.params.long).toFixed(TRAILING_DEC_SECTOR);
-  Place.findOne({ where: { sector } })
-    .then(place => {
-      if (place) {
-        return res.status(200).json(place);
-      }
-      return Place.create({ long: req.params.long, lat: req.params.lat, sector });
-    })
-    .then(place => {
-      place.setUser(req.user);
-      sockets.broadcast('place/createPlace', place);
-      res.status(201).json(place);
-    })
-    .catch(err => {
-      console.log(`GET from place/find/:lat/:long ERROR: ${err}`);
-      res.status(401).send(JSON.stringify(err));
-    });
-});
-
 
 // Get highest single ranked ArtPlace at a lat/long
-router.get('/find/maxArtPlace/:lat/:long', (req, res) => {
-  const sector = Number(req.params.lat).toFixed(TRAILING_DEC_SECTOR) +
-                 Number(req.params.long).toFixed(TRAILING_DEC_SECTOR);
-
+router.get('/find/maxArtPlace/:placeId', (req, res) => {
   const qry = `SELECT DISTINCT ON ("ArtPlace"."PlaceId") "ArtPlace"."PlaceId", 
                       "User"."markerColor", "Art"."UserId", "ArtPlace"."ArtId", "Place".lat,
                       ("ArtPlace".upvotes - "ArtPlace".downvotes) AS "netVotes", "Place".long,
@@ -69,7 +44,7 @@ router.get('/find/maxArtPlace/:lat/:long', (req, res) => {
                FROM "Place" INNER JOIN  ("ArtPlace"  INNER JOIN 
                       ("Art" INNER JOIN "User" ON "Art"."UserId" = "User".id) ON 
                       "ArtPlace"."ArtId" = "Art".id) ON "ArtPlace"."PlaceId" = "Place".id 
-               WHERE "Place"."sector"='${sector}'
+               WHERE "Place".id='${req.params.placeId}'
                ORDER BY "ArtPlace"."PlaceId", ("ArtPlace".upvotes - "ArtPlace".downvotes) DESC`;
   db.query(qry, { type: Sequelize.QueryTypes.SELECT })
     .then(result => res.status(200).json(result))
@@ -97,6 +72,29 @@ router.get('/find/artPlace/:lat/:long', (req, res) => {
     .then(result => res.status(200).json(result))
     .catch(err => {
       console.log('GET from place/find/artPlace/:lat/:long ERROR:', err);
+      res.status(401).send(JSON.stringify(err));
+    });
+});
+
+// Find a place
+router.get('/find/:lat/:long', (req, res) => {
+  console.log('here');
+  const sector = Number(req.params.lat).toFixed(TRAILING_DEC_SECTOR) +
+                 Number(req.params.long).toFixed(TRAILING_DEC_SECTOR);
+  Place.findOne({ where: { sector } })
+    .then(place => {
+      if (place) {
+        return res.status(200).json(place);
+      }
+      return Place.create({ long: req.params.long, lat: req.params.lat, sector });
+    })
+    .then(place => {
+      place.setUser(req.user);
+      sockets.broadcast('place/createPlace', place);
+      res.status(201).json(place);
+    })
+    .catch(err => {
+      console.log(`GET from place/find/:lat/:long ERROR: ${err}`);
       res.status(401).send(JSON.stringify(err));
     });
 });
