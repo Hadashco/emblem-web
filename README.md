@@ -97,7 +97,7 @@ TODO
 
 Run Without AWS
 --------------------------
-Navigate to `server/test/addToAwsFreeArtRoute.js` and follow the enclosed instructions.
+Navigate to `server/test/addToAwsFreeArtRoute.md` and follow the enclosed instructions.
 
 
 Contributions

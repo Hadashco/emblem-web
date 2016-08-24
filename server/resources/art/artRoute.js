@@ -1,5 +1,5 @@
 const router = require('express').Router();
-const { postNewArt, downloadById, getFromDbById,
+const { postNewArt, downloadById, getFromDbById, deleteById,
         getAllFromDb, postToPlaceById, addCommentById,
         getAllCommentsForId, voteById, getAllVotesForId,
       } = require('./artController');
@@ -14,7 +14,7 @@ router.post('/', postNewArt);
 router.get('/:id/download', downloadById);
 
 // Delete art and corresponding artPlace
-router.post('/:id/delete', downloadById);
+router.post('/:id/delete', deleteById);
 
 /* **************** END AWS PORTION ****************************/
 

@@ -94,7 +94,8 @@ module.exports = {
         } else {
           res.status(204).send(`No art found in database at ArtId ${req.params.id}.`);
         }
-      });
+      })
+      .catch(err => res.status(401).send(JSON.stringify(err)));
   },
 
 /* ***************************************************************
@@ -150,7 +151,8 @@ module.exports = {
             }
           })
           .catch(err => res.status(401).send(JSON.stringify(err)));
-      });
+      })
+      .catch(err => res.status(401).send(JSON.stringify(err)));
   },
 
   // Add comment to art
@@ -169,7 +171,8 @@ module.exports = {
         } else {
           res.status(200).send(JSON.stringify(`No artwork associated with id ${req.params.id}`));
         }
-      });
+      })
+      .catch(err => res.status(401).send(JSON.stringify(err)));
   },
 
   // Get all comments for art
@@ -185,7 +188,8 @@ module.exports = {
         } else {
           res.status(200).send(JSON.stringify(`No artwork associated with id ${req.params.id}`));
         }
-      });
+      })
+      .catch(err => res.status(401).send(JSON.stringify(err)));
   },
 
   // Add vote to vote model, increment art upvote / downvote
@@ -209,7 +213,8 @@ module.exports = {
         } else {
           res.status(200).send(JSON.stringify(`No artwork associated with id ${req.params.id}`));
         }
-      });
+      })
+      .catch(err => res.status(401).send(JSON.stringify(err)));
   },
 
   // Get votes for a specific Art ID
@@ -225,6 +230,7 @@ module.exports = {
         } else {
           res.status(200).send(JSON.stringify(`No artwork associated with id ${req.params.id}`));
         }
-      });
+      })
+      .catch(err => res.status(401).send(JSON.stringify(err)));
   },
 };
