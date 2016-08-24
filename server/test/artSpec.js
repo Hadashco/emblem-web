@@ -6,6 +6,12 @@ const { postNewArt, downloadById, getFromDbById, deleteById,
         getAllCommentsForId, voteById, getAllVotesForId,
       } = require('../resources/art/artController');
 
+const connection = require('../db/db');
+const { db, Art, Place, User, ArtPlace, TRAILING_DEC_SECTOR } = connection;
+
+const placeRecord = { lat: 0, long: 0, sector: '00000' };
+const artRecord = { type: 'test' };
+const userRecord = { fbookId: '0' };
 
 // Due to authentication, all of these routes will fail
 // They should still be reached, however
@@ -162,8 +168,39 @@ describe('Confirm Art Routes protected by OAuth', () => {
 });
 
 describe('Test Art Controllers (WIP)', () => {
-  it ('should postNewArt', (done) => {
-    
+  let testUser;
+
+  before(() => {
+    db.sync()
+      .then(() => User.create(userRecord)
+        .then(user => { testUser = user; }));
   });
+
+  it ('should postNewArt', (done) => {
+    const req = {
+      headers: {
+        'file-type': 'jpeg',
+        'Content-Type': 'application/octet-stream',
+      },
+      user: testUser,
+      body: 'definitely some art',
+    };
+
+    const res = {};
+    res.status = (statusCode) => {
+      statusCode.should.equal(200);
+      done();
+    };
+
+    postNewArt(req, res);
+  });
+
+  after(() => {
+    db.sync()
+      .then(() => Art.destroy({ where: { UserId: testUser.id } }))
+      .then(() => User.destroy({ where: userRecord }));
+  });
+
+
 });
 
