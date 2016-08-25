@@ -16,7 +16,19 @@ const userRecord = { fbookId: '0' };
 /* *********** ROUTE TESTS ***********************
  * Due to authentication, all of these routes will fail
  * They should still be reached, however */
+
 describe('Confirm Art Routes protected by OAuth\n-------------------------\n', () => {
+  let testUser;
+
+  before((done) => {
+    db.sync()
+      .then(() => User.create(userRecord)
+        .then(user => {
+          testUser = user;
+          done();
+        }));
+  });
+
   it('should postNewArt', (done) => {
     request.post({
       url: 'http://localhost:3000/art',
@@ -24,6 +36,7 @@ describe('Confirm Art Routes protected by OAuth\n-------------------------\n', (
         'content-type': 'application/json',
         'file-type': '.jpeg',
       },
+      user: testUser,
     }, (err, response) => {
       expect(response.statusCode).to.equal(401);
       done();
@@ -144,6 +157,11 @@ describe('Confirm Art Routes protected by OAuth\n-------------------------\n', (
       expect(response.statusCode).to.equal(401);
       done();
     });
+  });
+
+  after(() => {
+    db.sync()
+      .then(() => User.destroy({ where: userRecord }));
   });
 });
 
@@ -302,4 +320,3 @@ describe('Test Art Controllers\n-------------------------\n', () => {
       .then(() => User.destroy({ where: userRecord }));
   });
 });
-
