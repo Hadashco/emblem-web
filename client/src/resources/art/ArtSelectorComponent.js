@@ -41,7 +41,7 @@ class ArtComponent extends React.Component {
   }
 
   render() {
-    let source = `/storage/art/${this.props.art}/${this.props.art}_FULL`;
+    let source = `https://s3.amazonaws.com/hadashco-emblem/${this.props.art}`;
     return (
       <img
         onClick={() => this.showPhoto(this.props.art)}

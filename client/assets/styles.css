@@ -4,7 +4,7 @@ html {
 
 body {
   height: 100%;
-  font-family: 'Neuton', serif;
+  font-family: 'Open Sans', sans-serif;
   font-size: 14px;
 }
 
@@ -187,14 +187,15 @@ body {
 
 .ArtModalCloseButton{
   position: absolute;
-  top: 0px;
-  left: 96.5%;
+  top: 4px;
+  left: 97.5%;
   width: 10px;
   height: 10px;
   border-radius: 0px;
+  padding: 8px;
   margin-top: 5px;
   background-image: url('./iconSet/png/letter-x.png');
-  background-size: contain;
+  background-size: 8px;
   background-position: center;
   background-repeat: no-repeat;
 }

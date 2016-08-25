@@ -6,11 +6,11 @@ export default class ArtViewer extends React.Component {
   }
 
   render() {
-    const source = `/storage/art/${this.props.art}/${this.props.art}_FULL`;
+    const source = `https://s3.amazonaws.com/hadashco-emblem/${this.props.art}`;
     return (
       <div className="col-xs-9">
         <img
-          src={source || '/storage/art/1/1_FULL'}
+          src={source || 'https://s3.amazonaws.com/hadashco-emblem/1'}
           className="mainArt"
           role="presentation"
         />

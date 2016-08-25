@@ -55,15 +55,16 @@ const uploadDispatchToProps = dispatch => {
       dispatch({ type: 'addDragAndDropFiles', data: file });
     },
     populateArtFiles: () => {
-      fetch('/art', {
+      fetch('/user/art', {
         headers: {
-          Accept: 'application/json',
-          ContentType: 'application/json',
+          'Accept': 'application/json',
+          'Content-Type': 'application/json',
         },
         method: 'GET',
         credentials: 'same-origin',
       }).then(response =>
-        response.json())
+        response.json()
+      )
       .catch(() => {
             msg.show('Please log in to get all of our awesome features!', {
               time: 3000,
