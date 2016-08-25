@@ -14,11 +14,11 @@
   "license": "ISC",
   "dependencies": {
     "mkdirp": "^0.5.1",
-    "react": "^15.3.0",
+    "react": "^15.3.1",
     "react-addons-css-transition-group": "^15.3.0",
     "react-alert": "^1.0.14",
     "react-bootstrap": "^0.30.2",
-    "react-color": "^2.2.2",
+    "react-color": "^2.2.5",
     "react-dom": "^15.3.0",
     "react-dropzone": "^3.5.3",
     "react-google-maps": "^4.11.0",

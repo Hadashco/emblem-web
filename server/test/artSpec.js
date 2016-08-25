@@ -3,12 +3,11 @@ const request = require('request');
 const httpMocks = require('node-mocks-http');
 
 const { postNewArt, downloadById, getFromDbById, deleteById,
-        getAllFromDb, postToPlaceById, addCommentById,
-        getAllCommentsForId, voteById, getAllVotesForId,
+        getAllFromDb, postToPlaceById,
       } = require('../resources/art/artController');
 
 const connection = require('../db/db');
-const { db, Art, Place, User, ArtPlace, TRAILING_DEC_SECTOR } = connection;
+const { db, Art, Place, User, ArtPlace } = connection;
 
 const placeRecord = { lat: 0, long: 0, sector: '00000' };
 const artRecord = { type: 'test' };
@@ -17,7 +16,7 @@ const userRecord = { fbookId: '0' };
 /* *********** ROUTE TESTS ***********************
  * Due to authentication, all of these routes will fail
  * They should still be reached, however */
-describe('Confirm Art Routes protected by OAuth', () => {
+describe('Confirm Art Routes protected by OAuth\n-------------------------\n', () => {
   it('should postNewArt', (done) => {
     request.post({
       url: 'http://localhost:3000/art',
@@ -150,7 +149,7 @@ describe('Confirm Art Routes protected by OAuth', () => {
 
 /* *********** CONTROLLER TESTS **************** */
 describe('Test Art Controllers\n-------------------------\n', () => {
-  let testUser, testArt, awsArt;
+  let testUser, testArt, testPlace, awsArt;
   // let getReq;
 
   before((done) => {
@@ -160,33 +159,33 @@ describe('Test Art Controllers\n-------------------------\n', () => {
       .then(() => Art.create(artRecord)
         .then(art => {
           testArt = art;
+        }))
+      .then(() => Place.create(placeRecord)
+        .then(place => {
+          testPlace = place;
           done();
         })));
-
-    // getReq = {
-    //   params: {
-    //     id: testArt.id,
-    //   },
-    //   user: testUser,
-    //   body: 'definitely some art',
-    // };
   });
 
   it('should postNewArt (AWS and Db)', (done) => {
-    const req = {
+    const req = httpMocks.createRequest({
+      method: 'POST',
       headers: {
         'file-type': 'jpeg',
         'Content-Type': 'application/octet-stream',
       },
       user: testUser,
       body: 'definitely some art',
-    };
+    });
 
-    const res = {};
-    res.status = (statusCode) => {
-      expect(statusCode).to.equal(200);
+    const res = httpMocks.createResponse({
+      eventEmitter: require('events').EventEmitter,
+    });
+
+    res.on('end', () => {
+      expect(res.statusCode).to.equal(200);
       done();
-    };
+    });
 
     postNewArt(req, res);
   });
@@ -195,51 +194,96 @@ describe('Test Art Controllers\n-------------------------\n', () => {
     Art.findOne({ where: { UserId: testUser.id } })
       .then(art => {
         awsArt = art;
-        const req = {
+        const req = httpMocks.createRequest({
+          method: 'GET',
           params: {
             id: art.id,
           },
-        };
+        });
 
-        const res = {};
-        res.status = (statusCode) => {
-          expect(statusCode).to.equal(200);
+        const res = httpMocks.createResponse({
+          eventEmitter: require('events').EventEmitter,
+        });
+
+        res.on('end', () => {
+          expect(res.statusCode).to.equal(200);
           done();
-        };
+        });
 
         downloadById(req, res);
       });
   });
 
-  // it('should get specific art, getFromDbById', (done) => {
-  //   const req = httpMocks.createRequest({
-  //     method: 'GET',
-  //     params: { id: awsArt.id },
-  //   });
+  it('should get specific art, getFromDbById', (done) => {
+    const req = httpMocks.createRequest({
+      method: 'GET',
+      params: { id: awsArt.id },
+    });
 
-  //   const res = httpMocks.createResponse();
+    const res = httpMocks.createResponse({
+      eventEmitter: require('events').EventEmitter,
+    });
 
-  //   // const req = { };
-  //   // const res = {
-  //   //   status: (statusCode) => {
-  //   //     expect(statusCode).to.equal(200);
-  //   //     return this;
-  //   //   },
-  //   //   json: (input) => {
-  //   //     console.log('yay json input:', input);
-  //   //     done();
-  //   //   },
-  //   // };
-  //   getFromDbById(req, res);
+    res.on('end', () => {
+      expect(res.statusCode).to.equal(200);
+      new Promise((resolve, reject) => {
+        resolve(res._getData());
+      })
+      .then(data => {
+        const dataId = JSON.parse(data).id;
+        expect(dataId).to.equal(awsArt.id);
+        done();
+      });
+    });
 
-  //   const data = JSON.parse(res._getData());
-  //   console.log('data is:', data);
-  //   done();
-  // });
+    getFromDbById(req, res);
+  });
 
+  it('get all art, getAllFromDb', (done) => {
+    const req = httpMocks.createRequest({
+      method: 'GET',
+    });
+
+    const res = httpMocks.createResponse({
+      eventEmitter: require('events').EventEmitter,
+    });
+
+    res.on('end', () => {
+      expect(res.statusCode).to.equal(200);
+      done();
+    });
+
+    getAllFromDb(req, res);
+  });
+
+  it('should postToPlaceById', (done) => {
+    const req = httpMocks.createRequest({
+      method: 'POST',
+      user: testUser,
+      params: { id: awsArt.id },
+      body: {
+        lat: testPlace.lat,
+        long: testPlace.long,
+      },
+    });
+
+    const res = httpMocks.createResponse({
+      eventEmitter: require('events').EventEmitter,
+    });
+
+    res.on('end', () => {
+      expect(res.statusCode).to.equal(200);
+      done();
+    });
+
+    postToPlaceById(req, res);
+  });
 
   it('should deleteById (AWS and Db)', (done) => {
-    const req = { params: { id: awsArt.id } };
+    const req = {
+      method: 'GET',
+      params: { id: awsArt.id },
+    };
     const res = {};
     res.status = (statusCode) => {
       expect(statusCode).to.be.at.within(199, 205);
@@ -253,9 +297,9 @@ describe('Test Art Controllers\n-------------------------\n', () => {
   after(() => {
     db.sync()
       .then(() => Art.destroy({ where: { UserId: testUser.id } }))
+      .then(() => ArtPlace.destroy({ where: { UserId: testUser.id } }))
+      .then(() => Place.destroy({ where: { UserId: testUser.id } }))
       .then(() => User.destroy({ where: userRecord }));
   });
-
-
 });
 
