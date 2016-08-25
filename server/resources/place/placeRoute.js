@@ -20,7 +20,7 @@ router.get('/find/maxArtPlace/:placeId', getMaxArtPlaceAtPlaceId);
 router.get('/find/:lat/:long', findByLatLong);
 
 // -- GET (Find) all art at a lat / long (place ID unknown) --
-// RETURN: PlaceId | markerColor | UserId | ArtId | lat | netVotes | long | ArtPlaceId
+// RETURN: PlaceId | markerColor | UserId | ArtId | lat | netVotes | long | ArtPlaceId | upvote | downvote
 router.get('/find/artPlace/:lat/:long', getAllArtPlaceAtLatLong);
 
 // -- GET a specific place --

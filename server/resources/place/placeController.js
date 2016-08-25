@@ -82,7 +82,8 @@ module.exports = {
     const sector = getSector(Number(req.params.lat), Number(req.params.long));
     const qry = `SELECT "ArtPlace"."PlaceId", "User"."markerColor", "Art"."UserId", 
                         "ArtPlace"."ArtId", ("ArtPlace".upvotes - "ArtPlace".downvotes)
-                        AS "netVotes", "Place".lat, "Place".long, "ArtPlace"."_id" AS "ArtPlaceId"  
+                        AS "netVotes", "Place".lat, "Place".long, "ArtPlace"."_id" AS "ArtPlaceId",
+                        "ArtPlace".upvotes, "ArtPlace".downvotes  
                  FROM "Place" INNER JOIN  ("ArtPlace"  INNER JOIN 
                         ("Art" INNER JOIN "User" ON "Art"."UserId" = "User".id) ON 
                         "ArtPlace"."ArtId" = "Art".id) ON "ArtPlace"."PlaceId" = "Place".id 
