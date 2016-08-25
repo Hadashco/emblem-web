@@ -4,7 +4,10 @@ const FacebookTokenStrategy = require('passport-facebook-token');
 
 // TODO: Update callback url for deployment
 module.exports = (User, config) => {
-  const server = process.env.HOST_SERVER || 'http://localhost:3000';
+  let server = 'http://localhost:3000';
+  if (process.env.HOST_SERVER && process.env.HOST_SERVER !== '') {
+    server = process.env.HOST_SERVER;
+  }
   const settings = {
     clientID: config.FACEBOOK_ID,
     clientSecret: config.FACEBOOK_SECRET,
