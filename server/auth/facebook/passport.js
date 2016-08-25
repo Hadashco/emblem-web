@@ -4,10 +4,11 @@ const FacebookTokenStrategy = require('passport-facebook-token');
 
 // TODO: Update callback url for deployment
 module.exports = (User, config) => {
+  const server = process.env.HOST_SERVER || 'http://localhost:3000';
   const settings = {
     clientID: config.FACEBOOK_ID,
     clientSecret: config.FACEBOOK_SECRET,
-    callbackURL: 'http://localhost:3000/auth/facebook/callback',
+    callbackURL: `${server}/auth/facebook/callback`,
     profileFields: ['id', 'displayName', 'link', 'photos', 'email'],
   };
 
