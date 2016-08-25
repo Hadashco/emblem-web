@@ -15,12 +15,8 @@ router.get('/', getAll);
 // RETURN: PlaceId | markerColor | UserId | ArtId | lat | netVotes | long | ArtPlaceId
 router.get('/find/maxArtPlace/:placeId', getMaxArtPlaceAtPlaceId);
 
-<<<<<<< HEAD
 // -- GET (Find) a place --
 // RETURN: id | long | lat | sector | updatedAt | createdAt
-=======
-// Find a place
->>>>>>> sector boxes working
 router.get('/find/:lat/:long', findByLatLong);
 
 
@@ -28,12 +24,8 @@ router.get('/find/:lat/:long', findByLatLong);
 // RETURN: PlaceId | markerColor | UserId | ArtId | lat | netVotes | long | ArtPlaceId | upvote | downvote
 router.get('/find/artPlace/:lat/:long', getAllArtPlaceAtLatLong);
 
-<<<<<<< HEAD
 // -- GET a specific place --
 // RETURN: id | long | lat | sector | createdAt | updatedAt | UserId
-=======
-// Get a specific place
->>>>>>> sector boxes working
 router.get('/:id', getById);
 
 // -- GET all art at a specific place --
