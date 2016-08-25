@@ -7,11 +7,10 @@ import { store } from './Store.js';
 import { socket } from './Socket';
 import UploadView from './resources/upload/UploadView';
 import ArtSelectorComponent from './resources/art/ArtSelectorComponent.js';
-import InfoPage from './resources/stateless/InfoPage.js';
 import AlertContainer from 'react-alert';
 import ColorPicker from './resources/colorPicker/colorPicker.js';
 import LoginView from './resources/login/LoginView.js';
-import { Router, Route, Link, IndexRoute, browserHistory } from 'react-router';
+import { Router, Route, browserHistory } from 'react-router';
 import 'whatwg-fetch';
 
 
@@ -20,7 +19,7 @@ const alertOptions = {
   position: 'top right',
   theme: 'light',
   time: 3000,
-  transition: 'fade'
+  transition: 'fade',
 };
 
 class Dashboard extends React.Component {
@@ -32,7 +31,7 @@ class Dashboard extends React.Component {
           <Header />
           <UploadView />
           <ArtSelectorComponent />
-          <AlertContainer ref={(a) => global.msg = a} {...alertOptions}/>
+          <AlertContainer ref={(a) => global.msg = a} {...alertOptions} />
         </div>
         <div className="container">
           <ColorPicker />
@@ -46,28 +45,27 @@ class Dashboard extends React.Component {
 // keep a leave hook on the login page route to ensure login succeeded
 // before allowing them to render the main page
 
-var requireAuth = function() {
+const requireAuth = () => {
   fetch('/auth/isAuth', {
     method: 'GET',
     credentials: 'same-origin',
     headers: {
-      'Accept': 'application/json',
-      'Content-Type': 'application/json',
-    }
+      Accept: 'application/json',
+      ContentType: 'application/json',
+    },
   }).then(response => {
     if (response.ok) {
       return true;
-    } else {
-      return false;
     }
-  })
-}
+    return false;
+  });
+};
 
 ReactDOM.render(<Provider store={store}>
   <Router history={browserHistory}>
     <Route onLeave={requireAuth}>
-      <Route path='/' component={LoginView} />
+      <Route path="/" component={LoginView} />
     </Route>
-    <Route path='/home' component={Dashboard}/>
+    <Route path="/home" component={Dashboard} />
   </Router>
-  </Provider>, document.querySelector('#app'));
+</Provider>, document.querySelector('#app'));

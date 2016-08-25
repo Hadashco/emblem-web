@@ -1,9 +1,9 @@
 import { createStore } from 'redux';
-import {persistStore, autoRehydrate} from 'redux-persist';
+import { persistStore, autoRehydrate } from 'redux-persist';
 import { actions as globalActions } from './Actions.js';
 
 // actions object where keys are action names and value is action
-let defaultState = {
+const defaultState = {
   auth: {
     isAuthorized: false,
   },
@@ -29,10 +29,9 @@ let actions = Object.assign({}, globalActions);
 const reducer = (previousState = defaultState, action) => {
   if (actions[action.type]) {
     return actions[action.type](previousState, action.data);
-  } else {
-    console.warn(`action ${action.type} does not exist`);
-    return previousState;
   }
+  console.warn(`action ${action.type} does not exist`);
+  return previousState;
 };
 
 const addToActions = (newActions) => {
