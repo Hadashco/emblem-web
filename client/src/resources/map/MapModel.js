@@ -1,4 +1,4 @@
-import { connect } from 'react-redux';
+import  { connect } from 'react-redux';
 import { addToActions } from '../../Store.js';
 
 const actions = {};
@@ -18,12 +18,11 @@ actions.removeMarker = (previousState, data) => {
 
 const mapStateToProps = state => {
   return (
-    { 
-      markers: state.map.markers,
-      addMarkerToMapState: state.map.addMarkerToMapState,
-      modalState: state.upload.modalState,
-    }
-  );
+  {
+    markers: state.map.markers,
+    addMarkerToMapState: state.map.addMarkerToMapState,
+    modalState: state.upload.modalState,
+  });
 };
 
 const mapDispatchToProps = dispatch => (
@@ -36,11 +35,11 @@ const mapDispatchToProps = dispatch => (
         method: 'POST',
         credentials: 'same-origin',
         headers: {
-          'Accept': 'application/json',
-          'Content-Type': 'application/json',
+          Accept: 'application/json',
+          ContentType: 'application/json',
         },
         body: JSON.stringify({ lat, long, sector }),
-      }).catch(err => {
+      }).catch(() => {
         msg.show('Unauthorized access, please log in', {
           time: 5000,
           type: 'error',
@@ -57,18 +56,17 @@ const mapDispatchToProps = dispatch => (
         method: 'GET',
         credentials: 'same-origin',
         headers: {
-          'Accept': 'application/json',
-          'Content-Type': 'application/json',
-        }
+          Accept: 'application/json',
+          ContentType: 'application/json',
+        },
       }).then(response => response.json()).then(body => {
-          dispatch({ type: 'populateMarkers', data: body })
-        }
-      )
+        dispatch({ type: 'populateMarkers', data: body });
+      });
     },
-    addMarkerToMapStateSwitch: bool => {
+    addMarkerToMapStateSwitch: () => {
       dispatch({ type: 'addMarkerToMapStateSwitch' });
     },
-    switchUploadModalState: bool => {
+    switchUploadModalState: () => {
       dispatch({ type: 'switchUploadModalState' });
     },
   }

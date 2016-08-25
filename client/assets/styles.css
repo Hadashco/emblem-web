@@ -52,8 +52,8 @@ body {
   text-align: right;
   color: red;
   background-image: url('godzilla.png');
-  background-size: cover;
-  background-position: 101px -164px;
+  background-size: contain;
+  background-position: 171px 20px;
   background-repeat: no-repeat;
   z-index: 20;
 }

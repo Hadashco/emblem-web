@@ -1,5 +1,5 @@
-var webpack = require('webpack');
-var path = require('path');
+const webpack = require('webpack');
+const path = require('path');
 
 
 module.exports = {
@@ -9,29 +9,27 @@ module.exports = {
   output: {
     path: path.resolve('./build'),
     filename: 'bundle.js',
-    publicPath: '/'
+    publicPath: '/',
   },
   devserver: {
     inline: true,
-    port:3000
+    port: 3000,
   },
   plugins: [
-      new webpack.ProvidePlugin({
-          d3: 'd3'
-
-      })
-   ],
-  
+    new webpack.ProvidePlugin({
+      d3: 'd3',
+    }),
+  ],
   module: {
     loaders: [
       {
-        test:/\.js$/,
+        test: /\.js$/,
         exclude: /node_modules/,
         loader: 'babel',
-        query:{
-          presets: ['es2015', 'react']
-        }
-      }
-    ]
-  }
-}
+        query: {
+          presets: ['es2015', 'react'],
+        },
+      },
+    ],
+  },
+};

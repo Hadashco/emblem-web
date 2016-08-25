@@ -1,6 +1,5 @@
 import React from 'react';
 import Modal from 'react-modal';
-import { ButtonToolbar } from 'react-bootstrap';
 import ArtViewer from './ArtViewer.js';
 import UploadButton from './../upload/UploadButton.js';
 import { connection } from './../upload/uploadState.js';
@@ -14,7 +13,7 @@ const customStyles = {
     bottom: 0,
     backgroundColor: 'rgba(239, 249, 245, 0.74902)',
     zIndex: 15,
-    overflow: 'auto'
+    overflow: 'auto',
   },
   content: {
     position: 'relative',
@@ -27,59 +26,69 @@ const customStyles = {
     borderRadius: '4px',
     padding: '20px',
     background: 'rgba(255, 255, 255, .7)',
-    width: '90%'
-  }
+    width: '90%',
+  },
 };
 
 class ArtComponent extends React.Component {
-	constructor(props) {
-		super(props);
+  constructor(props) {
+    super(props);
     this.showPhoto = this.showPhoto.bind(this);
   }
-    
-    showPhoto(id) {
-      this.props.photoClick(id);
-    }
+
+  showPhoto(id) {
+    this.props.photoClick(id);
+  }
 
   render() {
     let source = '/storage/art/' + this.props.art + '/' + this.props.art + '_FULL';
-    return <img onClick={() => this.showPhoto(this.props.art)} src={source} className='artPiece' />;
+    return (
+      <img
+        onClick={() => this.showPhoto(this.props.art)}
+        src={source} className="artPiece"
+        role="presentation"
+      />);
   }
 }
 
 class ArtSelector extends React.Component {
-    constructor(props) {
-      super(props);
-      
-      this.art = [];
-    }
+  constructor(props) {
+    super(props);
+    this.art = [];
+  }
 
-    componentDidMount() {
-      this.props.populateArtFiles();
-    }
+  componentDidMount() {
+    this.props.populateArtFiles();
+  }
 
 
-    render() {
-      this.art = this.props.files;
-      console.log(this.props.files);
-      console.log(this.props.currentArt);
-      var context = this;
-      return (
-        <Modal
-          className='ArtModal'
-          isOpen={this.props.artModalState}
-          style={ customStyles }>
-          <div className='artContainer col-xs-2'>
-            {context.art.map(num => <div><ArtComponent photoClick={this.props.updateCurrentArt} art={num.id} /><br/></div>)}
-          </div>
-              <UploadButton  class='ArtModalCloseButton' text=''  btn-mad clearfix form-control/>
-          <ArtViewer art={this.props.currentArt} />
-          <div className='col-xs-12' style={{paddingRight: 0}}>
-              <UploadButton  class='ArtModalUploadButton' text='' clickFunc={ this.props.switchUploadModalState }  btn-mad clearfix form-control/>
-          </div>
-        </Modal>
-      );
-    }
+  render() {
+    this.art = this.props.files;
+    const context = this;
+    return (
+      <Modal
+        className="ArtModal"
+        isOpen={this.props.artModalState}
+        style={customStyles}
+      >
+        <div className="artContainer col-xs-2">
+          {context.art.map(num => <div><ArtComponent
+            photoClick={this.props.updateCurrentArt} art={num.id}
+          /><br /></div>)}
+        </div>
+        <UploadButton class="ArtModalCloseButton" text="" btn-mad clearfix form-control />
+        <ArtViewer art={this.props.currentArt} />
+        <div className="col-xs-12" style={{ paddingRight: 0 }}>
+          <UploadButton
+            class="ArtModalUploadButton"
+            text=""
+            clickFunc={this.props.switchUploadModalState}
+            btn-mad clearfix form-control
+          />
+        </div>
+      </Modal>
+    );
+  }
 }
 
 export default connection(ArtSelector);

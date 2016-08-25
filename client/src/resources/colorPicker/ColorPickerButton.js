@@ -11,14 +11,16 @@ class ColorPickerButton extends React.Component {
 
   handleClick() {
     this.props.handleColorPickerDisplay();
-    console.log('clicked!', this.props.displayColorPicker);
-    // this.setState({ displayColorPicker: !this.state.displayColorPicker })
-  };
+  }
 
   render() {
     return (
-        <UploadButton className='colorPickerButton' clickFunc={ this.props.func || this.handleClick } text={this.props.text || 'Pick Your Color'}/>
-    )
+      <UploadButton
+        className="colorPickerButton"
+        clickFunc={this.props.func || this.handleClick}
+        text={this.props.text || 'Pick Your Color'}
+      />
+    );
   }
 }
 
