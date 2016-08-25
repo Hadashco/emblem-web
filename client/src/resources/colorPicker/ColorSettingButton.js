@@ -13,8 +13,8 @@ class ColorSettingButton extends React.Component {
       method: 'POST',
       credentials: 'same-origin',
       headers: {
-        Accept: 'application/json',
-        ContentType: 'application/json',
+        'Accept': 'application/json',
+        'Content-Type': 'application/json',
       },
       body: JSON.stringify({ color: this.props.currentColor }),
     }).catch(() => {

@@ -28,9 +28,9 @@ const uploadDispatchToProps = dispatch => {
           const arrayBufferStr = fileReader.result;
           fetch('/art', {
             headers: {
-              Accept: 'application/octet-stream',
-              ContentType: 'application/octet-stream',
-              FileType: uploadFile.type,
+              'Accept': 'application/octet-stream',
+              'Content-Type': 'application/octet-stream',
+              'File-Type': uploadFile.type,
             },
             credentials: 'same-origin',
             method: 'POST',

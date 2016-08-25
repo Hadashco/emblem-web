@@ -35,8 +35,8 @@ const mapDispatchToProps = dispatch => (
         method: 'POST',
         credentials: 'same-origin',
         headers: {
-          Accept: 'application/json',
-          ContentType: 'application/json',
+          'Accept': 'application/json',
+          'Content-Type': 'application/json',
         },
         body: JSON.stringify({ lat, long, sector }),
       }).catch(() => {
@@ -56,8 +56,8 @@ const mapDispatchToProps = dispatch => (
         method: 'GET',
         credentials: 'same-origin',
         headers: {
-          Accept: 'application/json',
-          ContentType: 'application/json',
+          'Accept': 'application/json',
+          'Content-Type': 'application/json',
         },
       }).then(response => response.json()).then(body => {
         dispatch({ type: 'populateMarkers', data: body });

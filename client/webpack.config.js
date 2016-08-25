@@ -15,11 +15,6 @@ module.exports = {
     inline: true,
     port: 3000,
   },
-  plugins: [
-    new webpack.ProvidePlugin({
-      d3: 'd3',
-    }),
-  ],
   module: {
     loaders: [
       {

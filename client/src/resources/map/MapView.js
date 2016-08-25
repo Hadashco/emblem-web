@@ -35,11 +35,6 @@ class MapView extends React.Component {
         ContentType: 'application/json',
       },
     }).then(response => response.json()).then(body => {
-      // using the id i should get back from body, I'd make
-      // another call to max rank at the id the square is located at
-      // then using the user id i get back from that route, ill grab
-      // the user color to save in the sectorColor for each individual
-      // sector
       const LAT_LONG_TRUNCATE = 3;
       for (let place = 0; place < body.length; place++) {
         this.sectors.push({
@@ -99,10 +94,10 @@ class MapView extends React.Component {
                       lat: sector.north,
                       lng: sector.east })}
                     options={{
-                      strokeColor: '#FFFF00',
+                      strokeColor: '#000000',
                       fillColor: sector.sectorColor,
-                      strokeOpacity: 0,
-                      strokeWeight: 0,
+                      strokeOpacity: 0.5,
+                      strokeWeight: 1,
                       fillOpacity: 0.35,
                     }}
                   />

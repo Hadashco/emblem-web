@@ -9,7 +9,7 @@ export default class InfoPage extends React.Component {
         <p>
           Hold up a looking glass to the world, and <br />
           transform the view! Emblem presents an augmented <br />
-          reality window, projecting geocached two and 3 <br />
+          reality window, projecting geocached two- and three- <br />
           dimensional models onto your surroundings.<br /><br />
 
           Users upload an incredible array of images<br />
