@@ -1,6 +1,5 @@
 import React from 'react';
-import { Button } from 'react-bootstrap';
-import UploadButton from './UploadButton.js'
+import UploadButton from './UploadButton.js';
 import { connection } from './uploadState.js';
 
 class SaveButton extends React.Component {
@@ -16,8 +15,14 @@ class SaveButton extends React.Component {
   }
 
   render() {
-    return <UploadButton bsStyle='success' text='Save' clickFunc={this.onSave} />
+    return <UploadButton bsStyle="success" text="Save" clickFunc={this.onSave} />;
   }
 }
+
+SaveButton.propTypes = {
+  emptyToUploadFiles: React.PropTypes.func,
+  toUpload: React.PropTypes.array,
+  uploadFiles: React.PropTypes.func,
+};
 
 export default connection(SaveButton);

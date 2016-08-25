@@ -24,4 +24,10 @@ class ColorPickerButton extends React.Component {
   }
 }
 
+ColorPickerButton.propTypes = {
+  text: React.PropTypes.string,
+  handleColorPickerDisplay: React.PropTypes.func,
+  func: React.PropTypes.func,
+};
+
 export default connection(ColorPickerButton);

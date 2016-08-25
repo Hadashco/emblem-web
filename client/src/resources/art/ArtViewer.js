@@ -6,7 +6,7 @@ export default class ArtViewer extends React.Component {
   }
 
   render() {
-    const source = '/storage/art/' + this.props.art + '/' + this.props.art + '_FULL';
+    const source = `/storage/art/${this.props.art}/${this.props.art}_FULL`;
     return (
       <div className="col-xs-9">
         <img
@@ -18,3 +18,7 @@ export default class ArtViewer extends React.Component {
       );
   }
 }
+
+ArtViewer.propTypes = {
+  art: React.PropTypes.number,
+};

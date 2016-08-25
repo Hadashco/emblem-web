@@ -28,7 +28,10 @@ class ColorSettingButton extends React.Component {
   render() {
     return <ColorPickerButton func={this.setUserColorOnClick} text="Set Your Color" />;
   }
-
 }
+
+ColorSettingButton.propTypes = {
+  currentColor: React.PropTypes.string,
+};
 
 export default connection(ColorSettingButton);

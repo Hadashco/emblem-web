@@ -8,10 +8,10 @@ import { connection } from './../headerState.js';
 const customStyles = {
   overlay: {
     position: 'fixed',
-    height: 360 + 'px',
-    width: 320 + 'px',
-    top: 15 + '%',
-    left: 35 + '%',
+    height: `${360}px`,
+    width: `${320}px`,
+    top: `${15}%`,
+    left: `${35}%`,
     right: 0,
     bottom: 0,
     backgroundColor: 'rgba(239, 249, 245, 0.74902)',
@@ -45,7 +45,7 @@ class ColorPicker extends React.Component {
       {this.props.displayColorPicker ?
         <div id="popover">
           <div onClick={this.handleClose} />
-          <SketchPicker color={ this.props.currentColor } onChange={this.handleChange} />
+          <SketchPicker color={this.props.currentColor} onChange={this.handleChange} />
           <ColorSettingButton />
           <ColorPickerButton class="colorCloser" text="Close" />
         </div> : null}
@@ -53,5 +53,12 @@ class ColorPicker extends React.Component {
     );
   }
 }
+
+ColorPicker.propTypes = {
+  currentColor: React.PropTypes.string,
+  displayColorPicker: React.PropTypes.bool,
+  handleColorPickerDisplay: React.PropTypes.func,
+  updateCurrentColor: React.PropTypes.func,
+};
 
 export default connection(ColorPicker);

@@ -44,9 +44,9 @@ const mapDispatchToProps = dispatch => (
           time: 5000,
           type: 'error',
         });
-      }).then(response => {
-        return response.json();
-      });
+      }).then(response =>
+        response.json()
+      );
     },
     removeMarker: index => {
       dispatch({ type: 'removeMarker', data: index });

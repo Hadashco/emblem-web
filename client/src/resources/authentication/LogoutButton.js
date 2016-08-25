@@ -20,4 +20,8 @@ class Logout extends React.Component {
   }
 }
 
+Logout.propTypes = {
+  changeAuth: React.PropTypes.func,
+};
+
 export default connection(Logout);
