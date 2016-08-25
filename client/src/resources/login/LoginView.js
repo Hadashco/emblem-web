@@ -1,6 +1,7 @@
 import React from 'react';
 import FacebookButton from './../authentication/fbookButtonView.js';
 import InfoPage from './../stateless/InfoPage.js';
+import DemoButton from './DemoButton.js';
 
 export default class LoginView extends React.Component {
   constructor(props) {
@@ -26,8 +27,9 @@ export default class LoginView extends React.Component {
   }
 
   onScroll() {
-    this.setState({ startingBackgroundPos: this.state.startingBackgroundPos - 4 });
-    this.setState({ windowPosition: this.pageYOffset });
+    this.setState({ startingBackgroundPos: this.state.startingBackgroundPos - 3 });
+    this.setState({ windowPosition: window.pageYOffset });
+    console.log(this.state.windowPosition);
     this.style = { backgroundPosition: `${171}px ${this.state.startingBackgroundPos}px` };
   }
 
@@ -42,6 +44,7 @@ export default class LoginView extends React.Component {
             <div className="loginButtonDiv">
               <FacebookButton className="loginButton" />
             </div>
+            <DemoButton />
           </div>
         </div>
         <div className="infoContainer"><InfoPage /></div>
