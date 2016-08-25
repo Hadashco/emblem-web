@@ -11,7 +11,7 @@ export default class LoginView extends React.Component {
     };
 
     this.style = {
-      backgroundPosition: 171 + 'px ' + this.state.startingBackgroundPos + 'px',
+      backgroundPosition: `${171}px ${this.state.startingBackgroundPos}px`,
     };
 
     this.onScroll = this.onScroll.bind(this);
@@ -28,7 +28,7 @@ export default class LoginView extends React.Component {
   onScroll() {
     this.setState({ startingBackgroundPos: this.state.startingBackgroundPos - 4 });
     this.setState({ windowPosition: this.pageYOffset });
-    this.style = { backgroundPosition: 171 + 'px ' + this.state.startingBackgroundPos + 'px' };
+    this.style = { backgroundPosition: `${171}px ${this.state.startingBackgroundPos}px` };
   }
 
 

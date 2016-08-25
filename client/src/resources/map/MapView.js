@@ -9,8 +9,6 @@ class MapView extends React.Component {
     this.state = {
       sectors: [],
     };
-    this.onMapClick = this.onMapClick.bind(this);
-    this.onMarkerRightclick = this.onMarkerRightclick.bind(this);
     this.onSectorMouseover = this.onSectorMouseover.bind(this);
     this.sectors = [];
     this.sectorColor = '#3d3d3d';
@@ -23,28 +21,9 @@ class MapView extends React.Component {
     this.createSectorsForMap();
   }
 
-  onMapClick(event) {
-    if (this.props.addMarkerToMapState) {
-      this.props.addMarker(
-        {
-          key: this.props.markers.length,
-          position: event.latLng,
-          defaultAnimation: 2,
-        }
-      );
-      this.props.addMarkerToMapStateSwitch();
-      this.props.switchUploadModalState();
-    }
-  }
-
   onSectorMouseover(index, position) {
-    this.sector = 'The sector at this location is: ' + index;
+    this.sector = `The sector at this location is: ${index}`;
     this.sectorPosition = position;
-  }
-
-
-  onMarkerRightclick(index) {
-    this.props.removeMarker(index);
   }
 
   createSectorsForMap() {
@@ -99,7 +78,6 @@ class MapView extends React.Component {
                 defaultZoom={16}
                 // TODO: Default to user location
                 defaultCenter={{ lat: 37.754862, lng: -122.431558 }}
-                onClick={this.onMapClick}
                 options={{ minZoom: 15 }}
               >
                 {this.props.markers.map((marker, index) =>
@@ -141,5 +119,11 @@ class MapView extends React.Component {
     );
   }
 }
+
+MapView.propTypes = {
+  markers: React.PropTypes.array,
+  containerElementProps: React.PropTypes.object,
+  populateMarkers: React.PropTypes.func,
+};
 
 export default connection(MapView);

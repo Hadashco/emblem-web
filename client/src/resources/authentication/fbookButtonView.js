@@ -3,7 +3,7 @@ import { Button } from 'react-bootstrap';
 import { connection } from './../headerState.js';
 
 const fbButtonStyles = {
-  borderRadius: 30 + 'px',
+  borderRadius: `${30}px`,
 };
 
 class FacebookButton extends React.Component {
@@ -30,5 +30,9 @@ class FacebookButton extends React.Component {
       );
   }
 }
+
+FacebookButton.propTypes = {
+  changeAuth: React.PropTypes.func,
+};
 
 export default connection(FacebookButton);

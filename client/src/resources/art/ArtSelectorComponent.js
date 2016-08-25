@@ -41,7 +41,7 @@ class ArtComponent extends React.Component {
   }
 
   render() {
-    let source = '/storage/art/' + this.props.art + '/' + this.props.art + '_FULL';
+    let source = `/storage/art/${this.props.art}/${this.props.art}_FULL`;
     return (
       <img
         onClick={() => this.showPhoto(this.props.art)}
@@ -90,5 +90,19 @@ class ArtSelector extends React.Component {
     );
   }
 }
+
+ArtComponent.propTypes = {
+  photoClick: React.PropTypes.func,
+  art: React.PropTypes.number,
+};
+
+ArtSelector.propTypes = {
+  artModalState: React.PropTypes.bool,
+  currentArt: React.PropTypes.number,
+  files: React.PropTypes.array,
+  populateArtFiles: React.PropTypes.func,
+  switchUploadModalState: React.PropTypes.func,
+  updateCurrentArt: React.PropTypes.func,
+};
 
 export default connection(ArtSelector);
