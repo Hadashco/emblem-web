@@ -15,11 +15,10 @@ const ArtPlace = require('../resources/artPlace/artPlaceModel')(db, Sequelize);
 const TRAILING_DEC_SECTOR = 5; // Number of trailing decimals in sector
 
 const getSector = (lat, long) => {
-  const newLat = Math.round(lat * 4 * 1000) / (4 * 1000);
-  const newLong = Math.round(long * 4 * 1000) / (4 * 1000);
+  const newLat = Math.round(lat * 2 * 1000) / (2 * 1000);
+  const newLong = Math.round(long * 2 * 1000) / (2 * 1000);
   return `${newLat.toFixed(TRAILING_DEC_SECTOR)}${newLong.toFixed(TRAILING_DEC_SECTOR)}`;
 };
-
 Place.belongsToMany(Art, { through: ArtPlace });
 Art.belongsToMany(Place, { through: ArtPlace });
 

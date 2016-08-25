@@ -131,7 +131,7 @@ module.exports = {
     Art.findById(req.params.id)
       .then(art => {
         globalArt = art;
-        const sector = getSector(Number(req.params.lat), Number(req.params.long));
+        const sector = getSector(Number(req.body.lat), Number(req.body.long));
         Place.findAll({ where: { sector } })
           .then(place => {
             if (place.length > 0) {
