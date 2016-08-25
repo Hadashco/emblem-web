@@ -12,6 +12,7 @@ emblem-web-server:
    - FACEBOOK_SECRET=${FACEBOOK_SECRET}
    - AWS_ID=${AWS_ID}
    - AWS_SECRET=${AWS_SECRET}
+   - HOST_SERVER=${HOST_SERVER}
   links:
    - emblem-db
   command: npm start
