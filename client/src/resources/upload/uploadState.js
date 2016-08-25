@@ -1,9 +1,14 @@
 import { connect } from 'react-redux';
-import { addToActions } from '../../Store.js';
-import React from 'react';
 
 const uploadStateToProps = state => {
-  return { artModalState: state.upload.artModalState, modalState: state.upload.modalState, files: state.upload.files, toUpload: state.upload.toUpload, currentArt: state.upload.currentArt, isAuthorized: state.auth.isAuthorized };
+  return {
+    artModalState: state.upload.artModalState,
+    modalState: state.upload.modalState,
+    files: state.upload.files, toUpload: state.upload.toUpload,
+    currentArt: state.upload.currentArt,
+    isAuthorized: state.auth.isAuthorized,
+    displayColorPicker: state.color.diplayColorPicker,
+  };
 };
 
 const uploadDispatchToProps = dispatch => {
@@ -16,26 +21,29 @@ const uploadDispatchToProps = dispatch => {
     },
     uploadFiles: (files) => {
       files.forEach(file => {
-        file = file[0];
-        const fileReader = new FileReader(file);
-        fileReader.readAsArrayBuffer(file);
+        const uploadFile = file[0];
+        const fileReader = new FileReader(uploadFile);
+        fileReader.readAsArrayBuffer(uploadFile);
         fileReader.onload = e => {
           const arrayBufferStr = fileReader.result;
           fetch('/art', {
             headers: {
               'Accept': 'application/octet-stream',
               'Content-Type': 'application/octet-stream',
-              'File-Type': file.type,
+              'File-Type': uploadFile.type,
             },
             credentials: 'same-origin',
             method: 'POST',
             body: arrayBufferStr,
-          }).catch(err => {
+          }).catch(() => {
                 msg.show('Please log in to get all of our awesome features!', {
-                  time: 5000,
+                  time: 3000,
                   type: 'info',
-            });
-          })
+                });
+            setTimeout(() => {
+              window.location = '/';
+            }, 3000);
+          });
         };
       });
       dispatch({ type: 'uploadFiles', data: files });
@@ -47,20 +55,24 @@ const uploadDispatchToProps = dispatch => {
       dispatch({ type: 'addDragAndDropFiles', data: file });
     },
     populateArtFiles: () => {
-      fetch('/art', {
+      fetch('/user/art', {
         headers: {
           'Accept': 'application/json',
           'Content-Type': 'application/json',
         },
         method: 'GET',
         credentials: 'same-origin',
-      }).then(response => {
-        return response.json();})
-      .catch(err => {
-        msg.show('Please log in to get all of our awesome features!', {
-          time: 5000,
-          type: 'info',
-    });
+      }).then(response =>
+        response.json()
+      )
+      .catch(() => {
+            msg.show('Please log in to get all of our awesome features!', {
+              time: 3000,
+              type: 'info',
+            });
+        setTimeout(() => {
+          window.location = '/';
+        }, 3000);
       })
       .then(body => {
         dispatch({ type: 'populateArtFiles', data: body });

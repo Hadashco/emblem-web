@@ -1,14 +1,11 @@
 import React from 'react';
-import { Button, ButtonToolbar } from 'react-bootstrap';
-import AddMarkerButton from './map/AddMarkerButton.js';
-import FacebookButton from './authentication/fbookButtonView';
+import { ButtonToolbar } from 'react-bootstrap';
 import UploadButton from './upload/UploadButton.js';
 import Logout from './authentication/LogoutButton.js';
+import ColorPickerButton from './colorPicker/ColorPickerButton.js';
 import { connection } from './headerState.js';
 
-
-
-export default class headerComponent extends React.Component {
+class headerComponent extends React.Component {
   constructor(props) {
     super(props);
   }
@@ -16,11 +13,12 @@ export default class headerComponent extends React.Component {
   render() {
     return (
       <div className="header">
-            <ButtonToolbar className='buttonToolbar'>
-              <UploadButton text='Art Library' />
-              <Logout />
-            </ButtonToolbar>
-        <h1>Welcome to <i>Emblem</i></h1>
+        <ButtonToolbar className="headerButtonToolbar buttonToolbar">
+          <ColorPickerButton />
+          <UploadButton text="Art Library" />
+          <Logout />
+        </ButtonToolbar>
+        <h1><i>Emblem</i></h1>
       </div>
     );
   }

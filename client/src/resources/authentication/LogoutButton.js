@@ -4,20 +4,24 @@ import { connection } from './../headerState.js';
 import { browserHistory } from 'react-router';
 
 class Logout extends React.Component {
-	constructor(props) {
-		super(props);
-		this.logout = this.logout.bind(this);
-	}
+  constructor(props) {
+    super(props);
+    this.logout = this.logout.bind(this);
+  }
 
-	logout() {
-		document.cookie = "token=nil";
-		this.props.changeAuth();
-		browserHistory.push('/');
-	}
+  logout() {
+    document.cookie = 'token=nil';
+    this.props.changeAuth();
+    browserHistory.push('/');
+  }
 
-	render() {
-		return <UploadButton clickFunc={this.logout} text='Logout' />;
-	}
+  render() {
+    return <UploadButton clickFunc={this.logout} text="Logout" />;
+  }
 }
+
+Logout.propTypes = {
+  changeAuth: React.PropTypes.func,
+};
 
 export default connection(Logout);

@@ -1,9 +1,12 @@
 import React from 'react';
 import { Button } from 'react-bootstrap';
 import { connection } from './../headerState.js';
-import {browserHistory} from "react-router";
 
-export default class FacebookButton extends React.Component {
+const fbButtonStyles = {
+  borderRadius: `${30}px`,
+};
+
+class FacebookButton extends React.Component {
   constructor(props) {
     super(props);
     this.handleClick = this.handleClick.bind(this);
@@ -16,9 +19,20 @@ export default class FacebookButton extends React.Component {
 
   render() {
     return (
-      <Button className='uibutton confirm' onClick={this.handleClick}>Login with Facebook</Button>
-    );
+      <Button
+        className="button"
+        bsStyle="primary"
+        style={fbButtonStyles}
+        onClick={this.handleClick}
+      >
+        Login with Facebook
+      </Button>
+      );
   }
 }
+
+FacebookButton.propTypes = {
+  changeAuth: React.PropTypes.func,
+};
 
 export default connection(FacebookButton);
