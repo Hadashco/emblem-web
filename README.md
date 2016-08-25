@@ -26,7 +26,6 @@ Table of Contents
 - [Obtaining API Keys](#obtaining-api-keys)
 - [Run Without AWS](#run-without-aws)
 - [Contributions](#contributions)
-- [History](#history)
 - [Authors](#authors)
 - [License](#license)
 - [Acknowledgements](#acknowledgements)

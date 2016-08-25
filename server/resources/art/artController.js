@@ -40,11 +40,9 @@ module.exports = {
 
         s3bucket.upload(params, (err, data) => {
           if (err) {
-            console.log('Error uploading data:', err);
             res.status(401).json(err);
           } else {
-            console.log('Successfully uploaded data to myBucket/myKey');
-            res.status(200).json(`https://s3.amazonaws.com/hadashco-emblem/${art.id}`);
+            res.status(200).json(data);
           }
         });
       })
@@ -55,12 +53,11 @@ module.exports = {
     Art.findById(req.params.id)
       .then(art => {
         const params = { Key: art.id.toString() };
-
         s3bucket.getObject(params, (err, data) => {
           if (!err) {
             // Reference additional Body properties:
             // http://docs.aws.amazon.com/AWSJavaScriptSDK/latest/AWS/S3.html#getObject-property
-            res.send(data.Body);
+            res.status(200).send(data.Body);
           } else {
             res.status(500).send(err);
           }
@@ -78,24 +75,23 @@ module.exports = {
           art.destroy()
             .then(() => {
               const params = { Key: req.params.id.toString() };
-
               s3bucket.deleteObject(params, (err, data) => {
                 if (!err) {
-                  res.send(data.Body);
+                  res.status(200).send(data.Body);
                 } else {
+                  console.log('AWS delete error:', err);
                   res.status(500).send(err);
                 }
-              })
-              .then(() => {
-                res.status(200).send(`ArtId ${req.params.id} and associated ArtPlaces deleted.`);
               });
-            })
-            .catch(err => res.status(500).send(JSON.stringify(err)));
+            });
         } else {
           res.status(204).send(`No art found in database at ArtId ${req.params.id}.`);
         }
       })
-      .catch(err => res.status(500).send(JSON.stringify(err)));
+      .catch(err => {
+        console.log('catch error:', err);
+        res.status(500).send(JSON.stringify(err));
+      });
   },
 
 /* ***************************************************************
@@ -108,9 +104,14 @@ module.exports = {
   getFromDbById: (req, res) => {
     Art.findById(req.params.id)
       .then(art => {
-        res.status(200).json(art);
+        console.log('res:', res);
+        console.log('found art id:', art.id);
+        var test = res.status(200).json(art);
       })
-      .catch(err => res.status(500).send(JSON.stringify(err)));
+      .catch(err => {
+        console.log('the other error', err);
+        res.status(500).send(JSON.stringify(err));
+      });
   },
 
   // Get all art
@@ -120,7 +121,6 @@ module.exports = {
         res.status(200).send(JSON.stringify(arts));
       })
       .catch(err => {
-        console.log('Get art error ', err);
         res.status(500).send(JSON.stringify(err));
       });
   },

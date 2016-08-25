@@ -1,6 +1,9 @@
 const Sequelize = require('sequelize');
 
-const db = new Sequelize('postgres://postgres:emblem@emblem-db:5432/postgres');
+const db = new Sequelize('postgres://postgres:emblem@emblem-db:5432/postgres',
+  {// disable logging; default: console.log
+    logging: false,
+  });
 
 const User = require('../resources/user/userModel')(db, Sequelize);
 const Art = require('../resources/art/artModel')(db, Sequelize);

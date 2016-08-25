@@ -4,35 +4,41 @@ const { getAll, getMaxAtPlace, getMaxBetweenBounds,
         getAllCommentsForId, addVoteForId, getVotesForId,
         deleteById } = require('./artPlaceController');
 
-// Get all ArtPlaces
+// -- GET all ArtPlaces --
+// RETURNS: _id | active | upvotes | downvotes | createdAt | updatedAt| PlaceId | ArtId
 router.get('/', getAll);
 
-// Get highest ArtPlace for each place
+// -- GET highest ArtPlace for each place --
+// RETURNS: PlaceId | markerColor | UserId | ArtId | ArtPlaceId | netVotes | lat | long
 router.get('/max/rank', getMaxAtPlace);
 
-// Get highest ArtPlace for each place between two bounds
+// -- GET highest ArtPlace for each place between two bounds --
+// RETURNS: PlaceId | markerColor | UserId | ArtId | lat | netVotes | long | ArtPlaceId
 router.get('/max/between/:latMin/:latMax/:longMin/:longMax', getMaxBetweenBounds);
 
-// Get all ArtPlaces between two bounds
+// -- GET all ArtPlaces between two bounds --
+// RETURNS: PlaceId | markerColor | UserId | ArtId | lat | netVotes | long | ArtPlaceId
 router.get('/between/:latMin/:latMax/:longMin/:longMax', getAllBetweenBounds);
 
-// Get specific ArtPlace
+// -- GET specific ArtPlace --
+// RETURNS: _id | active | upvotes | downvotes | createdAt | updatedAt| PlaceId | ArtId
 router.get('/:id', getById);
 
-// Add comment to ArtPlace
-// Assumes that input includes: 1) artPlaceId 2) comment title
+// -- POST comment to ArtPlace --
 router.post('/:id/comment', addCommentForId);
 
-// Get all comments for ArtPlace
+// -- GET all comments for ArtPlace --
+// RETURNS: id | title | commentable | commentable_id | createdAt | updatedAt | UserId
 router.get('/:id/comment', getAllCommentsForId);
 
-// Add vote, increment ArtPlace upvote / downvote
-// Assumes that input includes: 1) artPlaceId in route 2) vote value (+1 or -1)
+// -- POST vote, increment ArtPlace upvote / downvote --
 router.post('/:id/vote', addVoteForId);
 
-// Get votes for a specific ArtPlace ID
+// -- GET votes for a specific ArtPlace ID --
+// RETURNS: id | value | voteable | voteable_id | createdAt | updatedAt | UserId
 router.get('/:id/vote', getVotesForId);
 
+// -- DELETE (POST) a specific ArtPlace ID --
 router.post('/:id/delete', deleteById);
 
 module.exports = router;

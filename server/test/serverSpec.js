@@ -56,18 +56,18 @@ describe('Build Database Models', () => {
     });
   });
 
-  describe('Art', () => {
-    it ('should create an art record Art', (done) => {
-      Art.create(artRecord).then(art => {
-        art.should.have.property('id');
-        art.id.should.not.be.null;
-        return Art.findById(art.id).then(found => {
-          found.id.should.equal(art.id);
-          done();
-        });
-      });
-    });
-  });
+  // describe('Art', () => {
+  //   it ('should create an art record Art', (done) => {
+  //     Art.create(artRecord).then(art => {
+  //       art.should.have.property('id');
+  //       art.id.should.not.be.null;
+  //       return Art.findById(art.id).then(found => {
+  //         found.id.should.equal(art.id);
+  //         done();
+  //       });
+  //     });
+  //   });
+  // });
 });
 
 // describe('Art and ArtPlaces (Geotags, AWS, Votes, Comments)', () => {
