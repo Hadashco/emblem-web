@@ -35,8 +35,8 @@ const mapDispatchToProps = dispatch => (
         method: 'POST',
         credentials: 'same-origin',
         headers: {
-          'Accept': 'application/json',
-          'Content-Type': 'application/json',
+          Accept: 'application/json',
+          ContentType: 'application/json',
         },
         body: JSON.stringify({ lat, long, sector }),
       }).catch(() => {
