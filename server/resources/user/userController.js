@@ -10,6 +10,7 @@ module.exports = {
 
   // Get all art associated with a given user
   getUserArt: (req, res) => {
+    console.log(req.user.dataValues.id);
     Art.findAll({ where: { UserId: req.user.dataValues.id } })
       .then(arts => {
         res.status(200).send(JSON.stringify(arts));
