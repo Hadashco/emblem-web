@@ -2,7 +2,7 @@
 =========================================
 Hold up a looking glass to the world, and transform the view! Emblem presents an augmented reality window, displaying geocached two- and three- dimensional models onto users' surroundings.
 
-Web client is available for use at [TODO](https://www.heroku.com/).
+Web client is available for use at [emblemAR.com](https://www.emblemar.com/).
 Mobile app can be downloaded from the Apple App store at [TODO](http://www.apple.com/itunes/charts/free-apps/).
 
 [TODO: video of mobile app in action](https://github.com/rubensousa/ViewPagerCards)
@@ -10,10 +10,13 @@ Mobile app can be downloaded from the Apple App store at [TODO](http://www.apple
 TODO: Update travis-ci build status links (below)
 
 #### [Server and Web Client](https://github.com/Hadashco/emblem-web)
+Upload 3D models from a computer desktop, explore artwork posted around the world, and manage granular user settings from the web client.
 [![Build Status](https://api.travis-ci.org/hadashco/emblem-web.svg?branch=master)](https://api.travis-ci.org/hadashco/emblem-web.svg?branch=master)
 [![Stories in Ready](https://badge.waffle.io/Hadashco/emblem-web.png?label=ready&title=Ready)](https://waffle.io/Hadashco/emblem-web)
 
 #### [Mobile App](https://github.com/Hadashco/emblem-mobile)
+In addition to providing a dramatic visual experience, the mobile application offers a well-executed implementation of knitting
+Vuforia's C++ library with Swift using Objective-C.
 [![Build Status](https://api.travis-ci.org/hadashco/emblem-mobile.svg?branch=master)](https://api.travis-ci.org/hadashco/emblem-mobile.svg?branch=master)
 [![Stories in Ready](https://badge.waffle.io/Hadashco/emblem-mobile.png?label=ready&title=Ready)](https://waffle.io/Hadashco/emblem-mobile)
 
@@ -134,10 +137,10 @@ If you have any problems or major improvements, please consult the known issues.
 
 Authors
 --------------------------
-* [Conor Carey](https://www.linkedin.com/in/conor-carey-b2b34097) [github: ccarey221](https://github.com/ccarey221)
-* [Dane Jordan](https://www.linkedin.com/in/daneelijordan) [github: Dane456](https://github.com/Dane456)
-* [Hannah Henderson](https://www.linkedin.com/in/hahenderson) [github: hannahhenderson](https://github.com/hannahhenderson)
-* [Shea Hawkins](https://www.linkedin.com/in/shea-hawkins-6a6057a2) [github: shea-hawkins](https://github.com/shea-hawkins)
+* [Conor Carey](https://www.linkedin.com/in/conor-carey-b2b34097) ([ccarey221](https://github.com/ccarey221))
+* [Dane Jordan](https://www.linkedin.com/in/daneelijordan) ([Dane456](https://github.com/Dane456))
+* [Hannah Henderson](https://www.linkedin.com/in/hahenderson) ([hannahhenderson](https://github.com/hannahhenderson))
+* [Shea Hawkins](https://www.linkedin.com/in/shea-hawkins-6a6057a2) ([shea-hawkins](https://github.com/shea-hawkins))
 
 
 License
