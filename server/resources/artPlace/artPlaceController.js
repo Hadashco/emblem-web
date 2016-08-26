@@ -1,5 +1,5 @@
 const dbFile = require('../../db/db');
-const { ArtPlace, db } = dbFile;
+const { ArtPlace, db, Vote } = dbFile;
 const Sequelize = require('sequelize');
 
 module.exports = {
@@ -116,16 +116,34 @@ module.exports = {
       .then(artPlace => {
         if (artPlace) {
           globalArtPlace = artPlace;
-          artPlace.createVote({
-            value: req.body.vote,
-          })
-          .then(vote => {
-            vote.setUser(req.user); // add creator ID
-            if (req.body.vote > 0) globalArtPlace.increment('upvotes');
-            if (req.body.vote < 0) globalArtPlace.increment('downvotes');
-            res.status(200).json(vote);
-          })
-          .catch(err => res.status(500).send(JSON.stringify(err)));
+          // Increase total count of upvotes / downvotes as appropriate
+          if (req.body.vote > 0) globalArtPlace.increment('upvotes');
+          if (req.body.vote < 0) globalArtPlace.increment('downvotes');
+          // check to see if vote exists from this user at artPlace
+          artPlace.getVotes({ where: { UserId: req.user.id } })
+            .then(votes => {
+              // if a vote already exists for user, update
+              if (votes.length > 0) {
+                Vote.findOne({ where: { id: votes[0].dataValues.id } })
+                  .then(foundVote => {
+                    // Nullify previous vote
+                    if (foundVote.value > 0) globalArtPlace.decrement('upvotes');
+                    if (foundVote.value < 0) globalArtPlace.decrement('downvotes');
+                    foundVote.setDataValue('value', req.body.vote);
+                    res.status(200).json(foundVote);
+                  });
+              } else {
+              // if no vote exists for user on this piece, add one
+                artPlace.createVote({
+                  value: req.body.vote,
+                })
+                .then(vote => {
+                  vote.setUser(req.user); // add creator ID
+                  res.status(200).json(vote);
+                })
+                .catch(err => res.status(500).send(JSON.stringify(err)));
+              }
+            });
         } else {
           res.status(200).send(JSON.stringify(`No ArtPlace associated with id ${req.params.id}`));
         }

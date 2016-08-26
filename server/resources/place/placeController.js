@@ -7,7 +7,7 @@ const Sequelize = require('sequelize');
 module.exports = {
   // Add a new places
   postNewPlace: (req, res) => {
-    const sector = getSector(Number(req.params.lat), Number(req.params.long));
+    const sector = getSector(Number(req.body.lat), Number(req.body.long));
     Place.findOne({ where: { sector } })
       .then(place => {
         if (place) {
@@ -30,7 +30,7 @@ module.exports = {
   // Get all places
   getAll: (req, res) => {
     Place.findAll().then(result => {
-      res.send(result);
+      res.status(200).send(result);
     })
     .catch(err => res.status(500).json(err));
   },
@@ -40,10 +40,11 @@ module.exports = {
     const sector = getSector(Number(req.params.lat), Number(req.params.long));
     Place.findOne({ where: { sector } })
       .then(place => {
-        if (place) {
-          return res.status(200).json(place);
+        if (!place) {
+          Place.create({ long: req.params.long, lat: req.params.lat, sector })
+            .then(newPlace => newPlace);
         }
-        return Place.create({ long: req.params.long, lat: req.params.lat, sector });
+        return place;
       })
       .then(place => {
         place.setUser(req.user);

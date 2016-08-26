@@ -304,7 +304,7 @@ describe('Test Art Controllers\n-------------------------\n', () => {
     };
     const res = {};
     res.status = (statusCode) => {
-      expect(statusCode).to.be.at.within(199, 205);
+      expect(statusCode).to.be.within(199, 205);
       done();
     };
 
@@ -315,7 +315,7 @@ describe('Test Art Controllers\n-------------------------\n', () => {
   after(() => {
     db.sync()
       .then(() => Art.destroy({ where: { UserId: testUser.id } }))
-      .then(() => ArtPlace.destroy({ where: { UserId: testUser.id } }))
+      .then(() => ArtPlace.destroy({ where: { ArtId: testArt.id } }))
       .then(() => Place.destroy({ where: { UserId: testUser.id } }))
       .then(() => User.destroy({ where: userRecord }));
   });
