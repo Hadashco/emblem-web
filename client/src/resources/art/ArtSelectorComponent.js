@@ -37,11 +37,17 @@ class ArtComponent extends React.Component {
   }
 
   showPhoto(id) {
-    this.props.photoClick(id);
+    this.props.photoClick({id: id, type: this.props.type});
   }
 
   render() {
-    let source = `https://s3.amazonaws.com/hadashco-emblem/${this.props.art}`;
+    console.log(this.props.type)
+    let source;
+    if (this.props.type === 'application/zip') {
+      source = `assets/emblem.jpg`;
+    } else {
+      source = `https://s3.amazonaws.com/hadashco-emblem/${this.props.art}`; 
+    }
     return (
       <img
         onClick={() => this.showPhoto(this.props.art)}
@@ -77,7 +83,7 @@ class ArtSelector extends React.Component {
             artID++;
             console.log(num);
             return (<div><ArtComponent
-              photoClick={this.props.updateCurrentArt} art={num.id}
+              photoClick={this.props.updateCurrentArt} art={Number(num.id)}  type={num.type} key={num.id} 
             /><br /></div>); })}
         </div>
         <UploadButton class="ArtModalCloseButton" text="" btn-mad clearfix form-control />
@@ -98,6 +104,7 @@ class ArtSelector extends React.Component {
 ArtComponent.propTypes = {
   photoClick: React.PropTypes.func,
   art: React.PropTypes.number,
+  type: React.PropTypes.string
 };
 
 ArtSelector.propTypes = {
