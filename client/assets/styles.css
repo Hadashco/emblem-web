@@ -10,7 +10,6 @@ body {
 
 #app {
   height: 100%;
-  overflow: auto;
 }
 
 .main {
@@ -18,7 +17,6 @@ body {
   width: 100%;
   background-color: rgba(255, 255, 255, .5);
   display: block;
-  overflow: auto;
 }
 
 /**********************************************************
@@ -67,9 +65,9 @@ body {
 }
 
 .loginContainer img {
-  position: fixed;
+  position: absolute;
   width: 640px;
-  left: -320px;
+  left: -636.6px;
   margin-left: 640px;
   z-index: 90;
 }
@@ -92,7 +90,7 @@ body {
   position: fixed;
   top:0px;
   left: 30%;
-  width: 40%;
+  width: 500px;
   height: 50px;
   border-radius: 30px;
   text-align: center;
@@ -249,13 +247,15 @@ body {
   padding-top: 10px;
 }
 
-.colorCloser {
-  position: relative;
-  padding-top: 30px;
+.colorPickerButton {
+  position: absolute;
+  top:  316px;
 }
 
-.colorSettingButton {
-  margin-right: 200px;
+.colorCloser {
+  position: absolute;
+  top:  316px;
+  left: 158px;
 }
 
 /**********************************************************
@@ -297,6 +297,7 @@ body {
   width: 100%;
   height: 75%;
   margin-top: -25px;
+  z-index: 100000;
 }
 
 .infoPage {
@@ -308,6 +309,7 @@ body {
   top: 10%;
   text-align: center;
   color: white;
+  z-index: 1000000;
 }
 
 .infoHeader {
@@ -327,7 +329,13 @@ p {
 ***********************************************************/
 
 .demoButton {
-  position: relative;
-  top: 100px;
-  left: 90%;
+  position: absolute;
+  top: 128px;
+  left: 574.99px;
+  height: 45px;
+  width: 45px;
+  border-radius: 45px !important;
+  padding: 12px;
+  font-size: 8px;
+  z-index: 100;
 }

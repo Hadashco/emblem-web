@@ -14,7 +14,7 @@ class headerComponent extends React.Component {
     return (
       <div className="header">
         <ButtonToolbar className="headerButtonToolbar buttonToolbar">
-          <ColorPickerButton />
+          <ColorPickerButton class="headerColorButton" />
           <UploadButton text="Art Library" />
           <Logout />
         </ButtonToolbar>

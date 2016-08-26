@@ -16,7 +16,7 @@ class ColorPickerButton extends React.Component {
   render() {
     return (
       <UploadButton
-        className="colorPickerButton"
+        className={this.props.class || 'colorPickerButton'}
         clickFunc={this.props.func || this.handleClick}
         text={this.props.text || 'Pick Your Color'}
       />
@@ -28,6 +28,7 @@ ColorPickerButton.propTypes = {
   text: React.PropTypes.string,
   handleColorPickerDisplay: React.PropTypes.func,
   func: React.PropTypes.func,
+  class: React.PropTypes.string,
 };
 
 export default connection(ColorPickerButton);

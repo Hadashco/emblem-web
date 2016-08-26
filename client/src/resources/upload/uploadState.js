@@ -43,10 +43,9 @@ const uploadDispatchToProps = dispatch => {
             setTimeout(() => {
               window.location = '/';
             }, 3000);
-          });
+          }).then(() => dispatch({ type: 'uploadFiles', data: files }));
         };
       });
-      dispatch({ type: 'uploadFiles', data: files });
     },
     emptyToUploadFiles: () => {
       dispatch({ type: 'emptyToUploadFiles' });

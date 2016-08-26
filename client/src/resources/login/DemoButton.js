@@ -13,6 +13,6 @@ export default class DemoButton extends React.Component {
   }
 
   render() {
-    return <UploadButton class='demoButton' clickFunc={this.demoClick} text='demo' />;
+    return <UploadButton class="demoButton" clickFunc={this.demoClick} text="Demo" />;
   }
 }
