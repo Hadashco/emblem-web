@@ -304,7 +304,7 @@ describe('Test Art Controllers\n-------------------------\n', () => {
     };
     const res = {};
     res.status = (statusCode) => {
-      expect(statusCode).to.be.at.within(199, 205);
+      expect(statusCode).to.be.within(199, 205);
       done();
     };
 

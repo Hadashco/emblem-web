@@ -2,55 +2,58 @@ const { expect } = require('chai');
 const httpMocks = require('node-mocks-http');
 const request = require('request');
 
-const { getAll, getMaxAtPlace, getMaxBetweenBounds,
-        getAllBetweenBounds, getById, addCommentForId,
-        getAllCommentsForId, addVoteForId, getVotesForId,
-        deleteById,
-      } = require('../resources/artPlace/artPlaceController');
+const { postNewPlace, getAll, findByLatLong,
+        getMaxArtPlaceAtPlaceId, getById,
+        getAllArtPlaceAtLatLong, getArtAtId,
+      } = require('../resources/place/placeController');
 
 const connection = require('../db/db');
-const upvoteVal = 100000000;
 const { db, Art, Place, User, ArtPlace } = connection;
-
-const placeRecord = { lat: 5, long: 5, sector: '00000' };
-const artRecord = { type: 'test' };
-const userRecord = { fbookId: '0' };
 
 /* *********** ROUTE TESTS ***********************
  * Due to authentication, all of these routes will fail
  * They should still be reached, however */
-describe('Confirm ArtPlace Routes protected by OAuth\n-------------------------\n', () => {
+describe('Confirm Place Routes protected by OAuth\n-------------------------\n', () => {
+
+  it('should postNewPlace', (done) => {
+    request.post({
+      url: 'http://localhost:3000/place',
+    }, (err, response) => {
+      expect(response.statusCode).to.equal(401);
+      done();
+    });
+  });
 
   it('should getAll', (done) => {
     request.get({
-      url: 'http://localhost:3000/artPlace',
+      url: 'http://localhost:3000/place',
     }, (err, response) => {
       expect(response.statusCode).to.equal(401);
       done();
     });
   });
 
-  it('should getMaxAtPlace', (done) => {
+  it('should getMaxArtPlaceAtPlaceId', (done) => {
     request.get({
-      url: 'http://localhost:3000/artPlace/max/rank',
+      url: 'http://localhost:3000/place/find/maxArtPlace/5',
     }, (err, response) => {
       expect(response.statusCode).to.equal(401);
       done();
     });
   });
 
-  it('should getMaxBetweenBounds', (done) => {
+  it('should findByLatLong', (done) => {
     request.get({
-      url: 'http://localhost:3000/artPlace/max/between/5/5/5/5',
+      url: 'http://localhost:3000/place/5/5',
     }, (err, response) => {
       expect(response.statusCode).to.equal(401);
       done();
     });
   });
 
-  it('should getAllBetweenBounds', (done) => {
+  it('should getAllArtPlaceAtLatLong', (done) => {
     request.get({
-      url: 'http://localhost:3000/artPlace/between/5/5/5/5',
+      url: 'http://localhost:3000/place/artPlace/5/5',
     }, (err, response) => {
       expect(response.statusCode).to.equal(401);
       done();
@@ -58,53 +61,17 @@ describe('Confirm ArtPlace Routes protected by OAuth\n-------------------------\
   });
 
   it('should getById', (done) => {
-    request.get({
-      url: 'http://localhost:3000/artPlace/5',
-    }, (err, response) => {
-      expect(response.statusCode).to.equal(401);
-      done();
-    });
-  });
-
-  it('should addCommentForId', (done) => {
     request.post({
-      url: 'http://localhost:3000/artPlace/5/comment',
+      url: 'http://localhost:3000/place/5',
     }, (err, response) => {
       expect(response.statusCode).to.equal(401);
       done();
     });
   });
 
-  it('should getAllCommentsForId', (done) => {
+  it('should getArtAtId', (done) => {
     request.get({
-      url: 'http://localhost:3000/artPlace/5/comment',
-    }, (err, response) => {
-      expect(response.statusCode).to.equal(401);
-      done();
-    });
-  });
-
-  it('should addVoteForId', (done) => {
-    request.post({
-      url: 'http://localhost:3000/artPlace/5/vote',
-    }, (err, response) => {
-      expect(response.statusCode).to.equal(401);
-      done();
-    });
-  });
-
-  it('should getVotesForId', (done) => {
-    request.get({
-      url: 'http://localhost:3000/artPlace/5/vote',
-    }, (err, response) => {
-      expect(response.statusCode).to.equal(401);
-      done();
-    });
-  });
-
-  it('should deleteById', (done) => {
-    request.post({
-      url: 'http://localhost:3000/artPlace/5/delete',
+      url: 'http://localhost:3000/place/5/art',
     }, (err, response) => {
       expect(response.statusCode).to.equal(401);
       done();
@@ -114,8 +81,11 @@ describe('Confirm ArtPlace Routes protected by OAuth\n-------------------------\
 
 /* *********** CONTROLLER TESTS **************** */
 
-describe('Test ArtPlace Controllers\n-------------------------\n', () => {
-  let testUser, testArt, testPlace, testArtPlace;
+describe('Test Place Controllers\n-------------------------\n', () => {
+  const placeRecord = { lat: 5, long: 5, sector: '00000' };
+  const artRecord = { type: 'test' };
+  const userRecord = { fbookId: '0' };
+  let testUser, testArt, testPlace;
   // let getReq;
 
   before((done) => {
@@ -126,25 +96,36 @@ describe('Test ArtPlace Controllers\n-------------------------\n', () => {
         .then(art => {
           art.setUser(testUser);
           testArt = art;
-        }))
-      .then(() => Place.create(placeRecord)
-        .then(place => {
-          place.setUser(testUser);
-          testPlace = place;
-          testArt.addPlace(testPlace)
-            .then(() => {
-              ArtPlace.findOne({ where: { ArtId: testArt.id } })
-                .then(artPlace => {
-                  testArtPlace = artPlace;
-                  testArtPlace.increment({
-                    upvotes: upvoteVal,
-                  })
-                  .then(artPlace => {
-                    done();
-                  });
-                });
-            });
+          done();
         })));
+  });
+
+  it('should postNewPlace', (done) => {
+    const req = httpMocks.createRequest({
+      method: 'POST',
+      user: testUser,
+      body: {
+        lat: placeRecord.lat,
+        long: placeRecord.long,
+      },
+    });
+
+    const res = httpMocks.createResponse({
+      eventEmitter: require('events').EventEmitter,
+    });
+
+    res.on('end', () => {
+      expect(res.statusCode).to.equal(200);
+      new Promise((resolve, reject) => {
+        resolve(res._getData());
+      })
+      .then(data => {
+        testPlace = JSON.parse(data);
+        done();
+      });
+    });
+
+    postNewPlace(req, res);
   });
 
   it('should getAll', (done) => {
@@ -162,7 +143,7 @@ describe('Test ArtPlace Controllers\n-------------------------\n', () => {
         resolve(res._isJSON());
       })
       .then(boolVal => {
-        expect(boolVal).to.equal(true);
+        expect(boolVal).to.equal(false);
         done();
       });
     });
@@ -170,145 +151,13 @@ describe('Test ArtPlace Controllers\n-------------------------\n', () => {
     getAll(req, res);
   });
 
-  it('should getMaxAtPlace', (done) => {
+  it('should findByLatLong', (done) => {
     const req = httpMocks.createRequest({
       method: 'GET',
-    });
-
-    const res = httpMocks.createResponse({
-      eventEmitter: require('events').EventEmitter,
-    });
-
-    res.on('end', () => {
-      expect(res.statusCode).to.equal(200);
-      new Promise((resolve, reject) => {
-        resolve(res._getData());
-      })
-      // Results sorted by PlaceId, oldest to newest entry
-      .then(data => {
-        const parsed = JSON.parse(data);
-        const max = parsed[parsed.length - 1];
-        const dataId = max.ArtPlaceId; // masked in query
-        expect(dataId).to.equal(testArtPlace.dataValues._id);
-        done();
-      });
-    });
-
-    getMaxAtPlace(req, res);
-  });
-
-  it('should getMaxBetweenBounds', (done) => {
-    const req = httpMocks.createRequest({
-      method: 'GET',
-      params: {
-        latMin: 0,
-        latMax: 10,
-        longMin: 0,
-        longMax: 10,
-      },
-    });
-
-    const res = httpMocks.createResponse({
-      eventEmitter: require('events').EventEmitter,
-    });
-
-    res.on('end', () => {
-      expect(res.statusCode).to.equal(200);
-      new Promise((resolve, reject) => {
-        resolve(res._getData());
-      })
-      // Results sorted by PlaceId, oldest to newest entry
-      .then(data => {
-        const parsed = JSON.parse(data);
-        const max = parsed[parsed.length - 1];
-        const dataId = max.ArtPlaceId; // masked in query
-        expect(dataId).to.equal(testArtPlace.dataValues._id);
-        done();
-      });
-    });
-
-    getMaxBetweenBounds(req, res);
-  });
-
-  it('should getAllBetweenBounds', (done) => {
-    const req = httpMocks.createRequest({
-      method: 'GET',
-      params: {
-        latMin: 0,
-        latMax: 10,
-        longMin: 0,
-        longMax: 10,
-      },
-    });
-
-    const res = httpMocks.createResponse({
-      eventEmitter: require('events').EventEmitter,
-    });
-
-    res.on('end', () => {
-      expect(res.statusCode).to.equal(200);
-      done();
-    });
-
-    getAllBetweenBounds(req, res);
-  });
-
-  it('should getById', (done) => {
-    const req = httpMocks.createRequest({
-      method: 'GET',
-      params: {
-        id: testArtPlace.dataValues._id,
-      },
-    });
-
-    const res = httpMocks.createResponse({
-      eventEmitter: require('events').EventEmitter,
-    });
-
-    res.on('end', () => {
-      expect(res.statusCode).to.equal(200);
-      new Promise((resolve, reject) => {
-        resolve(res._getData());
-      })
-      // Results sorted by PlaceId, oldest to newest entry
-      .then(data => {
-        const max = JSON.parse(data);
-        const dataId = max._id; // masked in query
-        expect(dataId).to.equal(testArtPlace.dataValues._id);
-        done();
-      });
-    });
-
-    getById(req, res);
-  });
-
-  it('should addCommentForId', (done) => {
-    const req = httpMocks.createRequest({
-      method: 'POST',
       user: testUser,
-      params: { id: testArtPlace.dataValues._id },
-      body: {
-        title: 'amazing comment, you know',
-      },
-    });
-
-    const res = httpMocks.createResponse({
-      eventEmitter: require('events').EventEmitter,
-    });
-
-    res.on('end', () => {
-      expect(res.statusCode).to.equal(200);
-      done();
-    });
-
-    addCommentForId(req, res);
-  });
-
-  it('should getAllCommentsForId', (done) => {
-    const req = httpMocks.createRequest({
-      method: 'GET',
       params: {
-        id: testArtPlace.dataValues._id,
+        lat: placeRecord.lat,
+        long: placeRecord.long,
       },
     });
 
@@ -317,100 +166,24 @@ describe('Test ArtPlace Controllers\n-------------------------\n', () => {
     });
 
     res.on('end', () => {
-      expect(res.statusCode).to.equal(200);
+      expect(res.statusCode).to.be.within(199, 202);
       new Promise((resolve, reject) => {
-        resolve(res._getData());
+        resolve(res._isJSON());
       })
-      .then(data => {
-        const comments = JSON.parse(data);
-        expect(comments[0].commentable_id).to.equal(testArtPlace.dataValues._id);
+      .then(boolVal => {
+        expect(boolVal).to.equal(true);
         done();
       });
     });
 
-    getAllCommentsForId(req, res);
-  });
-
-  it('should addVoteForId', (done) => {
-    const req = httpMocks.createRequest({
-      method: 'POST',
-      user: testUser,
-      params: { id: testArtPlace.dataValues._id },
-      body: {
-        vote: 1,
-      },
-    });
-
-    const res = httpMocks.createResponse({
-      eventEmitter: require('events').EventEmitter,
-    });
-
-    res.on('end', () => {
-      expect(res.statusCode).to.equal(200);
-      new Promise((resolve, reject) => {
-        resolve(res._getData());
-      })
-      .then(data => {
-        const vote = JSON.parse(data);
-        expect(vote.value).to.equal(1);
-        done();
-      });
-    });
-
-    addVoteForId(req, res);
-  });
-
-  it('should getVotesForId', (done) => {
-    const req = httpMocks.createRequest({
-      method: 'GET',
-      params: {
-        id: testArtPlace.dataValues._id,
-      },
-    });
-
-    const res = httpMocks.createResponse({
-      eventEmitter: require('events').EventEmitter,
-    });
-
-    res.on('end', () => {
-      expect(res.statusCode).to.equal(200);
-      new Promise((resolve, reject) => {
-        resolve(res._getData());
-      })
-      .then(data => {
-        const votes = JSON.parse(data);
-        expect(votes[0].value).to.equal(1);
-        done();
-      });
-    });
-
-    getVotesForId(req, res);
-  });
-
-  it('should deleteById', (done) => {
-    const req = httpMocks.createRequest({
-      method: 'POST',
-      params: { id: testArtPlace.dataValues._id },
-    });
-
-    const res = httpMocks.createResponse({
-      eventEmitter: require('events').EventEmitter,
-    });
-
-    res.on('end', () => {
-      expect(res.statusCode).to.equal(200);
-      done();
-    });
-
-    deleteById(req, res);
+    findByLatLong(req, res);
   });
 
   after(() => {
     db.sync()
       .then(() => Art.destroy({ where: { UserId: testUser.id } }))
-      .then(() => ArtPlace.destroy({ where: { UserId: testUser.id } }))
+      .then(() => ArtPlace.destroy({ where: { ArtId: testArt.id } }))
       .then(() => Place.destroy({ where: { UserId: testUser.id } }))
       .then(() => User.destroy({ where: userRecord }));
   });
 });
-
