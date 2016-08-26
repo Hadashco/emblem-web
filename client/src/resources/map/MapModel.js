@@ -69,6 +69,9 @@ const mapDispatchToProps = dispatch => (
     switchUploadModalState: () => {
       dispatch({ type: 'switchUploadModalState' });
     },
+    updateTopRankedUser: (data) => {
+      dispatch({ type: 'updateTopRankedUser', data });
+    },
   }
 );
 

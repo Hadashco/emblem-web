@@ -10,6 +10,7 @@ const defaultState = {
   map: {
     markers: [],
     addMarkerToMapState: false,
+    topRankedUserAtSector: 1,
   },
   upload: {
     modalState: false,
