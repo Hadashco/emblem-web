@@ -72,7 +72,8 @@ Getting Started
 
 Running Tests
 --------------------------
-TODO
+1. Navigate to `emblem-web` folder in the terminal
+2. Run `npm run test:docker`
 
 
 Built With
@@ -117,7 +118,7 @@ With the dev server running, navigating to `http://localhost:3000/auth/facebook`
 3. Create a [new bucket](http://docs.aws.amazon.com/AmazonS3/latest/gsg/CreatingABucket.html) to store your files
 4. Replace all references to the bucket `hadashco-emblem` with the new bucket name
  - The `artController.js` file has most of these references
- - Pro Tip: In the Sublime text editor, use `ctrl+shift+f` to search all open documents
+ - **Pro Tip:** In the Sublime text editor, use `ctrl+shift+f` to search all open documents
 
 
 Run Without AWS

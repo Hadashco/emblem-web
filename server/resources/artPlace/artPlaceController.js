@@ -42,7 +42,6 @@ module.exports = {
     db.query(qry, { type: Sequelize.QueryTypes.SELECT })
       .then(result => res.status(200).json(result))
       .catch(err => {
-        console.log('artPlace/max/rank error:', err);
         res.status(500).send(JSON.stringify(err));
       });
   },
@@ -84,7 +83,7 @@ module.exports = {
           })
           .then(comment => {
             comment.setUser(req.user); // add creator ID
-            res.json(comment);
+            res.status(200).json(comment);
           })
           .catch(err => res.status(500).send(JSON.stringify(err)));
         } else {
