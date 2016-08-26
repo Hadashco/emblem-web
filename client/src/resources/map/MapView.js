@@ -8,12 +8,12 @@ class MapView extends React.Component {
     super(props);
     this.state = {
       sectors: [],
+      sector: 'Center Sector!',
+      sectorPosition: { lat: 37.754862, lng: -122.431558 },
     };
     this.onSectorMouseover = this.onSectorMouseover.bind(this);
     this.sectors = [];
     this.sectorColor = '#3d3d3d';
-    this.sector = 'Center Sector!';
-    this.sectorPosition = { lat: 37.754862, lng: -122.431558 };
   }
 
   componentDidMount() {
@@ -21,9 +21,10 @@ class MapView extends React.Component {
     this.createSectorsForMap();
   }
 
-  onSectorMouseover(index, position) {
-    this.sector = `The sector at this location is: ${index}`;
-    this.sectorPosition = position;
+  onSectorMouseover(user, position) {
+    this.props.updateTopRankedUser(user);
+    this.setState({ sectorPosition: position });
+    this.setState({ sector: `The king of this turf is user ${user}` });
   }
 
   createSectorsForMap() {
@@ -31,8 +32,8 @@ class MapView extends React.Component {
       method: 'GET',
       credentials: 'same-origin',
       headers: {
-        Accept: 'application/json',
-        ContentType: 'application/json',
+        'Accept': 'application/json',
+        'Content-Type': 'application/json',
       },
     }).then(response => response.json()).then(body => {
       const LAT_LONG_TRUNCATE = 3;
@@ -45,6 +46,7 @@ class MapView extends React.Component {
           east: Number((body[place].long - 0.0005).toFixed(LAT_LONG_TRUNCATE)) + 0.001,
           west: Number((body[place].long - 0.0005).toFixed(LAT_LONG_TRUNCATE)),
           sectorColor: body[place].markerColor, // user color
+          reigningUser: body[place].UserId,
         });
       }
       this.setState({ sectors: this.sectors });
@@ -52,7 +54,6 @@ class MapView extends React.Component {
   }
 
   render() {
-    const context = this;
     return (
       <span>
         <section className="map">
@@ -90,9 +91,9 @@ class MapView extends React.Component {
                       south: sector.south,
                       east: sector.east,
                       west: sector.west }}
-                    onMouseover={() => this.onSectorMouseover(index, {
-                      lat: sector.north,
-                      lng: sector.east })}
+                    onMouseover={() => this.onSectorMouseover(sector.reigningUser, {
+                      lat: sector.north - 0.0005,
+                      lng: sector.east - 0.0005 })}
                     options={{
                       strokeColor: '#000000',
                       fillColor: sector.sectorColor,
@@ -103,8 +104,8 @@ class MapView extends React.Component {
                   />
                 )}
                 <InfoWindow
-                  position={context.sectorPosition}
-                  content={context.sector}
+                  position={this.state.sectorPosition}
+                  content={this.state.sector}
                 />
               </GoogleMap>
             }
@@ -119,6 +120,7 @@ MapView.propTypes = {
   markers: React.PropTypes.array,
   containerElementProps: React.PropTypes.object,
   populateMarkers: React.PropTypes.func,
+  updateTopRankedUser: React.PropTypes.func,
 };
 
 export default connection(MapView);

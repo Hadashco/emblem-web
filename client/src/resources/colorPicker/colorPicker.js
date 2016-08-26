@@ -11,12 +11,15 @@ const customStyles = {
     height: `${360}px`,
     width: `${320}px`,
     top: `${15}%`,
-    left: `${35}%`,
+    left: `${37}%`,
     right: 0,
     bottom: 0,
     backgroundColor: 'rgba(239, 249, 245, 0.74902)',
     zIndex: 150,
     overflow: 'auto',
+  },
+  content: {
+    outline: 'none',
   },
 };
 

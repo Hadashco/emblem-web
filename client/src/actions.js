@@ -56,6 +56,14 @@ actions.addMarker = (previousState, data) => {
   return newState;
 };
 
+actions.updateTopRankedUser = (previousState, data) => {
+  const map = previousState.map;
+  const newTopUser = data;
+  map.topRankedUserAtSector = newTopUser;
+  const newState = Object.assign({}, previousState, { map });
+  return newState;
+};
+
 actions.addMarkerToMapStateSwitch = (previousState) => {
   const map = previousState.map;
   const addMarkerToMapState = previousState.map.addMarkerToMapState;

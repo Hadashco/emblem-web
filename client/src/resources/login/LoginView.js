@@ -65,7 +65,6 @@ export default class LoginView extends React.Component {
           <div className="loginContainer" ref="loginArt" style={this.style}>
             <img src="./assets/iphone.png" role="presentation" style={this.iphoneOpacity} />
             <h1 style={this.iphoneOpacity}><b><i>Emblem</i></b></h1>
-            <DemoButton style={this.iphoneOpacity} />
             <div className="loginButtonDiv" style={this.iphoneOpacity}>
               <FacebookButton className="loginButton" />
             </div>
