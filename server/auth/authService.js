@@ -3,7 +3,7 @@ const jwt = require('jsonwebtoken');
 const User = require('../db/db').User;
 const expressJwt = require('express-jwt');
 
-const EXPIRY = 900;
+const EXPIRY = 90000;
 const SECRET = process.env.SESSION_SECRET;
 const validateJwt = expressJwt({ secret: process.env.SESSION_SECRET });
 
