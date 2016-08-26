@@ -134,10 +134,10 @@ If you have any problems or major improvements, please consult the known issues.
 
 Authors
 --------------------------
-* Conor Carey
-* Dane Jordan
-* Hannah Henderson
-* Shea Hawkins
+* [Conor Carey](https://www.linkedin.com/in/conor-carey-b2b34097) [github: ccarey221](https://github.com/ccarey221)
+* [Dane Jordan](https://www.linkedin.com/in/daneelijordan) [github: Dane456](https://github.com/Dane456)
+* [Hannah Henderson](https://www.linkedin.com/in/hahenderson) [github: hannahhenderson](https://github.com/hannahhenderson)
+* [Shea Hawkins](https://www.linkedin.com/in/shea-hawkins-6a6057a2) [github: shea-hawkins](https://github.com/shea-hawkins)
 
 
 License

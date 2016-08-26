@@ -13,6 +13,7 @@ class headerComponent extends React.Component {
   render() {
     return (
       <div className="header">
+        <img src="./../assets/logo.png" role="presentation" className="logo" />
         <ButtonToolbar className="headerButtonToolbar buttonToolbar">
           <ColorPickerButton class="headerColorButton" />
           <UploadButton text="Art Library" />
