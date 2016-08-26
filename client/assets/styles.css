@@ -90,11 +90,10 @@ body {
   position: fixed;
   top:0px;
   left: 30%;
-  width: 500px;
+  width: 600px;
   height: 50px;
   border-radius: 30px;
   text-align: center;
-  clear: bottom;
   background-color: rgba(255,255,255,.6);
   z-index: 10;
 }
@@ -110,8 +109,8 @@ body {
 
 .header h1 {
   position: relative;
-  top: -16px;
-  left: 1%;
+  top: -56px;
+  left: -26%;
 }
 
 .headerButtonToolbar {
@@ -119,6 +118,13 @@ body {
   top: -10px;
   left: 40px;
   z-index: 11;
+}
+
+.logo {
+  position: relative;
+  width: 40px;
+  left: -14.5%;
+  top: 3px;
 }
 
 /**********************************************************
