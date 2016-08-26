@@ -60,7 +60,7 @@ module.exports = {
   // Get highest single ranked ArtPlace at a lat/long
   getMaxArtPlaceAtPlaceId: (req, res) => {
     const qry = `SELECT DISTINCT ON ("ArtPlace"."PlaceId") "ArtPlace"."PlaceId", 
-                        "User"."markerColor", "Art"."UserId", "ArtPlace"."ArtId", "Place".lat,
+                        "User"."markerColor", "Art"."UserId", "Art"."type", "ArtPlace"."ArtId", "Place".lat,
                         ("ArtPlace".upvotes - "ArtPlace".downvotes) AS "netVotes", "Place".long,
                         "ArtPlace"."_id" AS "ArtPlaceId" 
                  FROM "Place" INNER JOIN  ("ArtPlace"  INNER JOIN 
@@ -81,7 +81,7 @@ module.exports = {
   getAllArtPlaceAtLatLong: (req, res) => {
     const sector = getSector(Number(req.params.lat), Number(req.params.long));
     const qry = `SELECT "ArtPlace"."PlaceId", "User"."markerColor", "Art"."UserId", 
-                        "ArtPlace"."ArtId", ("ArtPlace".upvotes - "ArtPlace".downvotes)
+                        "ArtPlace"."ArtId", "Art"."type", ("ArtPlace".upvotes - "ArtPlace".downvotes)
                         AS "netVotes", "Place".lat, "Place".long, "ArtPlace"."_id" AS "ArtPlaceId",
                         "ArtPlace".upvotes, "ArtPlace".downvotes  
                  FROM "Place" INNER JOIN  ("ArtPlace"  INNER JOIN 
