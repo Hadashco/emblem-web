@@ -43,7 +43,8 @@ const uploadDispatchToProps = dispatch => {
             setTimeout(() => {
               window.location = '/';
             }, 3000);
-          }).then(() => dispatch({ type: 'uploadFiles', data: files }));
+          }).then(body => body.json())
+          .then(artObj => dispatch({ type: 'uploadFiles', data: { id: artObj.key, type: uploadFile.type } }));
         };
       });
     },

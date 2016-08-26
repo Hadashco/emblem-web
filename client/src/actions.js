@@ -114,9 +114,7 @@ actions.uploadFiles = (previousState, data) => {
   const upload = previousState.upload;
   const files = previousState.upload.files;
   const newFiles = files.slice();
-  data.forEach(dataChunk => {
-    newFiles.push(dataChunk);
-  });
+  newFiles.push(data);
   upload.files = newFiles;
   const newState = Object.assign({}, previousState, { upload });
   return newState;

@@ -73,10 +73,11 @@ class ArtSelector extends React.Component {
         style={customStyles}
       >
         <div className="artContainer col-xs-2">
-          {context.art.map(() => {
+          {context.art.map(num => {
             artID++;
+            console.log(num);
             return (<div><ArtComponent
-              photoClick={this.props.updateCurrentArt} art={artID}
+              photoClick={this.props.updateCurrentArt} art={num.id}
             /><br /></div>); })}
         </div>
         <UploadButton class="ArtModalCloseButton" text="" btn-mad clearfix form-control />
