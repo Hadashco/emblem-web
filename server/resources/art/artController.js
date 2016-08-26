@@ -79,7 +79,6 @@ module.exports = {
                 if (!err) {
                   res.status(200).send(data.Body);
                 } else {
-                  console.log('AWS delete error:', err);
                   res.status(500).send(err);
                 }
               });
@@ -89,7 +88,6 @@ module.exports = {
         }
       })
       .catch(err => {
-        console.log('catch error:', err);
         res.status(500).send(JSON.stringify(err));
       });
   },
@@ -104,12 +102,9 @@ module.exports = {
   getFromDbById: (req, res) => {
     Art.findById(req.params.id)
       .then(art => {
-        console.log('res:', res);
-        console.log('found art id:', art.id);
-        var test = res.status(200).json(art);
+        res.status(200).json(art);
       })
       .catch(err => {
-        console.log('the other error', err);
         res.status(500).send(JSON.stringify(err));
       });
   },
@@ -136,7 +131,7 @@ module.exports = {
           .then(place => {
             if (place.length > 0) {
               globalArt.addPlace(place)
-                .then(res.json(globalArt));
+                .then(res.status(200).json(globalArt));
             } else {
               Place.create({
                 long: req.body.long,
@@ -145,7 +140,7 @@ module.exports = {
               })
               .then(newPlace => {
                 globalArt.addPlace(newPlace)
-                  .then(updatedArt => { res.json(updatedArt); });
+                  .then(updatedArt => { res.status(200).json(updatedArt); });
               });
             }
           })
@@ -164,7 +159,7 @@ module.exports = {
           })
           .then(comment => {
             comment.setUser(req.user); // add creator ID
-            res.json(comment);
+            res.status(200).json(comment);
           })
           .catch(err => res.status(500).send(JSON.stringify(err)));
         } else {
@@ -178,13 +173,16 @@ module.exports = {
   getAllCommentsForId: (req, res) => {
     Art.findById(req.params.id)
       .then(art => {
+        console.log('--- art found');
         if (art) {
           art.getComments()
             .then(comments => {
+              console.log('--- comments found');
               res.status(200).json(comments);
             })
             .catch(err => res.status(500).send(JSON.stringify(err)));
         } else {
+          console.log('--- no comments found');
           res.status(200).send(JSON.stringify(`No artwork associated with id ${req.params.id}`));
         }
       })
