@@ -3,23 +3,19 @@
 Hold up a looking glass to the world, and transform the view! Emblem presents an augmented reality window, displaying geocached two- and three- dimensional models onto users' surroundings.
 
 Web client is available for use at [emblemAR.com](https://www.emblemar.com/).
-Mobile app can be downloaded from the Apple App store at [TODO](http://www.apple.com/itunes/charts/free-apps/), and can be seen in action on [YouTube](https://youtu.be/dP8gMirOFRw).
+Mobile app availability on the Apple App store is pending, and can be [seen in action on YouTube](https://youtu.be/dP8gMirOFRw).
 
-<img src="/screencaptures/emblem-raptor.gif" width=300></img><img src="/screencaptures/emblem-statue-of-liberty.gif" width=300></img>
-
-TODO: Update travis-ci build status links (below)
+<iframe src="//giphy.com/embed/l3vRkFKi5XxajM1s4" height=600 width=300 frameBorder="0" class="giphy-embed"></iframe>&nbsp;&nbsp;&nbsp;&nbsp;<iframe src="//giphy.com/embed/l3vR1cCiIzSr68Jva" height=600 width=300 frameBorder="0" class="giphy-embed"></iframe>
 
 ### [Server and Web Client](https://github.com/Hadashco/emblem-web)
 Upload 3D models from a computer desktop, explore artwork posted around the world, and manage granular user settings from the web client.
 
-[![Build Status](https://circleci.com/gh/Hadashco/emblem-web.svg?style=shield&circle-token=8ccfb54709e4004881ade7b3c0ad89b227103604)](https://circleci.com/gh/Hadashco/emblem-web.svg?style=shield&circle-token=8ccfb54709e4004881ade7b3c0ad89b227103604)
 [![Stories in Ready](https://badge.waffle.io/Hadashco/emblem-web.png?label=ready&title=Ready)](https://waffle.io/Hadashco/emblem-web)
 
 ### [Mobile App](https://github.com/Hadashco/emblem-mobile)
 In addition to providing a dramatic visual experience, the mobile application offers a well-executed implementation of knitting
 Vuforia's C++ library with Swift using Objective-C.
 
-[![Build Status](https://circleci.com/gh/Hadashco/emblem-web.svg?style=shield&circle-token=8ccfb54709e4004881ade7b3c0ad89b227103604)](https://circleci.com/gh/Hadashco/emblem-web.svg?style=shield&circle-token=8ccfb54709e4004881ade7b3c0ad89b227103604)
 [![Stories in Ready](https://badge.waffle.io/Hadashco/emblem-mobile.png?label=ready&title=Ready)](https://waffle.io/Hadashco/emblem-mobile)
 
 
