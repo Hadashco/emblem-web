@@ -19,7 +19,7 @@ Upload 3D models from a computer desktop, explore artwork posted around the worl
 In addition to providing a dramatic visual experience, the mobile application offers a well-executed implementation of knitting
 Vuforia's C++ library with Swift using Objective-C.
 
-[![Build Status](https://api.travis-ci.org/hadashco/emblem-mobile.svg?branch=master)](https://api.travis-ci.org/hadashco/emblem-mobile.svg?branch=master)
+[![Build Status](https://circleci.com/gh/Hadashco/emblem-web.svg?style=shield&circle-token=8ccfb54709e4004881ade7b3c0ad89b227103604)](https://circleci.com/gh/Hadashco/emblem-web.svg?style=shield&circle-token=8ccfb54709e4004881ade7b3c0ad89b227103604)
 [![Stories in Ready](https://badge.waffle.io/Hadashco/emblem-mobile.png?label=ready&title=Ready)](https://waffle.io/Hadashco/emblem-mobile)
 
 
