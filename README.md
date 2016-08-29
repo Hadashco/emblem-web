@@ -12,7 +12,7 @@ TODO: Update travis-ci build status links (below)
 ### [Server and Web Client](https://github.com/Hadashco/emblem-web)
 Upload 3D models from a computer desktop, explore artwork posted around the world, and manage granular user settings from the web client.
 
-[![Build Status](https://api.travis-ci.org/hadashco/emblem-web.svg?branch=master)](https://api.travis-ci.org/hadashco/emblem-web.svg?branch=master)
+[![Build Status](https://circleci.com/gh/Hadashco/emblem-web.svg?style=shield&circle-token=8ccfb54709e4004881ade7b3c0ad89b227103604)](https://circleci.com/gh/Hadashco/emblem-web.svg?style=shield&circle-token=8ccfb54709e4004881ade7b3c0ad89b227103604)
 [![Stories in Ready](https://badge.waffle.io/Hadashco/emblem-web.png?label=ready&title=Ready)](https://waffle.io/Hadashco/emblem-web)
 
 ### [Mobile App](https://github.com/Hadashco/emblem-mobile)
