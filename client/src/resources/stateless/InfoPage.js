@@ -9,6 +9,7 @@ export default class InfoPage extends React.Component {
         <img src="/assets/raptor.png" role="presentation" className="raptorImage" />
         <iframe width="360" height="455" src="https://www.youtube.com/embed/w3DlUGXR9hA?list=PLMyIJSbKI_jwq__h8WSruCnEPIfZ3qIKo" frameborder="0" allowfullscreen></iframe>
         <img src="/assets/dolphin.png" role="presentation" className="dolphinImage" />
+        <a href="https://github.com/Hadashco">Visit Us!</a>
       </div>
       );
   }

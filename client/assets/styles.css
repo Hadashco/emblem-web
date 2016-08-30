@@ -328,6 +328,7 @@ body {
 .raptorImage {
   position: relative;
   top:  -224px;
+  left: 30px;
   height: 406px;
   width: 260px;
   margin-right: 100px;
@@ -336,9 +337,22 @@ body {
 .dolphinImage {
   position: relative;
   top:  -224px;
+  left: 30px;
   height: 406px;
   width: 260px;
   margin-left: 100px;
+}
+
+.infoPage a {
+  position: relative;
+  left: -150px;
+  font-size: 18px;
+  color: white;
+}
+
+.infoPage iframe {
+  position: relative;
+  left: 30px;
 }
 
 /**********************************************************
