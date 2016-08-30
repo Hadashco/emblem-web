@@ -5,7 +5,10 @@ Hold up a looking glass to the world, and transform the view! Emblem presents an
 Web client is available for use at [emblemAR.com](https://www.emblemar.com/).
 Mobile app availability on the Apple App store is pending, and can be [seen in action on YouTube](https://youtu.be/dP8gMirOFRw).
 
-[![3D Raptor](https://ia601507.us.archive.org/17/items/raptor_20160830/raptor.png)](https://youtu.be/Q1P4stbLsBw)   [![Library & Statue of Liberty](https://ia801502.us.archive.org/5/items/Library_20160830/Library.png)](https://youtu.be/w3DlUGXR9hA)   [![Dolphins](https://ia601500.us.archive.org/30/items/dolphin_201608/dolphin.png)](https://youtu.be/vXgujNcuYdU)
+<a href="https://youtu.be/Q1P4stbLsBw"><img src="https://ia601507.us.archive.org/17/items/raptor_20160830/raptor.png" 
+alt="3D Raptor" width="300" height="600" /></a><a href="https://youtu.be/w3DlUGXR9hA"><img src="https://ia801502.us.archive.org/5/items/Library_20160830/Library.png" 
+alt="Library & Statue of Liberty" width="300" height="600" /></a><a href="https://youtu.be/vXgujNcuYdU"><img src="https://ia601500.us.archive.org/30/items/dolphin_201608/dolphin.png" 
+alt="Dolphins" width="300" height="600" /></a>
 
 ### [Server and Web Client](https://github.com/Hadashco/emblem-web)
 Upload 3D models from a computer desktop, explore artwork posted around the world, and manage granular user settings from the web client.
