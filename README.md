@@ -5,7 +5,7 @@ Hold up a looking glass to the world, and transform the view! Emblem presents an
 Web client is available for use at [emblemAR.com](https://www.emblemar.com/).
 Mobile app availability on the Apple App store is pending, and can be [seen in action on YouTube](https://youtu.be/dP8gMirOFRw).
 
-![Clip of 3D Image](https://giphy.com/embed/l3vRkFKi5XxajM1s4)   ![Clip of 3D Image](https://giphy.com/embed/l3vR1cCiIzSr68Jva)
+<img src="https://giphy.com/embed/l3vRkFKi5XxajM1s4" height="600">&nbsp&nbsp&nbsp&nbsp<img src="https://giphy.com/embed/l3vR1cCiIzSr68Jva" height="600">
 
 ### [Server and Web Client](https://github.com/Hadashco/emblem-web)
 Upload 3D models from a computer desktop, explore artwork posted around the world, and manage granular user settings from the web client.
