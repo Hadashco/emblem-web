@@ -328,7 +328,7 @@ body {
 .raptorImage {
   position: relative;
   top:  -224px;
-  height: 80%;
+  height: 406px;
   width: 260px;
   margin-right: 100px;
 }
@@ -336,7 +336,7 @@ body {
 .dolphinImage {
   position: relative;
   top:  -224px;
-  height: 80%;
+  height: 406px;
   width: 260px;
   margin-left: 100px;
 }
