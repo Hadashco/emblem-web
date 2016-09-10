@@ -14,6 +14,8 @@ module.exports = (app) => {
   app.use('/artPlace', isAuthenticated(), artPlaceRouter);
   app.use('/vote', isAuthenticated(), voteRouter);
   app.use('/auth', authRouter);
-  // TODO: Remove / comment out for deployment
-  app.use('/test', testRouter);
+  // Only adds the test route when testing locally or on CI
+  if (process.env.HOST_MODE !== "PROD") {
+    app.use('/test', testRouter);
+  }
 };

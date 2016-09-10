@@ -5,8 +5,9 @@ emblem-web-server:
    - "3000:3000"
   volumes:
    - .:/usr/emblem-web
-   # Mount the node modules folder as 'Empty' on Docker container
+   # Mount the node folders as 'Empty' on Docker container
    # This prevents symlink issues between the container and the host filesystem
+   - /usr/emblem-web/node_modules
    - /usr/emblem-web/server/node_modules
    - /usr/emblem-web/client/node_modules
   environment:
@@ -17,6 +18,7 @@ emblem-web-server:
    - AWS_ID=${AWS_ID}
    - AWS_SECRET=${AWS_SECRET}
    - HOST_SERVER=${HOST_SERVER}
+   - HOST_PORT=${HOST_PORT}
   links:
    - emblem-db
   command: npm start

@@ -10,7 +10,11 @@ const connection = require('./db/db');
 const db = connection.db;
 
 const app = express();
-const port = 3000;
+
+let port = 3000;
+if (process.env.HOST_PORT && process.env.HOST_PORT !== '') {
+  port = process.env.HOST_PORT;
+}
 
 const log = message => {
   /* eslint-disable no-console */
@@ -32,7 +36,6 @@ addRouter(app);
 
 app.use('/build', express.static(path.join(__dirname.concat('/../client/build'))));
 app.use('/assets', express.static(path.join(__dirname.concat('/../client/assets'))));
-app.use('/storage', express.static(path.join(__dirname.concat('/storage'))));
 
 app.get('/*', (req, res) => {
   res.sendFile(path.join(__dirname.concat('/../client/index.html')));
