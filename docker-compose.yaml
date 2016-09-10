@@ -1,24 +1,32 @@
 #v1 for compatability with Circle CI
-emblem-web-server:
-  build: .
+emblem-web-client:
+  build: client
+  ports:
+   - "8080:8080"
+   - "80:80"
+  volumes:
+   - ./client:/usr/client
+   # Mount the node folders as 'Empty' on Docker container
+   # This prevents symlink issues between the container and the host filesystem
+   - /usr/client/node_modules
+  environment:
+   - HOST_MODE=${HOST_MODE}
+  command: npm start
+emblem-web-api:
+  build: api
   ports:
    - "3000:3000"
   volumes:
-   - .:/usr/emblem-web
-   # Mount the node folders as 'Empty' on Docker container
-   # This prevents symlink issues between the container and the host filesystem
-   - /usr/emblem-web/node_modules
-   - /usr/emblem-web/server/node_modules
-   - /usr/emblem-web/client/node_modules
+   - ./api:/usr/api
+   - /usr/api/node_modules
   environment:
-   - DBHOST=emblem-db
    - SESSION_SECRET=${SESSION_SECRET}
    - FACEBOOK_ID=${FACEBOOK_ID}
    - FACEBOOK_SECRET=${FACEBOOK_SECRET}
    - AWS_ID=${AWS_ID}
    - AWS_SECRET=${AWS_SECRET}
+   - HOST_MODE=${HOST_MODE}
    - HOST_SERVER=${HOST_SERVER}
-   - HOST_PORT=${HOST_PORT}
   links:
    - emblem-db
   command: npm start

@@ -8,7 +8,6 @@ const sockets = require('./sockets');
 const passport = require('passport');
 const connection = require('./db/db');
 const db = connection.db;
-
 const app = express();
 
 let port = 3000;
@@ -32,14 +31,6 @@ app.use(bodyParser.raw({
 app.use(morgan('dev'));
 
 addRouter(app);
-
-
-app.use('/build', express.static(path.join(__dirname.concat('/../client/build'))));
-app.use('/assets', express.static(path.join(__dirname.concat('/../client/assets'))));
-
-app.get('/*', (req, res) => {
-  res.sendFile(path.join(__dirname.concat('/../client/index.html')));
-});
 
 const server = require('http').Server(app);
 sockets.addSockets(server);
