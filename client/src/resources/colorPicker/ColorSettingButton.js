@@ -9,7 +9,7 @@ class ColorSettingButton extends React.Component {
   }
 
   setUserColorOnClick() {
-    fetch('/user/color', {
+    fetch('localhost:3000/user/color', {
       method: 'POST',
       credentials: 'same-origin',
       headers: {
