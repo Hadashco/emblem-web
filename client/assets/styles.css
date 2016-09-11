@@ -301,8 +301,8 @@ body {
   background-repeat: no-repeat;
   background-size: 100% auto;
   width: 100%;
-  height: 75%;
-  margin-top: -25px;
+  height: 100%;
+  margin-top: -20px;
   z-index: 100000;
 }
 
@@ -316,16 +316,43 @@ body {
   text-align: center;
   color: white;
   z-index: 1000000;
+  overflow: auto;
 }
 
 .infoHeader {
   position: relative;
-  top: 25px;
-  margin-bottom: 70px;
+  top: 10px;
+  margin-bottom: 20px;
 }
 
-p {
-  font-size: 17px;
+.raptorImage {
+  position: relative;
+  top:  -224px;
+  left: 30px;
+  height: 406px;
+  width: 260px;
+  margin-right: 100px;
+}
+
+.dolphinImage {
+  position: relative;
+  top:  -224px;
+  left: 30px;
+  height: 406px;
+  width: 260px;
+  margin-left: 100px;
+}
+
+.infoPage a {
+  position: relative;
+  left: -150px;
+  font-size: 18px;
+  color: white;
+}
+
+.infoPage iframe {
+  position: relative;
+  left: 30px;
 }
 
 /**********************************************************
