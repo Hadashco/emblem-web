@@ -24,7 +24,7 @@ const log = message => {
 
 app.use(cookieParser());
 app.use(cors({
-  origin: ['http://emblemar.com', 'http://localhost:8080'],
+  origin: ['http://www.emblemar.com', 'http://localhost:8080'],
   credentials: true
 }));
 app.use(bodyParser.json());
