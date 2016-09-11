@@ -1,5 +1,5 @@
 FROM node:6
-MAINTAINER Hadeshco
+MAINTAINER Hadashco
 
 RUN mkdir -p /usr/api
 WORKDIR /usr/api
