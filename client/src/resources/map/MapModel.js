@@ -31,9 +31,9 @@ const mapDispatchToProps = dispatch => (
       const lat = marker.position.lat();
       const long = marker.position.lng();
       const sector = lat.toFixed(5) + long.toFixed(5);
-      fetch('localhost:3000/place', {
+      fetch('http://localhost:3000/place', {
         method: 'POST',
-        credentials: 'same-origin',
+        credentials: 'include',
         headers: {
           Accept: 'application/json',
           ContentType: 'application/json',
@@ -52,9 +52,9 @@ const mapDispatchToProps = dispatch => (
       dispatch({ type: 'removeMarker', data: index });
     },
     populateMarkers: () => {
-      fetch('localhost:3000/place', {
+      fetch('http://localhost:3000/place', {
         method: 'GET',
-        credentials: 'same-origin',
+        credentials: 'include',
         headers: {
           'Accept': 'application/json',
           'Content-Type': 'application/json',

@@ -1,5 +1,4 @@
 const path = require('path');
-const morgan = require('morgan');
 const express = require('express');
 const app = express();
 
@@ -14,12 +13,10 @@ const log = message => {
   /* eslint-enable no-console */
 };
 
-app.use(morgan('dev'));
 app.use('/build', express.static(path.join(__dirname.concat('/build'))));
 app.use('/assets', express.static(path.join(__dirname.concat('/assets'))));
 
 app.get('/*', (req, res) => {
-  log('test');
   res.sendFile(path.join(__dirname.concat('/index.html')));
 });
 

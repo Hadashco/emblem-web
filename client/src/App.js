@@ -46,9 +46,9 @@ class Dashboard extends React.Component {
 // before allowing them to render the main page
 
 const requireAuth = () => {
-  fetch('localhost:3000/auth/isAuth', {
+  fetch('http://localhost:3000/auth/isAuth', {
     method: 'GET',
-    credentials: 'same-origin',
+    credentials: 'include',
     headers: {
       Accept: 'application/json',
       ContentType: 'application/json',
