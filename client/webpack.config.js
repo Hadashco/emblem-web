@@ -1,6 +1,10 @@
 const webpack = require('webpack');
 const path = require('path');
 
+let server = 'http://localhost';
+if (process.env.HOST_SERVER && process.env.HOST_SERVER !== '') {
+  server = process.env.HOST_SERVER;
+}
 
 module.exports = {
   context: path.join(__dirname),
@@ -27,4 +31,12 @@ module.exports = {
       },
     ],
   },
+  plugins: [
+    new webpack.DefinePlugin({
+      'process.env': {
+        'HOST_SERVER': JSON.stringify(server),
+        'HOST_MODE': JSON.stringify(process.env.HOST_MODE),
+      },
+    }),
+  ],
 };

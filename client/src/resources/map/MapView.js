@@ -28,7 +28,7 @@ class MapView extends React.Component {
   }
 
   createSectorsForMap() {
-    fetch('http://localhost:3000/artPlace/max/rank', {
+    fetch(`${process.env.HOST_SERVER}:3000/artPlace/max/rank`, {
       method: 'GET',
       credentials: 'include',
       headers: {

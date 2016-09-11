@@ -11,6 +11,7 @@ emblem-web-client:
    - /usr/client/node_modules
   environment:
    - HOST_MODE=${HOST_MODE}
+   - HOST_SERVER=${HOST_SERVER}
   command: npm start
 emblem-web-api:
   build: api

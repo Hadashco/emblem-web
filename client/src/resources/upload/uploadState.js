@@ -26,7 +26,7 @@ const uploadDispatchToProps = dispatch => {
         fileReader.readAsArrayBuffer(uploadFile);
         fileReader.onload = e => {
           const arrayBufferStr = fileReader.result;
-          fetch('http://localhost:3000/art', {
+          fetch(`${process.env.HOST_SERVER}:3000/art`, {
             headers: {
               'Accept': 'application/octet-stream',
               'Content-Type': 'application/octet-stream',
@@ -58,7 +58,7 @@ const uploadDispatchToProps = dispatch => {
       dispatch({ type: 'addDragAndDropFiles', data: file });
     },
     populateArtFiles: () => {
-      fetch('http://localhost:3000/user/art', {
+      fetch(`${process.env.HOST_SERVER}:3000/user/art`, {
         headers: {
           'Accept': 'application/json',
           'Content-Type': 'application/json',

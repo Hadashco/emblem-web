@@ -13,7 +13,7 @@ class FacebookButton extends React.Component {
   }
 
   handleClick() {
-    window.location = 'http://localhost:3000/auth/facebook';
+    window.location = `${process.env.HOST_SERVER}:3000/auth/facebook`;
     this.props.changeAuth();
   }
 
