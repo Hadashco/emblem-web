@@ -1,4 +1,5 @@
 const express = require('express');
+const cors = require('cors');
 const morgan = require('morgan');
 const path = require('path');
 const bodyParser = require('body-parser');
@@ -22,6 +23,10 @@ const log = message => {
 };
 
 app.use(cookieParser());
+app.use(cors({
+  origin: ['http://emblemar.com', 'http://localhost:8080'],
+  credentials: true
+}));
 app.use(bodyParser.json());
 app.use(passport.initialize());
 app.use(bodyParser.raw({
