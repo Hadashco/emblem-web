@@ -4,16 +4,15 @@
   "description": "",
   "main": "bundle.js",
   "scripts": {
-    "start": "webpack --watch --inline --progress --colors",
-    "build": "webpack",
-    "dev": "webpack-dev-server --inline --progress --colors --hot",
-    "start:prod": "webpack",
+    "start": "npm install && npm run build && node server.js",
+    "build": "webpack --inline --progress --colors",
+    "watch": "webpack --watch --inline --progress --colors",
     "test": "echo 'No test step for client.'"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "mkdirp": "^0.5.1",
+    "express": "^4.14.0",
     "react": "^15.3.1",
     "react-addons-css-transition-group": "^15.3.0",
     "react-alert": "^1.0.14",

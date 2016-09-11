@@ -1,4 +1,5 @@
 const express = require('express');
+const cors = require('cors');
 const morgan = require('morgan');
 const path = require('path');
 const bodyParser = require('body-parser');
@@ -8,9 +9,12 @@ const sockets = require('./sockets');
 const passport = require('passport');
 const connection = require('./db/db');
 const db = connection.db;
-
 const app = express();
-const port = 3000;
+
+let port = 3000;
+if (process.env.HOST_PORT && process.env.HOST_PORT !== '') {
+  port = process.env.HOST_PORT;
+}
 
 const log = message => {
   /* eslint-disable no-console */
@@ -19,6 +23,10 @@ const log = message => {
 };
 
 app.use(cookieParser());
+app.use(cors({
+  origin: ['http://www.emblemar.com', 'http://localhost:8080'],
+  credentials: true
+}));
 app.use(bodyParser.json());
 app.use(passport.initialize());
 app.use(bodyParser.raw({
@@ -28,15 +36,6 @@ app.use(bodyParser.raw({
 app.use(morgan('dev'));
 
 addRouter(app);
-
-
-app.use('/build', express.static(path.join(__dirname.concat('/../client/build'))));
-app.use('/assets', express.static(path.join(__dirname.concat('/../client/assets'))));
-app.use('/storage', express.static(path.join(__dirname.concat('/storage'))));
-
-app.get('/*', (req, res) => {
-  res.sendFile(path.join(__dirname.concat('/../client/index.html')));
-});
 
 const server = require('http').Server(app);
 sockets.addSockets(server);

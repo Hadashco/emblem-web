@@ -5,7 +5,12 @@ const expressJwt = require('express-jwt');
 
 const EXPIRY = 90000;
 const SECRET = process.env.SESSION_SECRET;
-const validateJwt = expressJwt({ secret: process.env.SESSION_SECRET });
+const validateJwt = expressJwt({ secret: SECRET });
+
+let clientServer = 'http://localhost:8080';
+if (process.env.HOST_SERVER && process.env.HOST_SERVER !== '') {
+  clientServer = process.env.HOST_SERVER;
+}
 
 // Include access_token query param in req.header for validateJwt
 const getTokenHeader = (req, res, next) => {
@@ -44,7 +49,7 @@ const setTokenCookie = (req, res) => {
     return res.status(401).send('User not logged in, please try again.');
   }
   res.cookie('token', signToken(req.user.id));
-  return res.redirect('/home');
+  return res.redirect(`${clientServer}/home`);
 };
 
 module.exports = {

@@ -5,9 +5,9 @@ Hold up a looking glass to the world, and transform the view! Emblem presents an
 Web client is available for use at [emblemAR.com](https://www.emblemar.com/).
 Mobile app availability on the Apple App store is pending, and can be [seen in action on YouTube](https://youtu.be/Gw2KtUhew-0) by clicking the images below.
 
-<a href="https://youtu.be/Q1P4stbLsBw"><img src="https://ia601507.us.archive.org/17/items/raptor_20160830/raptor.png" 
-alt="3D Raptor" width="250" /></a>     <a href="https://youtu.be/w3DlUGXR9hA"><img src="https://ia801502.us.archive.org/5/items/Library_20160830/Library.png" 
-alt="Library & Statue of Liberty" width="250" /></a>     <a href="https://youtu.be/vXgujNcuYdU"><img src="https://ia601500.us.archive.org/30/items/dolphin_201608/dolphin.png" 
+<a href="https://youtu.be/Q1P4stbLsBw"><img src="https://ia601507.us.archive.org/17/items/raptor_20160830/raptor.png"
+alt="3D Raptor" width="250" /></a>     <a href="https://youtu.be/w3DlUGXR9hA"><img src="https://ia801502.us.archive.org/5/items/Library_20160830/Library.png"
+alt="Library & Statue of Liberty" width="250" /></a>     <a href="https://youtu.be/vXgujNcuYdU"><img src="https://ia601500.us.archive.org/30/items/dolphin_201608/dolphin.png"
 alt="Dolphins" width="250" /></a>
 
 ### [Server and Web Client](https://github.com/Hadashco/emblem-web)
@@ -62,7 +62,7 @@ Getting Started
 ### Starting the Server:
 1. Setup `.config.sh` according to `.configEx.sh`
 2. Navigate to `emblem-web` folder in the terminal
-3. Run `bash start.dev.sh`
+3. Run `bash start.sh`
  - Initializes config file
  - Runs Docker compose
 3. Navigate to `http://localhost:3000/` in browser
@@ -132,7 +132,7 @@ Navigate to `server/test/addToAwsFreeArtRoute.md` and follow the enclosed instru
 
 Contributions
 --------------------------
-If you have any problems or major improvements, please consult the known issues. If you do not see your problem captured, please file a new issue. Pull requests adhering to the 
+If you have any problems or major improvements, please consult the known issues. If you do not see your problem captured, please file a new issue. Pull requests adhering to the
 [Airbnb JavaScript Style Guide](https://github.com/airbnb/javascript) are always welcome.
 
 

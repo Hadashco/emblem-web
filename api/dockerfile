@@ -1,0 +1,13 @@
+FROM node:6
+MAINTAINER Hadashco
+
+RUN mkdir -p /usr/api
+WORKDIR /usr/api
+
+COPY . .
+
+RUN npm install nodemon -g -q \
+    && npm install mocha -g -q \
+    && npm install
+
+EXPOSE 3000

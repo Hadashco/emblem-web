@@ -28,9 +28,9 @@ class MapView extends React.Component {
   }
 
   createSectorsForMap() {
-    fetch('/artPlace/max/rank', {
+    fetch(`${process.env.HOST_SERVER}:3000/artPlace/max/rank`, {
       method: 'GET',
-      credentials: 'same-origin',
+      credentials: 'include',
       headers: {
         'Accept': 'application/json',
         'Content-Type': 'application/json',

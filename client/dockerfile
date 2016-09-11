@@ -1,0 +1,13 @@
+FROM node:6
+MAINTAINER Hadashco
+
+RUN mkdir -p /usr/client
+WORKDIR /usr/client
+
+COPY . .
+
+RUN npm install webpack -g -q \
+    && npm install
+
+EXPOSE 8080
+EXPOSE 80

@@ -58,7 +58,6 @@ export default class LoginView extends React.Component {
 
 
   render() {
-    console.log(this.iphoneOpacity);
     return (
       <div className="frontPage">
         <div className="login">

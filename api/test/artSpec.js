@@ -166,7 +166,7 @@ describe('Confirm Art Routes protected by OAuth\n-------------------------\n', (
 });
 
 /* *********** CONTROLLER TESTS **************** */
-describe('Test Art Controllers\n-------------------------\n', () => {
+xdescribe('Test Art Controllers\n-------------------------\n', () => {
   let testUser, testArt, testPlace, awsArt;
   // let getReq;
 
@@ -185,7 +185,7 @@ describe('Test Art Controllers\n-------------------------\n', () => {
         })));
   });
 
-  it('should postNewArt (AWS and Db)', (done) => {
+  xit('should postNewArt (AWS and Db)', (done) => {
     const req = httpMocks.createRequest({
       method: 'POST',
       headers: {
@@ -208,7 +208,7 @@ describe('Test Art Controllers\n-------------------------\n', () => {
     postNewArt(req, res);
   });
 
-  it('should downloadById (AWS and Db)', (done) => {
+  xit('should downloadById (AWS and Db)', (done) => {
     Art.findOne({ where: { UserId: testUser.id } })
       .then(art => {
         awsArt = art;
@@ -297,7 +297,7 @@ describe('Test Art Controllers\n-------------------------\n', () => {
     postToPlaceById(req, res);
   });
 
-  it('should deleteById (AWS and Db)', (done) => {
+  xit('should deleteById (AWS and Db)', (done) => {
     const req = {
       method: 'GET',
       params: { id: awsArt.id },

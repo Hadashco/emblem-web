@@ -1,1 +1,1 @@
-docker exec emblemweb_emblem-web-server_1 npm run test
+docker exec emblemweb_emblem-web-api_1 npm run test
