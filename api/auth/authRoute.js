@@ -1,6 +1,7 @@
 const express = require('express');
-const facebookSetup = require('./facebook/passport');
+const facebookSetup = require('./facebook/facebookPassport');
 const facebookRouter = require('./facebook/facebookRoute');
+const localRouter = require('./local/localRoute');
 const User = require('../db/db').User;
 const isAuthenticated = require('./authService').isAuthenticated;
 
@@ -19,5 +20,6 @@ router.get('/isAuth', isAuthenticated(), (req, res) => {
 });
 
 router.use('/facebook', facebookRouter);
+router.use('/local', localRouter);
 
 module.exports = router;

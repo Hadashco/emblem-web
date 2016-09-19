@@ -1,6 +1,8 @@
 module.exports = function User(db, Sequelize) {
   return db.define('User', {
     name: Sequelize.STRING,
+    username: Sequelize.STRING,
+    hashPwd: Sequelize.STRING,
     email: {
       type: Sequelize.STRING,
       unique: {
