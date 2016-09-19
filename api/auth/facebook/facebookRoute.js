@@ -1,4 +1,5 @@
 const passport = require('passport');
+const facebookSetup = require('./facebookPassport.js');
 const setTokenCookie = require('../authService').setTokenCookie;
 const signToken = require('../authService').signToken;
 const router = require('express').Router();

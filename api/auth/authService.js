@@ -1,5 +1,7 @@
 const compose = require('composable-middleware');
+const passport = require('passport');
 const jwt = require('jsonwebtoken');
+const bcrypt = require('bcrypt');
 const User = require('../db/db').User;
 const expressJwt = require('express-jwt');
 
@@ -38,6 +40,52 @@ const populateReqUser = (req, res, next) => {
     .catch(err => next(err));
 };
 
+const hashPassword = (password) => {
+  return new Promise((resolve, reject) => {
+    bcrypt.hash(password, 10, (err, hash) => {
+      err ? reject(err) : resolve(hash)
+    });
+  })
+};
+
+const loginUser = (username, password) => {
+  return User.findOne({ where: { username: username } })
+    .then(user => {
+      if (user) {
+        return new Promise((resolve, reject) => {
+          bcrypt.compare(password, user.hashPwd, (err, res) => {
+              err ? reject(err) : resolve(res);
+          });
+        })
+          .then(res => {
+              if (res) {
+                return user;
+              } else {
+                throw 'Incorrect password.';
+              }
+            });
+      } else {
+        throw 'No users with this username exist.';
+      }
+    });
+};
+
+const createUser = (username, password) => {
+  return User.findOne({ where: { username: username } })
+    .then(user => {
+      if (user) {
+        throw 'A user with this username already exists.'
+      }
+      return hashPassword(password);
+    })
+    .then(hashed => {
+      return User.build({
+        username: username,
+        hashPwd: hashed
+      }).save();
+    });
+};
+
 const isAuthenticated = () => compose()
   .use(compose().use(getTokenHeader).use(validateJwt))
   .use(populateReqUser);
@@ -58,4 +106,6 @@ module.exports = {
   isAuthenticated,
   signToken,
   setTokenCookie,
+  createUser,
+  loginUser
 };
