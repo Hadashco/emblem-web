@@ -3,7 +3,8 @@
 Hold up a looking glass to the world, and transform the view! Emblem presents an augmented reality window, displaying geocached two- and three- dimensional models onto users' surroundings.
 
 Web client is available for use at [emblemAR.com](https://www.emblemar.com/).
-Mobile app availability on the Apple App store is pending, and can be [seen in action on YouTube](https://youtu.be/Gw2KtUhew-0) by clicking the images below.
+Mobile app is on the app store at [iTunes App Store](https://www.appstore.com/emblemar) and can be [seen in action on YouTube](https://youtu.be/Gw2KtUhew-0) by clicking the images below.
+
 
 <a href="https://youtu.be/Q1P4stbLsBw"><img src="https://ia601507.us.archive.org/17/items/raptor_20160830/raptor.png"
 alt="3D Raptor" width="250" /></a>     <a href="https://youtu.be/w3DlUGXR9hA"><img src="https://ia801502.us.archive.org/5/items/Library_20160830/Library.png"
