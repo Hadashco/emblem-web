@@ -1,5 +1,7 @@
 html {
   height: 100%;
+  margin: 0;
+  padding: 0;
 }
 
 body {
@@ -297,62 +299,55 @@ body {
 ***********************************************************/
 
 .infoContainer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
   background-image: url(http://cdn.citylab.com/media/img/citylab/legacy/2012/05/14/willyscreen.jpg);
   background-repeat: no-repeat;
   background-size: 100% auto;
   width: 100%;
   height: 100%;
-  margin-top: -20px;
-  z-index: 100000;
 }
 
 .infoPage {
-  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
   width: 90%;
   height: 80%;
   background-color: rgba(10, 10, 10, .7);
-  left: 5%;
-  top: 10%;
-  text-align: center;
   color: white;
-  z-index: 1000000;
-  overflow: auto;
 }
 
-.infoHeader {
-  position: relative;
-  top: 10px;
-  margin-bottom: 20px;
+.exampleContainer {
+  height: 90%;
+  width: 95%;
+  display: flex;
+  justify-content: space-around;
+  flex-wrap: wrap;
+  align-items: center;
 }
 
 .raptorImage {
-  position: relative;
-  top:  -224px;
-  left: 30px;
-  height: 406px;
+  height: 90%;
   width: 260px;
-  margin-right: 100px;
 }
 
 .dolphinImage {
-  position: relative;
-  top:  -224px;
-  left: 30px;
-  height: 406px;
+  height: 90%;
   width: 260px;
-  margin-left: 100px;
+}
+
+.links {
+  width: 95%;
+  display: flex;
+  justify-content: space-around;
 }
 
 .infoPage a {
-  position: relative;
-  left: -150px;
   font-size: 18px;
   color: white;
-}
-
-.infoPage iframe {
-  position: relative;
-  left: 30px;
 }
 
 /**********************************************************
