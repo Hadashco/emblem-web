@@ -6,11 +6,15 @@ export default class InfoPage extends React.Component {
     return (
       <div className="infoPage">
         <h1 className="infoHeader">Experience Art Like Never Before</h1>
-        <img src="/assets/raptor.png" role="presentation" className="raptorImage" />
-        <iframe width="360" height="455" src="https://www.youtube.com/embed/w3DlUGXR9hA?list=PLMyIJSbKI_jwq__h8WSruCnEPIfZ3qIKo" frameborder="0" allowfullscreen></iframe>
-        <img src="/assets/dolphin.png" role="presentation" className="dolphinImage" />
-        <a href="https://github.com/Hadashco">Visit Us!</a>
-        <a href="http://i.imgur.com/DCh2KWo.png">Download the AR marker!</a>
+        <div className="exampleContainer">
+          <img src="/assets/raptor.png" role="presentation" className="raptorImage" />
+          <iframe width="360" height="455" src="https://www.youtube.com/embed/w3DlUGXR9hA?list=PLMyIJSbKI_jwq__h8WSruCnEPIfZ3qIKo" frameborder="0" allowfullscreen></iframe>
+          <img src="/assets/dolphin.png" role="presentation" className="dolphinImage" />
+        </div>
+        <div className="links">
+          <a href="https://github.com/Hadashco">Visit Our Hub!</a>
+          <a href="http://i.imgur.com/DCh2KWo.png">Download the AR marker!</a>
+        </div>
       </div>
       );
   }
